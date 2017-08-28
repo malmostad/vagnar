@@ -1,0 +1,17 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_swedish_ci
+  host: localhost
+  pool: 20
+  username: kaffevagnen
+  password:
+  database: kaffevagnen
+
+
+development:
+  <<: *default
+
+test: &test
+  <<: *default
+  database: kaffevagnen_test
