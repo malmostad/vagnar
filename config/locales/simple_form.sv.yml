@@ -1,0 +1,36 @@
+sv:
+  simple_form:
+    "yes": 'Ja'
+    "no": 'Nej'
+    required:
+      text: 'obligatorisk'
+      mark: '*'
+
+    error_notification:
+      default_message: "Vänligen korrigera nedanstående markerade uppgifter."
+
+    labels:
+      defaults: &defaults
+        name: Namn
+        comment: Kommentar
+
+      settings: &settings
+        <<: *defaults
+        human_name: Namn
+        value: Värde
+
+      setting:
+        <<: *settings
+
+    placeholders:
+      home:
+        name: Ange namn
+
+    hints:
+      foo:
+        comment: &comment
+          "Tänk på att inte skriva in något känsligt i fältet"
+        another_comment: *comment
+      bar:
+        comment: *comment
+        specification: "specification"
