@@ -15,7 +15,7 @@ class { '::mcommons::mysql':
 }
 
 class { '::mcommons::memcached':
-  memory => 512,
+  memory => 128,
 }
 
 class { '::mcommons::nginx': }
