@@ -14,5 +14,15 @@ module Kaffevagnen
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    config.time_zone = 'Stockholm'
+
+    config.i18n.default_locale = 'sv'
+
+    config.assets.paths += [
+      Rails.root.join('vendor', 'malmo_shared_assets', 'stylesheets').to_s,
+      Rails.root.join('vendor', 'malmo_shared_assets', 'stylesheets', 'shared').to_s,
+      Rails.root.join('vendor', 'malmo_shared_assets', 'stylesheets', 'external').to_s
+    ]
   end
 end
