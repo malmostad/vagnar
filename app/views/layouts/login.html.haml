@@ -11,16 +11,13 @@
     = stylesheet_link_tag 'application', media: 'all'
     %link{ rel: 'icon', type: 'image/x-icon', href: "#{APP_CONFIG['assets_url_base']}favicon.ico" }
     = csrf_meta_tags
-  %body.mf-v4{ class: @body_classes }
+  %body.mf-v4.login{ class: @body_classes }
 
     .wrapper
       = render "layouts/breadcrumbs"
-      %main
-        - flash.each do |key, value|
-          %p{ class: "#{key}" }= value
-        = yield
-      - if true || current_user
-        = render "layouts/nav"
+      - flash.each do |key, value|
+        %p{ class: "flash #{key}" }= value
+      = yield
 
-    = javascript_include_tag "#{APP_CONFIG['assets_url_base']}malmo.js"
+    = javascript_include_tag "#{APP_CONFIG['assets_url_base']}malmo_s.js"
     = javascript_include_tag 'application'
