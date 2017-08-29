@@ -1,20 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate
-  before_action :log_user_on_request
   before_action { add_body_class("#{controller_name} #{action_name}") }
   before_action :init_body_class
 
-  authorize_resource
+  load_and_authorize_resource
   check_authorization
 
   protect_from_forgery with: :exception
 
   SESSION_TIME = APP_CONFIG['session_time']
-
-  def log_user_on_request
-    logger.info "[REQUESTED_BY]   #{current_user.present? ? current_user.username : 'Not authenticated'}"
-    logger.info "[REQUESTED_FROM] #{client_ip}"
-  end
 
   def current_user
     @current_user ||= User.find(session[:user_id])
@@ -55,13 +49,13 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    logger.warn "#{exception.message}"
-    redirect_to root_path, alert: 'Din roll saknar behörighet för detta'
+    logger.info "#{exception.message}"
+    redirect_to root_path, alert: 'Behörighet saknas'
   end
 
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     logger.debug { "#{exception.message}" }
-    logger.warn "ActionController::InvalidAuthenticityToken (maybe session expired) for the user from #{client_ip}"
+    logger.info "ActionController::InvalidAuthenticityToken (maybe session expired) for the user from #{client_ip}"
     redirect_to logout_path, notice: 'Du är utloggad'
   end
 
@@ -69,9 +63,8 @@ class ApplicationController < ActionController::Base
               ActionController::RoutingError,
               ActionController::UnknownController,
               ActionController::MethodNotAllowed do |exception|
-
-    logger.warn "#{exception.message}"
-    logger.warn "Not found: #{request.fullpath}"
+    logger.info "#{exception.message}"
+    logger.info "Not found: #{request.fullpath}"
     respond_to do |format|
       format.html { render file: "#{Rails.root}/public/404", layout: false, status: 404 }
       format.all  { render nothing: true, status: 404 }
