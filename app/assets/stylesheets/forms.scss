@@ -1,0 +1,116 @@
+.mf-v4 {
+  .input-group.input-daterange {
+      width: 18em;
+  }
+
+  .controls .radio-inline,
+  .controls .checkbox-inline {
+    padding-left: 0;
+  }
+
+  textarea.form-control {
+    height: 10em;
+  }
+  .input-group.date .m-icon-calendar {
+    height: 1.2em;
+  }
+
+  section.box.show form.basic .control-label {
+    padding-top: 0;
+  }
+
+  .box-content.basic h2.group-title,
+  form.basic h2.group-title {
+    margin-top: 2em;
+  }
+
+  .box-content.basic > h2.group-title:first-of-type,
+  form.basic > h2.group-title:first-of-type {
+    margin-top: 0;
+  }
+
+  .box-content.basic h2.group-title {
+    margin-bottom: .3em;
+  }
+
+  .placement_moved_in_at .date input {
+    max-width: 9em;
+  }
+
+  .datepicker,
+  .form-group.datepicker {
+    padding: 0;
+  }
+
+  .datepicker.datepicker-dropdown.dropdown-menu {
+    margin-top: 3.2em;
+  }
+
+  .form-group.addon.warning .input-group-btn {
+    display: table-cell !important;
+  }
+
+  button.btn {
+    margin-left: 0;
+  }
+  .delete .m-icon-remove-0 {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    background-size: 12px;
+    background-position: bottom;
+  }
+  .duplicate {
+    color: #c00;
+  }
+
+  .form-group.addon.warning {
+    input.string {
+      max-width: 80%;
+    }
+    .input-group-btn {
+      display: inline;
+    }
+  }
+
+  .form-group.datepicker.warning {
+    .input-group.date {
+      font-size: 14px;
+    }
+  }
+  .help-block.file_instructions {
+    ol {
+      list-style-type: upper-latin;
+    }
+    li, p {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+  }
+  .warning {
+    ul li, p {
+      font-size: 14px;
+    }
+  }
+}
+
+.danger-zone {
+  margin-bottom: 4em;
+  h1.box-title {
+    background: $danger-color;
+  }
+  p {
+    margin: 0 0 .5em;
+  }
+}
+
+// Copy of .warning, for cancan
+.alert {
+    background: $warning-background;
+    border: $warning-border;
+    font-size: 14px;
+    @include radius(3px);
+    font-family: $sans-serif;
+    padding: .5em .8em;
+    margin-bottom: 1em;
+}

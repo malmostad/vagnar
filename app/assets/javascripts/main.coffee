@@ -1,0 +1,2 @@
+$ ->
+  $('body.login #username').focus()

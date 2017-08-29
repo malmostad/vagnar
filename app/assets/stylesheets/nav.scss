@@ -1,0 +1,11 @@
+// Basic app
+body.booking nav.app.basic .booking,
+
+// Sysadmin
+body.clients nav.app.basic .clients,
+body.settings nav.app.basic .settings,
+
+// Users
+body.users nav.app.basic .users {
+  font-weight: bold;
+}

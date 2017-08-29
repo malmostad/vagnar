@@ -1,0 +1,26 @@
+body.mf-v4.login,
+body.mf-v4.saml {
+  ul {
+    list-style: none;
+    margin: 0 0 .5em;
+    padding: 0;
+  }
+  li {
+    margin: 0;
+  }
+  .login-instructions {
+    padding-top: .5em;
+    margin-top: 2em;
+    border-top: $border;
+  }
+  #login {
+    max-width: 30em;
+    margin: 0 auto;
+  }
+  #password {
+    margin-bottom: .7em;
+  }
+  .warning p {
+    font-size: emize(14, 14);
+  }
+}
