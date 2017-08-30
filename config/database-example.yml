@@ -4,16 +4,16 @@ default: &default
   collation: utf8mb4_swedish_ci
   host: localhost
   pool: 20
-  username: kaffevagnen
+  username: vagnar
   password: <PW>
-  database: kaffevagnen
+  database: vagnar
 
 development:
   <<: *default
 
 test: &test
   <<: *default
-  database: kaffevagnen_test
+  database: vagnar_test
   password: <PW>
 
 production:

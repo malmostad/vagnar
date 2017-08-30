@@ -8,7 +8,7 @@ development: &development
   assets_url_base: "//assets.malmo.se/internal/v4/"
   cache_ttl: 1
   max_age: 0
-  title_suffix: "Kaffevagnen (utveckling)"
+  title_suffix: "Vagnar (utveckling)"
   session_time: 1440
   auth_method: stub
 
@@ -17,11 +17,11 @@ test:
   assets_url_base: "//assets.malmo.se/internal/v4-staging/"
   cache_ttl: 43200
   max_age: 14400
-  title_suffix: "Kaffevagnen (test)"
+  title_suffix: "Vagnar (test)"
 
 production: &production
   <<: *defaults
   assets_url_base: "//assets.malmo.se/internal/v4/"
   cache_ttl: 43200
   max_age: 14400
-  title_suffix: "Kaffevagnen"
+  title_suffix: "Vagnar"

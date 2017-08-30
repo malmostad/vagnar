@@ -5,7 +5,7 @@ $runner_group = 'vagrant'
 $runner_home  = '/home/vagrant'
 $runner_path  = "${::runner_home}/.rbenv/shims:${::runner_home}/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
 
-$app_name       = 'kaffevagnen'
+$app_name       = 'vagnar'
 $app_home       = '/vagrant'
 
 class { '::mcommons': }
