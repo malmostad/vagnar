@@ -6,18 +6,18 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.3'
+gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'mysql2'
 gem 'dalli'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 3.2.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'execjs'
 gem 'therubyracer', platforms: :ruby
@@ -54,15 +54,13 @@ group :development, :test do
 
   gem 'rails-controller-testing'
   gem 'factory_girl_rails'
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '~> 2.15'
   # gem 'capybara-webkit'
   # gem 'poltergeist'
   gem 'selenium-webdriver'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
