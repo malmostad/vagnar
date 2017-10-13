@@ -15,7 +15,7 @@ Seller.first_or_create(
   p_number: '190001010000',
   name: 'Barista Baristasson',
   email: 'barista@example.com',
-  company_name: 'Baristorna AB',
+  company_name: 'Baristorna ☕️ AB',
   last_login_at: Time.now,
   ip: '127.0.0.3'
 )

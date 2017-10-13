@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20171013130138) do
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci" do |t|
+  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "username"
     t.datetime "last_login_at"
     t.string "ip"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171013130138) do
     t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
-  create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci" do |t|
+  create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "p_number"
     t.string "name"
     t.string "email"
