@@ -1,14 +1,15 @@
 %nav.app.basic
   %h1 Vagnar
-  %ul
-    - if current_user
-      %li.booking= link_to "Boka", booking_path
-      %li= link_to "Logga ut #{current_user.name}", logout_path
-    - else
-      %li= link_to "Logga in", login_path
-
-  - if can? :manage, :all
-    %h1 Administration
-    %ul
-      %li.users= link_to "Kunder", users_path
-      %li= link_to "Logga ut #{current_user.name}", admin_logout_path
+  -# TODO: Ability
+  -# %ul
+  -#   - if current_user
+  -#     %li.booking= link_to "Boka", booking_path
+  -#     %li= link_to "Logga ut #{current_user.name}", logout_path
+  -#   - else
+  -#     %li= link_to "Logga in", login_path
+  -#
+  -# - if can? :manage, :all
+  -#   %h1 Administration
+  -#   %ul
+  -#     %li.users= link_to "Kunder", users_path
+  -#     %li= link_to "Logga ut #{current_user.name}", admin_logout_path

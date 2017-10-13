@@ -1,0 +1,2 @@
+class SessionSellerController < ApplicationController
+end

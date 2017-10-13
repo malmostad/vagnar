@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate
-  before_action { add_body_class("#{controller_name} #{action_name}") }
-  before_action :init_body_class
-
-  load_and_authorize_resource
-  check_authorization
+  # TODO: Ability
+  # before_action :authenticate
+  # before_action { add_body_class("#{controller_name} #{action_name}") }
+  # before_action :init_body_class
+  #
+  # load_and_authorize_resource
+  # check_authorization
 
   protect_from_forgery with: :exception
 
@@ -48,6 +49,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def init_body_class
+    add_body_class(Rails.env) unless Rails.env.production?
+    add_body_class('user') if current_user.present?
+  end
+
+  # Adds classnames to the body tag
+  def add_body_class(name)
+    @body_classes ||= ''
+    @body_classes << "#{name} "
+  end
+
+  def reset_body_classes
+    @body_classes = nil
+    init_body_class
+  end
+
+  def client_ip
+    request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     logger.info "#{exception.message}"
     redirect_to root_path, alert: 'Behörighet saknas'
@@ -69,25 +90,5 @@ class ApplicationController < ActionController::Base
       format.html { render file: "#{Rails.root}/public/404", layout: false, status: 404 }
       format.all  { render nothing: true, status: 404 }
     end
-  end
-
-  def init_body_class
-    add_body_class(Rails.env) unless Rails.env.production?
-    add_body_class('user') if current_user.present?
-  end
-
-  # Adds classnames to the body tag
-  def add_body_class(name)
-    @body_classes ||= ''
-    @body_classes << "#{name} "
-  end
-
-  def reset_body_classes
-    @body_classes = nil
-    init_body_class
-  end
-
-  def client_ip
-    request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
   end
 end
