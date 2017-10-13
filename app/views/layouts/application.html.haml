@@ -19,8 +19,7 @@
         - flash.each do |key, value|
           %p{ class: "#{key}" }= value
         = yield
-      - if true || current_user
-        = render "layouts/nav"
+      = render "layouts/nav"
 
-    = javascript_include_tag "#{APP_CONFIG['assets_url_base']}malmo.js"
+    = javascript_include_tag "#{APP_CONFIG['assets_url_base']}malmo_s.js"
     = javascript_include_tag 'application'

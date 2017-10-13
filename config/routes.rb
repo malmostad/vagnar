@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :sellers
   resources :admins, only: :index
+  resources :bookings
 
   get  '/admin/login'  => 'session_admin#new'
   post '/admin/login'  => 'session_admin#create'

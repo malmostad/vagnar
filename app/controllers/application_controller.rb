@@ -1,25 +1,25 @@
 class ApplicationController < ActionController::Base
   # TODO: Ability
-  # before_action :authenticate
-  # before_action { add_body_class("#{controller_name} #{action_name}") }
-  # before_action :init_body_class
-  #
+  # before_action :authenticate_seller
   # load_and_authorize_resource
   # check_authorization
+
+  before_action { add_body_class("#{controller_name} #{action_name}") }
+  before_action :init_body_class
 
   protect_from_forgery with: :exception
 
   SESSION_TIME = APP_CONFIG['session_time']
 
-  def current_user
-    @current_user ||= User.find(session[:user_id])
+  def current_seller
+    @current_seller ||= Seller.find(session[:seller_id])
   rescue
     false
   end
-  helper_method :current_user
+  helper_method :current_seller
 
-  def authenticate
-    if !current_user || session_expired?
+  def authentic_seller
+    if !current_seller || session_expired?
       unless request.xhr?
         # Remember where the user was about to go
         session[:requested_url] = request.fullpath
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
 
   def init_body_class
     add_body_class(Rails.env) unless Rails.env.production?
-    add_body_class('user') if current_user.present?
+    add_body_class('seller') if current_seller.present?
   end
 
   # Adds classnames to the body tag

@@ -8,7 +8,7 @@ class Ability
       can :manage, :all
       cannot :destroy, User
 
-    elsif user == current_user
+    elsif user == current_seller
       can :create, :booking
       cannot :destroy, User
       can :read, :login
