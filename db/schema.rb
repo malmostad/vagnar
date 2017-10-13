@@ -10,27 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013130138) do
+ActiveRecord::Schema.define(version: 20171013141336) do
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+  create_table "admin_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "username"
-    t.datetime "last_login_at"
-    t.string "ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["username"], name: "index_admins_on_username", unique: true
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_admin_accounts_on_user_id", unique: true
+    t.index ["username"], name: "index_admin_accounts_on_username", unique: true
   end
 
-  create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.string "p_number"
-    t.string "name"
-    t.string "email"
-    t.string "company_name"
-    t.datetime "last_login_at"
-    t.string "ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["p_number"], name: "index_sellers_on_p_number", unique: true
+  create_table "seller_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "username"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_seller_accounts_on_user_id", unique: true
+    t.index ["username"], name: "index_seller_accounts_on_username", unique: true
   end
 
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "role"
+    t.string "last_login_at"
+    t.string "ip_address"
+  end
+
+  add_foreign_key "admin_accounts", "users"
+  add_foreign_key "seller_accounts", "users"
 end

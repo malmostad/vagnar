@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin, type: :ability do
+RSpec.describe User, type: :ability do
   describe "with admin role" do
     # subject(:ability) { Ability.new(user) }
     #

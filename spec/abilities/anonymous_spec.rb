@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Seller, type: :ability do
+RSpec.describe User, type: :ability do
   # describe "with anonymous role" do
   #   subject(:ability) { Ability.new(user) }
   #
