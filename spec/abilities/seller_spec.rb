@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :ability do
+RSpec.describe Seller, type: :ability do
   # describe "with client role" do
   #   subject(:ability) { Ability.new(user) }
   #
