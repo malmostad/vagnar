@@ -54,17 +54,7 @@ class Ldap
 
   # Update user attributes from the ldap user
   def update_user_profile(username, role, client_ip)
-    # Fetch user attributes
-    ldap_entry = @client.search(
-      base: @config['basedn'],
-      filter: "cn=#{username.downcase}",
-      attributes: ATTRIBUTES
-    ).first
-
-    unless ldap_entry.present?
-      Rails.logger.warning "[LDAP_AUTH]: Couldn't find #{username}. #{@client.get_operation_result}"
-      return false
-    end
+    return false unless ldap_entry
 
     begin
       username = username.strip.downcase
@@ -80,5 +70,20 @@ class Ldap
       Rails.logger.error "[LDAP_AUTH]: Couldn't save user #{username}. #{e.message}"
       return false
     end
+  end
+
+  # Check if user exists in the catalog
+  def ldap_entry
+    entry = @client.search(
+      base: @config['basedn'],
+      filter: "cn=#{username.downcase}",
+      attributes: ATTRIBUTES
+    ).first
+
+    if entry.empty?
+      Rails.logger.warning "[LDAP_AUTH]: Couldn't find #{username}. #{@client.get_operation_result}"
+      return false
+    end
+    true
   end
 end
