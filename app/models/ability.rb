@@ -13,6 +13,7 @@ class Ability
       can :read, :info
 
     else
+      can :view, :home
       can :read, :login
       can :read, :info
     end

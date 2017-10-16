@@ -2,13 +2,14 @@
   %h1 Vagnar
   %ul
     %li.booking= link_to "Boka", bookings_path
-    - if current_seller
-      %li= link_to 'Logga ut', logout_path
-    - else
+    - unless current_user.role?
       %li= link_to 'Logga in', login_path
+
+    - if current_user.has_role? :seller
+      %li= link_to 'Logga ut', logout_path
 
   - if can? :manage, :all
     %h1 Administration
     %ul
-      %li.users= link_to "Administratörer", admins_path
+      %li= link_to "Administratörer", admin_accounts_path
       %li= link_to "Logga ut", admin_logout_path

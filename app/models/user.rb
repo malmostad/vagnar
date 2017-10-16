@@ -16,4 +16,9 @@ class User < ApplicationRecord
       errors.add(:role, 'doesn’t match account type admin or seller')
     end
   end
+
+  # CanCan check
+  def has_role?(check_role)
+    role == check_role.to_s
+  end
 end

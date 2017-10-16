@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  resources :sellers
-  resources :admins, only: :index
+  resources :seller_accounts
+  resources :admin_accounts, only: :index
   resources :bookings
 
   get  '/admin/login'  => 'session_admin#new'
