@@ -15,29 +15,39 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id])
   rescue
-    User.new(role: 'guest')
+    User.new
   end
 
   helper_method :current_user
 
   def authenticate
-    if !current_user || session_expired?
-      unless request.xhr?
-        # Remember where the user was about to go
-        session[:requested_url] = request.fullpath
-      end
-      flash.now[:warning] = "Du har varit inaktiv i #{SESSION_TIME} minuter och har loggats ut" if session_expired?
-      redirect_to login_path
+    if !current_user.has_role?(:seller, :admin) || session_expired?
+      remember_requested_url
+      redirect_to session_path
     end
     update_session
   end
 
+  def authenticate_admin
+    if !current_user.has_role?(:admin) || session_expired?
+      remember_requested_url
+      redirect_to admin_session_path
+    end
+    update_session
+  end
+
+  # Remember where the user was about to go
+  def remember_requested_url
+    return if request.xhr?
+    session[:requested_url] = request.fullpath
+  end
+
   def session_expired?
-    return true if session[:expires_at].nil? || session[:expires_at] < Time.now
+    session[:renewed_at].nil? || session[:renewed_at] + SESSION_TIME.minutes < Time.now
   end
 
   def update_session
-    session[:expires_at] = Time.now + SESSION_TIME.minutes
+    session[:renewed_at] = Time.now
   end
 
   def redirect_after_login
@@ -53,18 +63,13 @@ class ApplicationController < ActionController::Base
 
   def init_body_class
     add_body_class(Rails.env) unless Rails.env.production?
-    add_body_class('seller') if current_user.present?
+    add_body_class(current_user.role)
   end
 
   # Adds classnames to the body tag
   def add_body_class(name)
     @body_classes ||= ''
     @body_classes << "#{name} "
-  end
-
-  def reset_body_classes
-    @body_classes = nil
-    init_body_class
   end
 
   def client_ip

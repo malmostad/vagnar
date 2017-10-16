@@ -17,8 +17,8 @@ class User < ApplicationRecord
     end
   end
 
-  # CanCan check
-  def has_role?(check_role)
-    role == check_role.to_s
+  # CanCan check for one or more roles
+  def has_role?(*check_roles)
+    check_roles.map(&:to_s).include? role
   end
 end
