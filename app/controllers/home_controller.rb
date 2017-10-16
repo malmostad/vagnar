@@ -2,7 +2,6 @@
 class Home; end
 
 class HomeController < ApplicationController
-  skip_before_action :authenticate
   skip_authorize_resource
   before_action { authorize! :view, :home }
 

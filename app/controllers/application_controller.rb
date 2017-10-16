@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :authenticate
   load_and_authorize_resource
   check_authorization
 

@@ -1,0 +1,18 @@
+- title "Logga in"
+%section#login.box
+  %h1.box-title= h1
+  .box-content
+    - if @error_message.present?
+      %ul
+        %li.warning
+          = @error_message
+    = form_tag admin_session_path, method: :post, class: 'login' do
+      %fieldset
+        = label_tag :username, 'Användarnamn:'
+        = text_field_tag :username, params[:username], class: "form-control", spellcheck: "off",  autocapitalize: "off", autocorrect: "off"
+        = label_tag :password, 'Lösenord:'
+        = password_field_tag :password, nil, class: "form-control"
+        = submit_tag "Logga in", class: "btn btn-primary"
+
+    %p.login-instructions= 'Använd samma användarnamn och lösenord som när du loggar in på din dator.'
+    %p= raw 'Har du problem att logga in, vänd dig till IT-support på <span class="phone">040-34 27 27</span>.'

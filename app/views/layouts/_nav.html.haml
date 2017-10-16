@@ -3,7 +3,7 @@
   %ul
     %li.booking= link_to "Boka", bookings_path
     - unless current_user.role?
-      %li= link_to 'Logga in', login_path
+      %li= link_to 'Logga in', session_path
 
     - if current_user.has_role? :seller
       %li= link_to 'Logga ut', logout_path

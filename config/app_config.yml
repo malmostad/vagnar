@@ -10,7 +10,7 @@ development: &development
   max_age: 0
   title_suffix: "Vagnar (utveckling)"
   session_time: 1440
-  auth_method: stub
+  stub_auth: true
 
 test:
   <<: *defaults
