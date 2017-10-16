@@ -3,13 +3,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  load_and_authorize_resource
-  check_authorization
+  SESSION_TIME = APP_CONFIG['session_time']
 
   before_action { add_body_class("#{controller_name} #{action_name}") }
   before_action :init_body_class
-
-  SESSION_TIME = APP_CONFIG['session_time']
 
   def current_user
     @current_user ||= User.find(session[:user_id])

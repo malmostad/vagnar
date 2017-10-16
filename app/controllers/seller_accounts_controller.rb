@@ -1,5 +1,7 @@
 class SellerAccountsController < ApplicationController
+  before_action :authenticate
+
   def index
-    @sellers = SellerAccounts.order(:username)
+    @sellers = User.where(role: 'seller').order(:username)
   end
 end

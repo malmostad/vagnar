@@ -1,4 +1,4 @@
-domain = Rails.env.production? ? 'vagnar.malmo.se' : '*.local.malmo.se'
+domain = Rails.env.production? ? 'mobilavagnarforsaljning.malmo.se' : 'local.malmo.se'
 
 Rails.application.config.session_store :cookie_store,
   key: '_vagnar_session',

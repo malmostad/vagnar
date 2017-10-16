@@ -7,6 +7,8 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :seller_account, :admin_account
   validates_associated :seller_account, :admin_account
 
+  validates_presence_of :username
+
   validate do
     if role == 'admin'
       errors.add(:role, 'admin must have an admin account') unless admin_account.present?
@@ -17,7 +19,7 @@ class User < ApplicationRecord
     end
   end
 
-  # CanCan check for one or more roles
+  # Check for one or more roles
   def has_role?(*check_roles)
     check_roles.map(&:to_s).include? role
   end

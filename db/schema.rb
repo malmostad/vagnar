@@ -13,23 +13,21 @@
 ActiveRecord::Schema.define(version: 20171013141336) do
 
   create_table "admin_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.string "username"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_admin_accounts_on_user_id", unique: true
-    t.index ["username"], name: "index_admin_accounts_on_username", unique: true
   end
 
   create_table "seller_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.string "username"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_seller_accounts_on_user_id", unique: true
-    t.index ["username"], name: "index_seller_accounts_on_username", unique: true
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "username"
     t.string "role"
     t.string "last_login_at"
     t.string "ip_address"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "admin_accounts", "users"

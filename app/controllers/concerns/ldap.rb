@@ -59,10 +59,12 @@ class Ldap
     begin
       username = username.strip.downcase
       # Find or create user
-      user            = User.where(username: username).first_or_initialize
-      user.username   = username
-      user.last_login = Time.now
-      user.ip = client_ip
+      user               = User.where(username: username).first_or_initialize
+      user.username      = username
+      user.role          = 'admin'
+      user.admin_account = AdminAccount.new
+      user.last_login    = Time.now
+      user.ip            = client_ip
       user.save
 
       return user
