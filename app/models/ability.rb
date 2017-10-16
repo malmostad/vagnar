@@ -9,13 +9,12 @@ class Ability
 
     elsif user.has_role? :seller
       can :create, :booking
-      can :read, :login
-      can :read, :info
+      can :view, :home
 
     else
       can :view, :home
-      can :read, :login
-      can :read, :info
+      can :view, :seller_session
+      can :view, :admin_session
     end
   end
 end
