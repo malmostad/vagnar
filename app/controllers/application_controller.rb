@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       session[:requested_url] = nil
       redirect_to requested_url
     else
-      redirect_to(root_path)
+      redirect_to root_path
     end
   end
 

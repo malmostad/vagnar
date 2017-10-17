@@ -5,19 +5,17 @@ Rails.application.routes.draw do
   resources :admin_accounts, only: :index
   resources :bookings
 
-  get '/administrera'        => 'session_admin#new'
-  post '/administrera'       => 'session_admin#create'
-  get '/administrera_logout' => 'session_admin#destroy'
-
-  get '/session'             => 'session_seller#new'
-  post '/session'            => 'session_seller#create'
-  get '/logout'              => 'session_seller#destroy'
+  get '/administrera'        => 'admin_session#new'
+  post '/administrera'       => 'admin_session#create'
+  get '/administrera_logout' => 'admin_session#destroy'
 
   namespace :saml do
-    get  :sso
-    post :consume
-    get  :consume # Not used
-    get  :metadata
+    get  :login
     get  :logout
+    post :consume
+    get  :consume
+    get  :metadata
   end
+
+  match '*path', via: :all, to: 'errors#not_found'
 end

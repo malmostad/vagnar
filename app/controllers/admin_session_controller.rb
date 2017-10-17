@@ -1,7 +1,8 @@
-class SessionAdminController < ApplicationController
+class AdminSessionController < ApplicationController
   layout 'login'
 
   def new
+    reset_session
   end
 
   def create
