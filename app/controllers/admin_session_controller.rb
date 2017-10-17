@@ -32,6 +32,8 @@ class AdminSessionController < ApplicationController
 
   def destroy
     reset_session
+    session[:expires_at] = nil
+    session[:user_id]    = nil
     redirect_to root_path, notice: 'Du är utloggad'
   end
 
