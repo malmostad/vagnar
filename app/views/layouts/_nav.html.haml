@@ -1,15 +1,14 @@
 %nav.app.basic
-  %h1 Vagnar
+  %h1 Serveringsvagnar
   %ul
-    %li.booking= link_to "Boka", bookings_path
-    - unless current_user.role?
+    - if current_user.has_role? :seller
+      %li.booking= link_to "Mina bokningar", bookings_path
+      %li= link_to 'Logga ut', logout_path
+    - else
       %li= link_to 'Logga in', session_path
 
-    - if current_user.has_role? :seller
-      %li= link_to 'Logga ut', logout_path
-
   - if current_user.has_role? :admin
-    %h1 Administration
+    %h1 Administrera
     %ul
       %li= link_to "Administratörer", admin_accounts_path
       %li= link_to "Logga ut", administrera_logout_path
