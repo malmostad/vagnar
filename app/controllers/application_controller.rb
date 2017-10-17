@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   def authenticate_admin
     if !current_user.has_role?(:admin) || session_expired?
       remember_requested_url
-      redirect_to admin_session_path
+      redirect_to administrera_path
     end
     update_session
   end
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       session[:requested_url] = nil
       redirect_to requested_url
     else
-      redirect_to root_path
+      redirect_to(root_path)
     end
   end
 

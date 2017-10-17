@@ -6,7 +6,7 @@
       %ul
         %li.warning
           = @error_message
-    = form_tag admin_session_path, method: :post, class: 'login' do
+    = form_tag administrera_path, method: :post, class: 'login' do
       %fieldset
         = label_tag :username, 'Användarnamn:'
         = text_field_tag :username, params[:username], class: "form-control", spellcheck: "off",  autocapitalize: "off", autocorrect: "off"

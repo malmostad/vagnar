@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   resources :admin_accounts, only: :index
   resources :bookings
 
-  get  '/admin/session'  => 'session_admin#new'
-  post '/admin/session'  => 'session_admin#create'
-  get  '/admin/logout' => 'session_admin#destroy'
+  get '/administrera'        => 'session_admin#new'
+  post '/administrera'       => 'session_admin#create'
+  get '/administrera_logout' => 'session_admin#destroy'
 
-  get  '/session'  => 'session_seller#new'
-  post '/session'  => 'session_seller#create'
-  get  '/logout' => 'session_seller#destroy'
+  get '/session'             => 'session_seller#new'
+  post '/session'            => 'session_seller#create'
+  get '/logout'              => 'session_seller#destroy'
 
   namespace :saml do
     get  :sso
