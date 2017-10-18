@@ -10,27 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013141336) do
+ActiveRecord::Schema.define(version: 20171018114513) do
 
   create_table "admin_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_admin_accounts_on_user_id", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_admin_accounts_on_user_id"
+  end
+
+  create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.time "starts_at"
+    t.bigint "seller_account_id"
+    t.bigint "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_bookings_on_place_id"
+    t.index ["seller_account_id"], name: "index_bookings_on_seller_account_id"
+  end
+
+  create_table "places", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "seller_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "name"
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_seller_accounts_on_user_id", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_seller_accounts_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "username"
     t.string "role"
     t.string "last_login_at"
-    t.string "ip_address"
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["username"], name: "index_users_on_username"
   end
 
   add_foreign_key "admin_accounts", "users"
+  add_foreign_key "bookings", "places"
+  add_foreign_key "bookings", "seller_accounts"
   add_foreign_key "seller_accounts", "users"
 end

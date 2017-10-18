@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates_associated :seller_account, :admin_account
 
   validates_presence_of :username
+  validates_uniqueness_of :username, case_sensitive: false
 
   validate do
     if role == 'admin'

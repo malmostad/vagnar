@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :seller_accounts
   resources :admin_accounts, only: :index
   resources :bookings
+  resources :places
 
   get '/administrera'        => 'admin_session#new'
   post '/administrera'       => 'admin_session#create'

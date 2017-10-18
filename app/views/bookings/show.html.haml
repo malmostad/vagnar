@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Place:
+  = @booking.place
+%p
+  %b Starts at:
+  = @booking.starts_at
+
+= link_to 'Edit', edit_booking_path(@booking)
+\|
+= link_to 'Back', bookings_path
