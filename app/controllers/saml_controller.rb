@@ -6,15 +6,15 @@ class SamlController < ApplicationController
   layout 'login'
 
   def login
-    reset_session
+    return stub_auth if APP_CONFIG['stub_auth']
+
+    reset_session_keys
     request = OneLogin::RubySaml::Authrequest.new
     redirect_to request.create(saml_settings)
   end
 
   def logout
-    reset_session
-    session[:expires_at] = nil
-    session[:user_id]    = nil
+    reset_session_keys
     redirect_to Rails.application.secrets.saml[:idp_slo_target_url]
   end
 
@@ -29,8 +29,7 @@ class SamlController < ApplicationController
     end
 
     logger.error "[SAML_AUTH] Response Invalid. Errors: #{response.errors}."
-    @error_message = 'Inloggning misslyckades'
-    redirect_to root_path, notice: 'Nu är du inloggad'
+    redirect_to root_path, notice: 'Inloggning misslyckades'
   rescue => e
     logger.fatal "[SAML_AUTH] SAML response failed. #{e.message}"
     logger.fatal e
@@ -72,5 +71,23 @@ class SamlController < ApplicationController
     # setting.security (signing) is documented at https://github.com/onelogin/ruby-saml#signing
 
     settings
+  end
+
+  # Stubbed auth for local dev env
+  # A user with the role seller has to exist first
+  def stub_auth
+    reset_session_keys
+
+    unless Rails.application.config.consider_all_requests_local
+      redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
+    end
+
+    user = User.where(role: 'seller').first
+    if user
+      session[:user_id] = user.id
+      redirect_after_login && return
+    end
+
+    redirect_to root_path, warning: 'Create a user with role `seller` first'
   end
 end

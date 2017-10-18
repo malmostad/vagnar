@@ -32,6 +32,12 @@ class ApplicationController < ActionController::Base
     update_session
   end
 
+  def reset_session_keys
+    reset_session
+    session[:renewed_at] = nil
+    session[:user_id]    = nil
+  end
+
   # Remember where the user was about to go
   def remember_requested_url
     return if request.xhr?
@@ -48,6 +54,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_after_login
     update_session
+
     if session[:requested_url]
       requested_url = session[:requested_url]
       session[:requested_url] = nil

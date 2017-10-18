@@ -2,7 +2,7 @@ class AdminSessionController < ApplicationController
   layout 'login'
 
   def new
-    reset_session
+    reset_session_keys
   end
 
   def create
@@ -31,28 +31,26 @@ class AdminSessionController < ApplicationController
   end
 
   def destroy
-    reset_session
-    session[:expires_at] = nil
-    session[:user_id]    = nil
+    reset_session_keys
     redirect_to root_path, notice: 'Du är utloggad'
   end
 
   # Stubbed auth for local dev env
-  # User needs to exist in the db first
+  # A user with the role admin has to exist first
   def stub_auth
+    reset_session_keys
+
     unless Rails.application.config.consider_all_requests_local
-      @error_message = 'Stubbed authentication only available in local environment'
-      return render 'new'
+      redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
     end
 
     admin = User.where(username: params[:username].strip.downcase, role: 'admin').first
     if admin
       session[:user_id] = admin.id
-      logger.debug { "Stubbed authenticated admin #{current_user.id}" }
       redirect_after_login && return
     end
 
-    @error_message = 'Användarnamnet finns inte'
+    @error_message = "Användaren #{params[:username]} finns inte"
     render 'new'
   end
 end
