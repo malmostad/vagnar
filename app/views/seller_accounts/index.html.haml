@@ -5,18 +5,14 @@
     %thead
       %tr
         %th Namn
+        %th Bokningar
         %th Personnummer
-        %th E-post
-        %th Företag
         %th Senast inloggad
-        %th IP-adress
 
     %tbody
       - @sellers.each do |seller|
         %tr
-          %td= seller.name
-          %td= seller.p_number
-          %td= seller.email
-          %td= seller.company_name
+          %td= seller.seller_account.name
+          %td= link_to 'Bokningar',  bookings_path(seller)
+          %td= seller.username
           %td= seller.last_login_at.to_s[0...20]
-          %td= seller.ip

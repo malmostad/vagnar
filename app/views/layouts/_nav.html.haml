@@ -10,5 +10,6 @@
   - if current_user.has_role? :admin
     %h1 Administrera
     %ul
+      %li= link_to "Försäljare", seller_accounts_path
       %li= link_to "Administratörer", admin_accounts_path
       %li= link_to "Logga ut", administrera_logout_path

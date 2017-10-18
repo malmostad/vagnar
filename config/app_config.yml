@@ -5,7 +5,7 @@ defaults: &defaults
 
 development: &development
   <<: *defaults
-  assets_url_base: "//www.local.malmo.se:3039/assets"
+  assets_url_base: "//www.local.malmo.se:3039/assets/"
   cache_ttl: 1
   max_age: 0
   title_suffix: "Vagnar (utveckling)"

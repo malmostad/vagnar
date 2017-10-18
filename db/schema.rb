@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171013141336) do
   end
 
   create_table "seller_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "name"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_seller_accounts_on_user_id", unique: true
   end

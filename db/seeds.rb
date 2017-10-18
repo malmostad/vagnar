@@ -1,18 +1,17 @@
 if User.count.zero?
   User.create(
+    username: '19000101-0000',
     role: 'seller',
     last_login_at: Time.now,
-    ip_address: '127.0.0.1',
-    username: '19000101-0000',
     seller_account: SellerAccount.new(
+      name: 'Barista Baristasson'
     )
   )
 
   User.create(
     role: 'admin',
-    username: 'intra12',
+    username: 'intra',
     last_login_at: Time.now,
-    ip_address: '127.0.0.2',
     admin_account: AdminAccount.new(
     )
   )

@@ -17,11 +17,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authenticate
-    if !current_user.has_role?(:seller, :admin) || session_expired?
+    unless current_user.has_role?(:seller, :admin) || session_expired?
       remember_requested_url
-      redirect_to session_path
+      redirect_to saml_login_path
     end
-    update_session
   end
 
   def authenticate_admin
@@ -29,7 +28,6 @@ class ApplicationController < ActionController::Base
       remember_requested_url
       redirect_to administrera_path
     end
-    update_session
   end
 
   def reset_session_keys
@@ -45,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def session_expired?
-    session[:renewed_at].nil? || session[:renewed_at] + SESSION_TIME.minutes < Time.now
+    session[:renewed_at].nil? || session[:renewed_at].to_time + SESSION_TIME.minutes < Time.now
   end
 
   def update_session
