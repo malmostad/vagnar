@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      redirect_to @place, notice: 'Place was successfully created.'
+      redirect_to places_path, notice: 'Platsen skapades'
     else
       render :new
     end
@@ -28,7 +28,7 @@ class PlacesController < ApplicationController
 
   def update
     if @place.update(place_params)
-      redirect_to @place, notice: 'Place was successfully updated.'
+      redirect_to places_path, notice: 'Platsen uppdaterades'
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class PlacesController < ApplicationController
 
   def destroy
     @place.destroy
-    redirect_to places_url, notice: 'Place was successfully destroyed.'
+    redirect_to places_path, notice: 'Platsen togs bort'
   end
 
   private

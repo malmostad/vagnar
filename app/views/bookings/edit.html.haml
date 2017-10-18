@@ -1,7 +1,4 @@
-%h1 Editing booking
-
-= render 'form'
-
-= link_to 'Show', @booking
-\|
-= link_to 'Back', bookings_path
+- title "#{t('actions.edit')} bokning"
+%section.box.form
+  %h1.box-title= h1
+  = render 'form'

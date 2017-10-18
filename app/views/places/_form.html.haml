@@ -1,0 +1,7 @@
+.box-content
+  = simple_form_for @place, html: { class: "basic" } do |f|
+    = f.error_notification class: "warning"
+
+    = f.input :name
+
+    = render 'application/submit', form: f, cancel_path: places_path

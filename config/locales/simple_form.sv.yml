@@ -12,25 +12,21 @@ sv:
     labels:
       defaults: &defaults
         name: Namn
-        comment: Kommentar
+        seller: Försäljare
+        admin: Administratör
+        description: Beskrivning
+        booking: Bokning
+        place: Plats
 
-      settings: &settings
+      booking: &booking
         <<: *defaults
-        human_name: Namn
-        value: Värde
+        starts_at: Startar
 
-      setting:
-        <<: *settings
+      place:
+        <<: *defaults
 
     placeholders:
-      home:
-        name: Ange namn
+      place:
+        name: Ange namnet på platsen
 
     hints:
-      foo:
-        comment: &comment
-          "Tänk på att inte skriva in något känsligt i fältet"
-        another_comment: *comment
-      bar:
-        comment: *comment
-        specification: "specification"

@@ -1,0 +1,22 @@
+- title "Platser"
+%section.box.index
+  %h1.box-title= h1
+  %table.full.wrap
+    %thead
+      %tr
+        %td{ colspan: 3 }
+          .actions= link_to t('actions.new'), new_place_path, class: "btn btn-primary"
+      %tr
+        %th Namn
+        %th Antal bokningar
+        %th
+
+    %tbody
+      - @places.each do |place|
+        %tr
+          %td= link_to place.name, edit_place_path(place)
+          %td= place.bookings.size
+          %td.delete= button_to t('actions.delete'), place, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
+      %tr
+        %td{ colspan: 3 }
+          .actions= link_to t('actions.new'), new_place_path, class: "btn btn-primary"
