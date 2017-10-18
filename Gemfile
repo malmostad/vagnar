@@ -40,7 +40,6 @@ gem 'simple_form'
 gem 'haml-rails'
 
 gem 'net-ldap'
-gem 'cancancan'
 gem 'ruby-saml'
 
 # Use Capistrano for deployment
