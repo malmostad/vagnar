@@ -1,27 +1,24 @@
 class SamlController < ApplicationController
   skip_authorize_resource
   skip_authorization_check
-  skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate
+  skip_before_action :verify_authenticity_token, only: [:consume, :logout]
 
   layout 'login'
 
   def login
     return stub_auth if APP_CONFIG['stub_auth']
 
-    reset_session_keys
     request = OneLogin::RubySaml::Authrequest.new
     redirect_to request.create(saml_settings)
-  end
-
-  def logout
-    reset_session_keys
-    redirect_to Rails.application.secrets.saml[:idp_slo_target_url]
   end
 
   def consume
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: saml_settings)
 
     if response.is_valid?
+      update_or_create_account(response.name_id)
+
       # Establish session and redirect to the page requested by user
       session[:user_id] = user.id
       update_session
@@ -32,7 +29,6 @@ class SamlController < ApplicationController
     redirect_to root_path, notice: 'Inloggning misslyckades'
   rescue => e
     logger.fatal "[SAML_AUTH] SAML response failed. #{e.message}"
-    logger.fatal e
     redirect_to root_path, warning: 'Inloggningen misslyckades'
   end
 
@@ -41,7 +37,25 @@ class SamlController < ApplicationController
     render xml: meta.generate(saml_settings, true)
   end
 
+  def logout
+    reset_session_keys
+    redirect_to Rails.application.secrets.saml[:idp_slo_target_url]
+  end
+
   private
+
+  def update_or_create_account(username)
+    username = username.strip.downcase
+    # Find or create user
+    user                = User.where(role: 'seller', username: username).first_or_initialize
+    user.username       = username
+    user.last_login     = Time.now
+    user.seller_account = SellerAccount.new(
+      # key = value
+    )
+    user.save!
+    user
+  end
 
   def base_url
     "#{request.protocol}#{request.host}"

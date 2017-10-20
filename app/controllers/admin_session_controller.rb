@@ -1,8 +1,11 @@
 class AdminSessionController < ApplicationController
+  skip_authorize_resource
+  skip_authorization_check
+  skip_before_action :authenticate
+
   layout 'login'
 
   def new
-    reset_session_keys
   end
 
   def create
@@ -38,8 +41,6 @@ class AdminSessionController < ApplicationController
   # Stubbed auth for local dev env
   # A user with the role admin has to exist first
   def stub_auth
-    reset_session_keys
-
     unless Rails.application.config.consider_all_requests_local
       redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
     end

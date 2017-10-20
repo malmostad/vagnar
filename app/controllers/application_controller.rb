@@ -2,29 +2,38 @@ class ApplicationController < ActionController::Base
   include Catchable
 
   protect_from_forgery with: :exception
+  authorize_resource
+  check_authorization
 
-  SESSION_TIME = APP_CONFIG['session_time']
-
+  before_action :authenticate
+  before_action :log_user_on_request
   before_action { add_body_class("#{controller_name} #{action_name}") }
   before_action :init_body_class
+
+  SESSION_TIME = APP_CONFIG['session_time']
 
   def current_user
     @current_user ||= User.find(session[:user_id])
   rescue
     User.new
   end
-
   helper_method :current_user
 
   def authenticate
-    unless current_user.has_role?(:seller, :admin) || session_expired?
+    return true if current_user.has_role?(:admin)
+
+    if current_user.has_role?(:seller) && session_fresh?
+      update_session
+    else
       remember_requested_url
       redirect_to saml_login_path
     end
   end
 
   def authenticate_admin
-    if !current_user.has_role?(:admin) || session_expired?
+    if current_user.has_role?(:admin) && session_fresh?
+      update_session
+    else
       remember_requested_url
       redirect_to administrera_path
     end
@@ -36,23 +45,22 @@ class ApplicationController < ActionController::Base
     session[:user_id]    = nil
   end
 
+  def session_fresh?
+    session[:renewed_at] && session[:renewed_at].to_time > Time.now - SESSION_TIME.minutes
+  end
+
+  def update_session
+    logger.debug 'Updated session'
+    session[:renewed_at] = Time.now
+  end
+
   # Remember where the user was about to go
   def remember_requested_url
     return if request.xhr?
     session[:requested_url] = request.fullpath
   end
 
-  def session_expired?
-    session[:renewed_at].nil? || session[:renewed_at].to_time + SESSION_TIME.minutes < Time.now
-  end
-
-  def update_session
-    session[:renewed_at] = Time.now
-  end
-
   def redirect_after_login
-    update_session
-
     if session[:requested_url]
       requested_url = session[:requested_url]
       session[:requested_url] = nil
@@ -71,9 +79,5 @@ class ApplicationController < ActionController::Base
   def add_body_class(name)
     @body_classes ||= ''
     @body_classes << "#{name} "
-  end
-
-  def client_ip
-    request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
   end
 end
