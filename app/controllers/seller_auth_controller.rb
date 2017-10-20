@@ -1,4 +1,5 @@
-class SamlController < ApplicationController
+# Using SAML authentication
+class SellerAuthController < ApplicationController
   skip_authorize_resource
   skip_authorization_check
   skip_before_action :authenticate

@@ -6,11 +6,12 @@ Rails.application.routes.draw do
   resources :bookings
   resources :places
 
-  get '/administrera'        => 'admin_session#new'
-  post '/administrera'       => 'admin_session#create'
-  get '/administrera_logout' => 'admin_session#destroy'
-
-  namespace :saml do
+  get '/administrera'        => 'admin_auth#new'
+  post '/administrera'       => 'admin_auth#create'
+  get '/administrera_logout' => 'admin_auth#destroy'
+s
+  # SAML auth for sellers
+  namespace :seller do
     get  :login
     get  :logout
     post :consume
