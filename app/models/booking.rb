@@ -3,5 +3,4 @@ class Booking < ApplicationRecord
   belongs_to :seller_account
 
   validates_presence_of :place
-  validates_presence_of :starts_at
 end

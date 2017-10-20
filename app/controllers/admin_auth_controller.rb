@@ -1,8 +1,6 @@
 # Using LDAP authentication and authorizion
 class AdminAuthController < ApplicationController
-  skip_authorize_resource
-  skip_authorization_check
-  skip_before_action :authenticate
+  skip_before_action :authenticate_admin
 
   layout 'login'
 

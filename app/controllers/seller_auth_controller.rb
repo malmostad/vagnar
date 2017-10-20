@@ -1,7 +1,5 @@
 # Using SAML authentication
 class SellerAuthController < ApplicationController
-  skip_authorize_resource
-  skip_authorization_check
   skip_before_action :authenticate
   skip_before_action :verify_authenticity_token, only: [:consume, :logout]
 
@@ -91,7 +89,7 @@ class SellerAuthController < ApplicationController
   # Stubbed auth for local dev env
   # A user with the role seller has to exist first
   def stub_auth
-    reset_session_keys
+    # reset_session_keys
 
     unless Rails.application.config.consider_all_requests_local
       redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
@@ -100,6 +98,7 @@ class SellerAuthController < ApplicationController
     user = User.where(role: 'seller').first
     if user
       session[:user_id] = user.id
+      update_session
       redirect_after_login && return
     end
 

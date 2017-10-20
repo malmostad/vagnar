@@ -2,11 +2,12 @@ class ApplicationController < ActionController::Base
   include Catchable
 
   protect_from_forgery with: :exception
-  authorize_resource
-  check_authorization
 
+  # for seller and admins
+  # add authenticate_admin in controllers or actions
+  # for resources only for admins
   before_action :authenticate
-  before_action :log_user_on_request
+
   before_action { add_body_class("#{controller_name} #{action_name}") }
   before_action :init_body_class
 
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::Base
       update_session
     else
       remember_requested_url
-      redirect_to saml_login_path
+      redirect_to seller_auth_login_path
     end
   end
 

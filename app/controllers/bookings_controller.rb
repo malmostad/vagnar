@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_admin
+  before_action :authenticate_admin, only: :create
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index

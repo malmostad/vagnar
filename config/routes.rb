@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   get '/administrera'        => 'admin_auth#new'
   post '/administrera'       => 'admin_auth#create'
   get '/administrera_logout' => 'admin_auth#destroy'
-s
+
   # SAML auth for sellers
-  namespace :seller do
+  namespace :seller_auth do
     get  :login
     get  :logout
     post :consume

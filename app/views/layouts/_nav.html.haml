@@ -3,9 +3,9 @@
   %ul
     - if current_user.has_role? :seller
       %li.booking= link_to "Mina bokningar", bookings_path
-      %li= link_to 'Logga ut', saml_logout_path
+      %li= link_to 'Logga ut', seller_auth_logout_path
     - else
-      %li= link_to 'Logga in', saml_login_path
+      %li= link_to 'Logga in', seller_auth_login_path
 
   - if current_user.has_role? :admin
     %h1 Administrera
