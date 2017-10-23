@@ -49,7 +49,6 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     byebug (9.1.0)
-    cancancan (2.0.0)
     capistrano (3.9.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -260,7 +259,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bullet
   byebug
-  cancancan
   capistrano
   capistrano-rails
   capistrano-rbenv
