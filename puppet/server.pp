@@ -15,13 +15,13 @@ class { '::mcommons::mysql':
 }
 
 class { '::mcommons::memcached':
-  memory => 128,
+  memory => 64,
 }
 
 class { '::mcommons::nginx': }
 
 class { '::mcommons::ruby':
-  version => '2.4.1',
+  version => '2.4.2',
 }
 
 class { 'mcommons::ruby::unicorn': }
