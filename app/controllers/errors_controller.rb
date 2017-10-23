@@ -1,7 +1,4 @@
 class ErrorsController < ApplicationController
-  skip_authorize_resource
-  skip_authorization_check
-
   def not_found
     logger.warn "Not found: #{request.fullpath}"
     respond_to do |format|

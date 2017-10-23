@@ -1,11 +1,11 @@
 defaults: &defaults
   base_url: "https://komin.malmo.se/"
-  assets_url_base: "//assets.malmo.se/internal/v4-staging/"
+  assets_url_base: "//assets.malmo.se/external/v4/"
   session_time: 60 # minutes
 
 development: &development
   <<: *defaults
-  assets_url_base: "//www.local.malmo.se:3039/assets/"
+  # assets_url_base: "//www.local.malmo.se:3039/assets/"
   cache_ttl: 1
   max_age: 0
   title_suffix: "Vagnar (utveckling)"
@@ -14,14 +14,13 @@ development: &development
 
 test:
   <<: *defaults
-  assets_url_base: "//assets.malmo.se/internal/v4-staging/"
   cache_ttl: 43200
   max_age: 14400
   title_suffix: "Vagnar (test)"
 
 production: &production
   <<: *defaults
-  assets_url_base: "//assets.malmo.se/internal/v4/"
+  assets_url_base: "//assets.malmo.se/External/v4/"
   cache_ttl: 43200
   max_age: 14400
   title_suffix: "Vagnar"
