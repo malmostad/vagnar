@@ -20,7 +20,7 @@ test:
 
 production: &production
   <<: *defaults
-  assets_url_base: "//assets.malmo.se/External/v4/"
+  assets_url_base: "//assets.malmo.se/external/v4/"
   cache_ttl: 43200
   max_age: 14400
   title_suffix: "Vagnar"
