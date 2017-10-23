@@ -28,3 +28,6 @@
 
 /config/secrets.yml
 /config/database.yml
+
+/config/deploy/production.rb
+/config/deploy/staging.rb
