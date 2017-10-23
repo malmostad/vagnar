@@ -44,6 +44,10 @@ namespace :deploy do
     end
   end
 
+  task :restart do
+    invoke 'unicorn:reload'
+  end
+
   task :setup do
     on roles(:app) do
       execute "mkdir -p #{shared_path}/config"
@@ -98,7 +102,7 @@ namespace :deploy do
   before :starting,       'deploy:are_you_sure'
   before :starting,       'deploy:check_revision'
   before :compile_assets, 'deploy:copy_vendor_statics'
-  after  :publishing,     'unicorn:restart'
+  after  :publishing,     'deploy:restart'
   after  :finishing,      'deploy:cleanup'
   after  :finishing,      'monit:restart_delayed_job'
 end
