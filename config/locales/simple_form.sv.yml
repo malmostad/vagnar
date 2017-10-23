@@ -17,10 +17,15 @@ sv:
         description: Beskrivning
         booking: Bokning
         place: Plats
+        last_login_at: Senast inloggad
 
       booking: &booking
         <<: *defaults
         starts_at: Startar
+
+      seller_accounts:
+        <<: *defaults
+        p_number: Personnummer
 
       place:
         <<: *defaults
