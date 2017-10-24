@@ -12,6 +12,7 @@ sv:
     labels:
       defaults: &defaults
         name: Namn
+        username: Användarnamn
         seller: Försäljare
         admin: Administratör
         description: Beskrivning
@@ -25,7 +26,6 @@ sv:
 
       seller_accounts:
         <<: *defaults
-        p_number: Personnummer
 
       place:
         <<: *defaults
