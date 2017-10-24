@@ -20,12 +20,19 @@ ActiveRecord::Schema.define(version: 20171018114513) do
 
   create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.time "time_slot"
-    t.bigint "seller_id"
+    t.bigint "company_id"
     t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_bookings_on_company_id"
     t.index ["place_id"], name: "index_bookings_on_place_id"
-    t.index ["seller_id"], name: "index_bookings_on_seller_id"
+  end
+
+  create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_companies_on_name"
   end
 
   create_table "places", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
@@ -37,11 +44,13 @@ ActiveRecord::Schema.define(version: 20171018114513) do
   create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "ssn"
     t.string "name"
-    t.string "company"
+    t.bigint "company_id"
     t.datetime "last_login_at"
+    t.index ["company_id"], name: "index_sellers_on_company_id"
     t.index ["ssn"], name: "index_sellers_on_ssn"
   end
 
+  add_foreign_key "bookings", "companies"
   add_foreign_key "bookings", "places"
-  add_foreign_key "bookings", "sellers"
+  add_foreign_key "sellers", "companies"
 end

@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :place
-  belongs_to :seller
+  belongs_to :company
 
   validates_presence_of :place
+  validates_presence_of :company
 end

@@ -1,12 +1,11 @@
-%p#notice= notice
+- title 'Plats'
+%section.box.show
+  %h1.box-title
+    = h1
+  .box-content.basic.form-data
+    .form-group
+      = link_to 'Redigera', edit_place_path(@place), class: 'btn btn-default'
 
-%p
-  %b Place:
-  = @place.place
-%p
-  %b Starts at:
-  = @place.starts_at
-
-= link_to 'Edit', edit_place_path(@place)
-\|
-= link_to 'Back', places_path
+    = form_for @place, html: { class: 'basic' } do |f|
+      = show_attribute('place.name', @place.name)
+      = render 'bookings'

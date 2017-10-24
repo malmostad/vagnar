@@ -1,0 +1,14 @@
+- title 'Företag'
+%section.box.show
+  %h1.box-title
+    = h1
+  .box-content.basic.form-data
+    .form-group
+      = link_to 'Redigera', edit_company_path(@company), class: 'btn btn-default'
+
+    = form_for @company, html: { class: 'basic' } do |f|
+      = show_attribute('company.name', @company.name)
+      = show_attribute('company.created_at', @company.created_at.to_s[0...16])
+
+      = render 'sellers'
+      = render 'bookings'

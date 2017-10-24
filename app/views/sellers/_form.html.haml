@@ -4,6 +4,6 @@
 
     = f.input :ssn
     = f.input :name
-    = f.input :company
+    = f.association :company, include_blank: false
 
     = render 'application/submit', form: f, cancel_path: sellers_path

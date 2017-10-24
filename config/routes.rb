@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :admins, only: :index
+  resources :companies
   resources :sellers
   resources :bookings
   resources :places

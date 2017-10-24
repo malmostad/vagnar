@@ -13,11 +13,12 @@ sv:
       defaults: &defaults
         name: Namn
         username: Användarnamn
-        seller: Försäljare
+        seller: Ombud
         admin: Administratör
         description: Beskrivning
         booking: Bokning
         place: Plats
+        created_at: Skapad
         last_login_at: Senast inloggad
 
       booking: &booking
@@ -27,7 +28,10 @@ sv:
       seller:
         <<: *defaults
         ssn: Personnummer
-        company: Företagsnamn
+        company: Företag
+
+      company:
+        <<: *defaults
 
       place:
         <<: *defaults

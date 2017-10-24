@@ -1,0 +1,23 @@
+- title "Företag"
+%section.box.index
+  %h1.box-title= h1
+  .box-content
+    .help-inline Om du tar bort ett företag tas även ombud och bokningar knutna till företaget bort.
+  %table.full.wrap
+    %thead
+      %tr
+        %th Namn
+        %th Antal anslutna ombud
+        %th
+
+    %tbody
+      - @companies.each do |company|
+        %tr
+          %td= link_to company.name, company_path(company)
+          %td= company.sellers.size
+          %td.delete= button_to t('actions.delete'), company, method: :delete,
+            data: { confirm: 'Är du säker? Alla ombud och bokningar knutna till företaget kommer att raderas' },
+            class: "btn btn-danger btn-sm"
+      %tr
+        %td{ colspan: 5 }
+          .actions= link_to t('actions.new'), new_company_path, class: "btn btn-primary"

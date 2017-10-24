@@ -1,11 +1,14 @@
-- title "Försäljare"
+- title "Ombud"
 %section.box.index
   %h1.box-title= h1
+  .box-content
+    .help-inline Varje ombud knyts till ett företag. Skapa företaget först om det inte finns.
   %table.full.wrap
     %thead
       %tr
         %th Namn
         %th Personnummer
+        %th Företag
         %th Senast inloggad
         %th
         %th
@@ -15,7 +18,7 @@
         %tr
           %td= link_to seller.name, edit_seller_path(seller)
           %td= seller.ssn
-          %td= seller.company
+          %td= link_to seller.company.name, company_path(seller.company)
           %td= seller.last_login_at.to_s[0...20]
           %td.delete= button_to t('actions.delete'), seller, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
       %tr

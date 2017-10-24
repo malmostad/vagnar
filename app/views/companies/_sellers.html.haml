@@ -1,0 +1,11 @@
+%h2.group-title Ombud
+%table.full.wrap
+  %thead
+    %tr
+      %th Personnummer
+      %th Namn
+  %tbody
+    - @company.sellers.each do |seller|
+      %tr
+        %td= seller.ssn
+        %td= link_to seller.name, edit_seller_path(seller)

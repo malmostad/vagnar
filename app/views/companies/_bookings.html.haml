@@ -1,0 +1,11 @@
+%h2.group-title Bokningar
+%table.full.wrap
+  %thead
+    %tr
+      %th Plats
+      %th Tid
+  %tbody
+    - @company.bookings.each do |booking|
+      %tr
+        %td= link_to booking.place.name, place_path(booking.place)
+        %td= booking.time_slot

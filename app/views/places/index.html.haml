@@ -14,7 +14,7 @@
     %tbody
       - @places.each do |place|
         %tr
-          %td= link_to place.name, edit_place_path(place)
+          %td= link_to place.name, place_path(place)
           %td= place.bookings.size
           %td.delete= button_to t('actions.delete'), place, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
       %tr
