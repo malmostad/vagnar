@@ -1,0 +1,9 @@
+.box-content
+  = simple_form_for @seller, html: { class: "basic" } do |f|
+    = f.error_notification class: "warning"
+
+    = f.input :ssn
+    = f.input :name
+    = f.input :company
+
+    = render 'application/submit', form: f, cancel_path: sellers_path

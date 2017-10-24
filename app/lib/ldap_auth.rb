@@ -57,20 +57,18 @@ class LdapAuth
   end
 
   # Update user attributes from the ldap user
-  def update_user_profile(username, role)
+  def update_admin_profile(username, role)
     return false unless ldap_entry
 
     begin
       username = username.strip.downcase
       # Find or create user
-      user               = User.where(username: username).first_or_initialize
-      user.username      = username
-      user.role          = 'admin'
-      user.admin_account = AdminAccount.new
-      user.last_login    = Time.now
-      user.save
+      admin               = Admin.where(username: username).first_or_initialize
+      admin.username      = username
+      admin.last_login    = Time.now
+      admin.save
 
-      return user
+      return admin
     rescue => e
       Rails.logger.error "[LDAP_AUTH]: Couldn't save user #{username}. #{e.message}"
       return false

@@ -6,6 +6,8 @@ class AdminAuthController < ApplicationController
   end
 
   def create
+    reset_session_keys
+
     return stub_auth if APP_CONFIG['stub_auth']
 
     @ldap = LdapAuth.new
@@ -20,9 +22,10 @@ class AdminAuthController < ApplicationController
       render 'new' && return
     end
 
-    user = @ldap.update_user_profile(username, role)
-    if user
-      session[:user_id] = user.id
+    admin = @ldap.update_user_profile(username, role)
+    if admin
+      session[:admin_id] = admin.id
+      update_session
       redirect_after_login && return
     end
 
@@ -42,13 +45,16 @@ class AdminAuthController < ApplicationController
       redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
     end
 
-    admin = User.where(username: params[:username].strip.downcase, role: 'admin').first
-    if admin
-      session[:user_id] = admin.id
-      redirect_after_login && return
-    end
+    admin = Admin.where(username: params[:username].strip.downcase).first
+    admin.last_login_at = Time.now
+    if admin.save
+      session[:admin_id] = admin.id
+      update_session
+      redirect_after_login
+    else
 
-    @error_message = "Användaren #{params[:username]} finns inte"
-    render 'new'
+      @error_message = "Användaren #{params[:username]} finns inte"
+      render 'new'
+    end
   end
 end

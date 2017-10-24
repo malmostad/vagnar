@@ -1,11 +1,12 @@
 # Using SAML authentication
 class SellerAuthController < ApplicationController
-  skip_before_action :authenticate
   skip_before_action :verify_authenticity_token, only: [:consume, :logout]
 
   layout 'login'
 
   def login
+    reset_session_keys
+
     return stub_auth if APP_CONFIG['stub_auth']
 
     request = OneLogin::RubySaml::Authrequest.new
@@ -16,10 +17,10 @@ class SellerAuthController < ApplicationController
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: saml_settings)
 
     if response.is_valid?
-      update_or_create_account(response.name_id)
+      update_or_create(response.name_id)
 
       # Establish session and redirect to the page requested by user
-      session[:user_id] = user.id
+      session[:seller_id] = response.name_id
       update_session
       redirect_after_login && return
     end
@@ -43,17 +44,14 @@ class SellerAuthController < ApplicationController
 
   private
 
-  def update_or_create_account(username)
+  def update_or_create(username)
     username = username.strip.downcase
     # Find or create user
-    user                = User.where(role: 'seller', username: username).first_or_initialize
-    user.username       = username
-    user.last_login     = Time.now
-    user.seller_account = SellerAccount.new(
-      # key = value
-    )
-    user.save!
-    user
+    seller            = Seller.where(username: username).first_or_initialize
+    seller.username   = username
+    seller.last_login = Time.now
+    seller.save!
+    seller
   end
 
   def base_url
@@ -95,9 +93,9 @@ class SellerAuthController < ApplicationController
       redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
     end
 
-    user = User.where(role: 'seller').first
-    if user
-      session[:user_id] = user.id
+    seller = Seller.first
+    if seller
+      session[:seller_id] = seller.id
       update_session
       redirect_after_login && return
     end

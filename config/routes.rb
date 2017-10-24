@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  resources :seller_accounts
-  resources :admin_accounts, only: :index
+  resources :admins, only: :index
+  resources :sellers
   resources :bookings
   resources :places
 

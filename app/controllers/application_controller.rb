@@ -2,48 +2,46 @@ class ApplicationController < ActionController::Base
   include Catchable
 
   protect_from_forgery with: :exception
-
-  # for seller and admins
-  # add authenticate_admin in controllers or actions
-  # for resources only for admins
-  before_action :authenticate
-
   before_action { add_body_class("#{controller_name} #{action_name}") }
   before_action :init_body_class
 
   SESSION_TIME = APP_CONFIG['session_time']
 
-  def current_user
-    @current_user ||= User.find(session[:user_id])
-  rescue
-    User.new
+  def current_seller
+    @current_seller ||= Seller.find(session[:seller_id]) if session[:seller_id]
   end
-  helper_method :current_user
+  helper_method :current_seller
 
-  def authenticate
-    return true if current_user.has_role?(:admin)
-
-    if current_user.has_role?(:seller) && session_fresh?
+  def authenticate_seller
+    if current_admin && session_fresh?
       update_session
-    else
-      remember_requested_url
-      redirect_to seller_auth_login_path
+      return true
     end
+
+    remember_requested_url
+    redirect_to seller_auth_login_path
   end
+
+  def current_admin
+    @current_admin ||= Admin.find(session[:admin_id]) if session[:admin_id]
+  end
+  helper_method :current_admin
 
   def authenticate_admin
-    if current_user.has_role?(:admin) && session_fresh?
+    if current_admin && session_fresh?
       update_session
-    else
-      remember_requested_url
-      redirect_to administrera_path
+      return true
     end
+
+    remember_requested_url
+    redirect_to administrera_path
   end
 
   def reset_session_keys
     reset_session
     session[:renewed_at] = nil
-    session[:user_id]    = nil
+    session[:seller_id]  = nil
+    session[:admin_id]   = nil
   end
 
   def session_fresh?
@@ -51,7 +49,6 @@ class ApplicationController < ActionController::Base
   end
 
   def update_session
-    logger.debug 'Updated session'
     session[:renewed_at] = Time.now
   end
 
@@ -73,7 +70,8 @@ class ApplicationController < ActionController::Base
 
   def init_body_class
     add_body_class(Rails.env) unless Rails.env.production?
-    add_body_class(current_user.role)
+    add_body_class('admin') if current_admin.present?
+    add_body_class('seller') if current_seller.present?
   end
 
   # Adds classnames to the body tag

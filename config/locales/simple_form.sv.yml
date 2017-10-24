@@ -24,8 +24,10 @@ sv:
         <<: *defaults
         starts_at: Startar
 
-      seller_accounts:
+      seller:
         <<: *defaults
+        ssn: Personnummer
+        company: Företagsnamn
 
       place:
         <<: *defaults

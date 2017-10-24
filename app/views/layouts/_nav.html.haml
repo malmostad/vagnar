@@ -1,17 +1,17 @@
 %nav.app.basic
   %h1 Serveringsvagnar
   %ul
-    - if current_user.has_role? :seller
+    - if current_seller
       %li.booking= link_to "Mina bokningar", bookings_path
       %li= link_to 'Logga ut', seller_auth_logout_path
     - else
       %li= link_to 'Logga in', seller_auth_login_path
 
-  - if current_user.has_role? :admin
+  - if current_admin
     %h1 Administrera
     %ul
-      %li= link_to "Försäljare", seller_accounts_path
+      %li= link_to "Försäljare", sellers_path
       %li= link_to "Bokningar", bookings_path
       %li= link_to "Platser", places_path
-      %li= link_to "Administratörer", admin_accounts_path
+      %li= link_to "Administratörer", admins_path
       %li= link_to "Logga ut", administrera_logout_path

@@ -3,7 +3,7 @@ class SellersController < ApplicationController
   before_action :set_seller, only: [:edit, :update, :destroy]
 
   def index
-    @sellers = Seller.all.order(:username)
+    @sellers = Seller.all.order(:ssn)
   end
 
   def show
@@ -44,8 +44,7 @@ class SellersController < ApplicationController
       @seller = Seller.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def seller_params
-      params.require(:seller).permit(:username)
+      params.require(:seller).permit(:ssn, :name, :company)
     end
 end

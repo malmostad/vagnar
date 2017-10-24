@@ -12,21 +12,20 @@
 
 ActiveRecord::Schema.define(version: 20171018114513) do
 
-  create_table "admin_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_admin_accounts_on_user_id"
+  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "username"
+    t.datetime "last_login_at"
+    t.index ["username"], name: "index_admins_on_username"
   end
 
   create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.time "starts_at"
-    t.bigint "seller_account_id"
+    t.time "time_slot"
+    t.bigint "seller_id"
     t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["place_id"], name: "index_bookings_on_place_id"
-    t.index ["seller_account_id"], name: "index_bookings_on_seller_account_id"
+    t.index ["seller_id"], name: "index_bookings_on_seller_id"
   end
 
   create_table "places", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
@@ -35,25 +34,14 @@ ActiveRecord::Schema.define(version: 20171018114513) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "seller_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+  create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "ssn"
     t.string "name"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_seller_accounts_on_user_id"
+    t.string "company"
+    t.datetime "last_login_at"
+    t.index ["ssn"], name: "index_sellers_on_ssn"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.string "username"
-    t.string "role"
-    t.string "last_login_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["username"], name: "index_users_on_username"
-  end
-
-  add_foreign_key "admin_accounts", "users"
   add_foreign_key "bookings", "places"
-  add_foreign_key "bookings", "seller_accounts"
-  add_foreign_key "seller_accounts", "users"
+  add_foreign_key "bookings", "sellers"
 end
