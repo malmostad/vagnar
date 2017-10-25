@@ -1,5 +1,4 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_admin, only: :create
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -46,6 +45,6 @@ class BookingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def booking_params
-      params.require(:booking).permit(:place, :starts_at)
+      params.require(:booking).permit(:place_id, :time_slot_id)
     end
 end

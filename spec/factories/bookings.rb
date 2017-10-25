@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :booking do
     place ""
-    starts_at "2017-10-18 11:45:14"
+    time_slot "15.00–20.00"
   end
 end

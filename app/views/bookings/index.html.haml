@@ -14,8 +14,8 @@
     %tbody
       - @bookings.each do |booking|
         %tr
-          %td= link_to 'Redigera', edit_booking_path(booking)
-          %td= booking.time_slot
+          %td= link_to booking.place.name, edit_booking_path(booking)
+          %td= interval(booking.time_slot)
           %td.delete= button_to t('actions.delete'), booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
       %tr
         %td{ colspan: 3 }

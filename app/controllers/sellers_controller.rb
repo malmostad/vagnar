@@ -1,9 +1,8 @@
 class SellersController < ApplicationController
-  before_action :authenticate_admin
   before_action :set_seller, only: [:edit, :update, :destroy]
 
   def index
-    @sellers = Seller.all.order(:ssn)
+    @sellers = Seller.all.order(:snin)
   end
 
   def show
@@ -45,6 +44,6 @@ class SellersController < ApplicationController
     end
 
     def seller_params
-      params.require(:seller).permit(:ssn, :name, :company_id)
+      params.require(:seller).permit(:snin, :name, :company_id)
     end
 end

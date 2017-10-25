@@ -3,9 +3,10 @@
   %thead
     %tr
       %th Plats
-      %th Tid
+      %th Bokningstid
   %tbody
-    - @company.bookings.each do |booking|
+    - @time_slot.bookings.each do |booking|
       %tr
         %td= link_to booking.place.name, place_path(booking.place)
         %td= interval(booking.time_slot)
+        %td= link_to 'Redigera bokningen', edit_booking_path(booking)

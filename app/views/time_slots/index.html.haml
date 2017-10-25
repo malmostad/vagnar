@@ -1,0 +1,21 @@
+- title "Bokningstider"
+%section.box.index
+  %h1.box-title= h1
+  .box-content
+    .help-inline Om du tar bort en boknings tas även bokningar knutna till bokningstiden bort. Redigerar du en tid slår det igenom bokningar.
+  %table.full.wrap
+    %thead
+      %tr
+        %th Tidsintervall
+        %th
+
+    %tbody
+      - @time_slots.each do |time_slot|
+        %tr
+          %td= link_to interval(time_slot), time_slot_path(time_slot)
+          %td.delete= button_to t('actions.delete'), time_slot, method: :delete,
+            data: { confirm: 'Är du säker? Alla bokningar knutna till bokningstiden kommer att raderas' },
+            class: "btn btn-danger btn-sm"
+      %tr
+        %td{ colspan: 5 }
+          .actions= link_to t('actions.new'), new_time_slot_path, class: "btn btn-primary"

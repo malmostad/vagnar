@@ -10,22 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018114513) do
+ActiveRecord::Schema.define(version: 20171025082540) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "username"
     t.datetime "last_login_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["username"], name: "index_admins_on_username"
   end
 
   create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.time "time_slot"
+    t.bigint "time_slot_id"
     t.bigint "company_id"
     t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_bookings_on_company_id"
     t.index ["place_id"], name: "index_bookings_on_place_id"
+    t.index ["time_slot_id"], name: "index_bookings_on_time_slot_id"
   end
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
@@ -42,15 +45,25 @@ ActiveRecord::Schema.define(version: 20171018114513) do
   end
 
   create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.string "ssn"
+    t.string "snin"
     t.string "name"
     t.bigint "company_id"
     t.datetime "last_login_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_sellers_on_company_id"
-    t.index ["ssn"], name: "index_sellers_on_ssn"
+    t.index ["snin"], name: "index_sellers_on_snin"
+  end
+
+  create_table "time_slots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.string "from"
+    t.string "to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "bookings", "companies"
   add_foreign_key "bookings", "places"
+  add_foreign_key "bookings", "time_slots"
   add_foreign_key "sellers", "companies"
 end

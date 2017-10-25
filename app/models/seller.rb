@@ -1,8 +1,14 @@
 class Seller < ApplicationRecord
-  validates_presence_of :ssn
-  validates_uniqueness_of :ssn
-  validates_presence_of :name
+  belongs_to :company
+
+  validates :snin,
+            presence: true,
+            uniqueness:   true
   validates_presence_of :company
 
-  belongs_to :company
+  before_create do
+    s = Snin.new(snin)
+    self.snin = s.plain
+    errors.add(:snin, "Kontrollsiffran stämmer inte") unless s.valid?
+  end
 end

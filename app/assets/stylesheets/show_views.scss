@@ -17,6 +17,12 @@ section.box.show .box-content {
   }
 }
 
+section.box.show table {
+  th {
+    border: 0;
+  }
+}
+
 abbr {
   border-bottom: dotted 1px $border-color;
   cursor: help;

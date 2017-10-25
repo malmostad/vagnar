@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :sellers
   resources :bookings
   resources :places
+  resources :time_slots
 
   get '/administrera'        => 'admin_auth#new'
   post '/administrera'       => 'admin_auth#create'

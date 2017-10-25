@@ -2,10 +2,10 @@
 %table.full.wrap
   %thead
     %tr
-      %th Personnummer
       %th Namn
+      %th Personnummer
   %tbody
     - @company.sellers.each do |seller|
       %tr
-        %td= seller.ssn
         %td= link_to seller.name, edit_seller_path(seller)
+        %td= seller.snin

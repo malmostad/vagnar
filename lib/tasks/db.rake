@@ -8,4 +8,11 @@ namespace :db do
     end
     puts "#{Time.now} Optimized #{tables.size} tables in #{(Time.new.to_f - t)} seconds"
   end
+
+  desc "Drops, creates, migrates and seeds the db"
+  task recreate: :environment do
+    %w[drop create migrate seed].each do |task|
+      Rake::Task["db:#{task}"].invoke
+    end
+  end
 end

@@ -2,8 +2,11 @@
   = simple_form_for @seller, html: { class: "basic" } do |f|
     = f.error_notification class: "warning"
 
-    = f.input :ssn
-    = f.input :name
+    = f.input :snin, readonly: !@seller.new_record?
+    = f.input :name, readonly: !@seller.new_record?
     = f.association :company, include_blank: false
 
     = render 'application/submit', form: f, cancel_path: sellers_path
+
+  - unless @seller.new_record?
+    .delete= button_to t('actions.delete'), @seller, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"

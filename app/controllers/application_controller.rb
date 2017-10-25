@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   before_action { add_body_class("#{controller_name} #{action_name}") }
   before_action :init_body_class
 
+  before_action :authenticate_admin # skip in seller and public controllers
+
+
   SESSION_TIME = APP_CONFIG['session_time']
 
   def current_seller

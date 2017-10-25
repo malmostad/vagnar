@@ -1,5 +1,4 @@
 class SellersController < ApplicationController
-  before_action :authenticate_admin
   before_action :set_seller, only: [:edit, :update, :destroy]
 
   def index

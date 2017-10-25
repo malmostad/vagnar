@@ -9,7 +9,7 @@ sv:
     error_notification:
       default_message: "Vänligen korrigera nedanstående markerade uppgifter."
 
-    labels:
+    labels: &labels
       defaults: &defaults
         name: Namn
         username: Användarnamn
@@ -20,20 +20,25 @@ sv:
         place: Plats
         created_at: Skapad
         last_login_at: Senast inloggad
+        from: Från
+        to: Till
 
       booking: &booking
         <<: *defaults
-        starts_at: Startar
+        time_slot: Bokningstid
 
       seller:
         <<: *defaults
-        ssn: Personnummer
+        snin: Personnummer
         company: Företag
 
       company:
         <<: *defaults
 
       place:
+        <<: *defaults
+
+      time_slot:
         <<: *defaults
 
     placeholders:
