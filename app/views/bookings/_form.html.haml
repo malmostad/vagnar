@@ -9,7 +9,7 @@
     = f.input :date, as: :string, wrapper: :datepicker
     = f.association :time_slot,
       include_blank: false,
-      selected: @booking.time_slot.id,
+      selected: @booking.time_slot&.id,
       label_method: lambda { |time_slot| interval(time_slot) }
 
     = render 'application/submit', form: f, cancel_path: bookings_path

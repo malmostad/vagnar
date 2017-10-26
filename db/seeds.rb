@@ -7,19 +7,22 @@ end
 Seller.create(
   snin: '19000101-0008',
   name: 'Barista Baristasson',
-  company: Company.find(1)
+  company: Company.find(1),
+  last_login_at: Time.now
 )
 
 Seller.create(
   snin: '19990203-0007',
   name: 'Malin Macchiato',
-  company: Company.find(1)
+  company: Company.find(1),
+  last_login_at: 1.day.ago
 )
 
 Seller.create(
   snin: '19990203-0007',
   name: 'Smooth Smoothsson',
-  company: Company.find(2)
+  company: Company.find(2),
+  last_login_at: 2.days.ago
 )
 
 Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')

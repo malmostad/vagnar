@@ -8,6 +8,10 @@ class Seller < ApplicationRecord
 
   validate :valid_snin, on: :create
 
+  before_validation do
+    self.last_login_at = Time.now
+  end
+
   def valid_snin
     s = Snin.new(snin)
     self.snin = s.plain

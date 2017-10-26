@@ -48,7 +48,6 @@ class AdminAuthController < ApplicationController
     end
 
     admin = Admin.where(username: params[:username].strip.downcase).first
-    admin.last_login_at = Time.now
     if admin.save
       session[:admin_id] = admin.id
       update_session
