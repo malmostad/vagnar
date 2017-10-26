@@ -8,4 +8,5 @@
 
     = form_for @place, html: { class: 'basic' } do |f|
       = show_attribute('place.name', @place.name)
+      = show_attribute('place.address', @place.address)
       = render 'bookings'

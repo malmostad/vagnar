@@ -22,6 +22,7 @@ sv:
         last_login_at: Senast inloggad
         from: Från
         to: Till
+        address: Adress
 
       booking: &booking
         <<: *defaults

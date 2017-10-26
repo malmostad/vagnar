@@ -8,7 +8,7 @@ Seller.create(
   company_id: company.id
 )
 
-place = Place.create(name: 'Kaffeplatsen')
+place = Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
 
 [
   { from: '06.00', to: '10.00' },
