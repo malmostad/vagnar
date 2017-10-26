@@ -6,10 +6,12 @@ class Seller < ApplicationRecord
             uniqueness:   true
   validates_presence_of :company
 
-  before_create do
+  validate :valid_snin, on: :create
+
+  def valid_snin
     s = Snin.new(snin)
     self.snin = s.plain
-    errors.add(:snin, "Kontrollsiffran stämmer inte") unless s.valid?
+    errors.add(:snin, 'Kontrollsiffran stämmer inte') unless s.valid?
   end
 
   def formatted_snin

@@ -90,7 +90,7 @@ class Snin
   def to_long
     return @raw if remove_dash(@raw).size == 12
     century = Date.today
-    @raw.to_s.gsub(/\D/, '').insert 0, century.to_s
+    @raw.to_s.gsub(/\D/, '').insert 0, century.to_s[0..1]
   end
 
   # Removed the century digits if given in long form
