@@ -11,4 +11,4 @@
           link_to(@booking.company.name, company_path(@booking.company)))
       = show_attribute('booking.place',
           link_to(@booking.place.name, place_path(@booking.place)))
-      = show_attribute('booking.time_slot', interval(@booking.time_slot))
+      = show_attribute('booking.time_slot', date_and_time(@booking))

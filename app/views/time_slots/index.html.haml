@@ -12,7 +12,7 @@
     %tbody
       - @time_slots.each do |time_slot|
         %tr
-          %td= link_to interval(time_slot), time_slot_path(time_slot)
+          %td= link_to interval(time_slot), edit_time_slot_path(time_slot)
           %td.delete= button_to t('actions.delete'), time_slot, method: :delete,
             data: { confirm: 'Är du säker? Alla bokningar knutna till bokningstiden kommer att raderas' },
             class: "btn btn-danger btn-sm"

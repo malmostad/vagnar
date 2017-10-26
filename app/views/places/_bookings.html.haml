@@ -9,5 +9,5 @@
     - @place.bookings.each do |booking|
       %tr
         %td= link_to booking.company.name, company_path(booking.company)
-        %td= interval(booking.time_slot)
+        %td= date_and_time(booking)
         %td= link_to 'Visa', booking_path(booking)

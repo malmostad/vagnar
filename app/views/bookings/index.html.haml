@@ -16,7 +16,7 @@
       - @bookings.each do |booking|
         %tr
           %td= link_to booking.place.name, place_path(booking.place)
-          %td= date_and_time_slot(booking)
+          %td= date_and_time(booking)
           %td= link_to 'Visa boking', booking_path(booking)
           %td.delete= button_to t('actions.delete'), booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
       %tr
