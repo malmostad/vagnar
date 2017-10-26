@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20171025082540) do
     t.bigint "time_slot_id"
     t.bigint "company_id"
     t.bigint "place_id"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_bookings_on_company_id"

@@ -1,18 +1,29 @@
 Admin.create(username: 'intra')
 
+['Baristorna AB', 'Små smoothisar AB'].each do |name|
+  Company.create(name: name)
+end
+
 Seller.create(
   snin: '19000101-0008',
   name: 'Barista Baristasson',
-  company: Company.create(name: 'Baristorna AB')
+  company: Company.find(1)
+)
+
+Seller.create(
+  snin: '19990203-0007',
+  name: 'Malin Macchiato',
+  company: Company.find(1)
 )
 
 Seller.create(
   snin: '19990203-0007',
   name: 'Smooth Smoothsson',
-  company: Company.create(name: 'Små smoothisar AB')
+  company: Company.find(2)
 )
 
-place = Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
+Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
+Place.create(name: 'Smoothiehörnan', address: 'Storgatan 1')
 
 [
   { from: '06.00', to: '10.00' },
@@ -24,5 +35,7 @@ place = Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
   TimeSlot.create(time_slot)
 end
 
-Booking.create(place_id: place.id, company_id: Company.first.id, time_slot_id: TimeSlot.first.id)
-Booking.create(place_id: place.id, company_id: Company.last.id, time_slot_id: TimeSlot.last.id)
+Booking.create(place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(1), date: 1.week.from_now.to_date)
+Booking.create(place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(2), date: 2.week.from_now.to_date)
+Booking.create(place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(3), date: 3.week.from_now.to_date)
+Booking.create(place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.from_now.to_date)

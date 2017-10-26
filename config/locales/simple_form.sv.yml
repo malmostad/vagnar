@@ -19,6 +19,7 @@ sv:
         booking: Bokning
         place: Plats
         company: Företag
+        date: Datum
         created_at: Skapad
         last_login_at: Senast inloggad
         from: Från

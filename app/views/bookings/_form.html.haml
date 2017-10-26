@@ -6,6 +6,7 @@
       include_blank: false
     = f.association :place,
       include_blank: false
+    = f.input :date, as: :string, wrapper: :datepicker
     = f.association :time_slot,
       include_blank: false,
       selected: @booking.time_slot.id,
