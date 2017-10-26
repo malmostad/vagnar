@@ -7,7 +7,6 @@
 #    puts snin.valid? # => true
 #    puts snin.valid_control_digit # => 3
 #    puts snin.valid_birthdate? # => true
-#    puts snin.alive? # => true
 #    puts snin.years_old # => Some int
 #
 #    snin = Snin.new('700101-1233')
@@ -57,13 +56,6 @@ class Snin
     rescue
       false
     end
-  end
-
-  # Check if the person is born and not older than max_age
-  # Params:
-  # +max_age+:: +Integer+  Maximum age to consider a person alive, defaults to 150
-  def alive?(max_age = 150)
-    to_date <= Date.today
   end
 
   # Returns the age of the person as an integer

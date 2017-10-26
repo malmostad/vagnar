@@ -5,11 +5,9 @@
       %th Företag
       %th Bokningstid
       %th
-      %th
   %tbody
     - @place.bookings.each do |booking|
       %tr
         %td= link_to booking.company.name, company_path(booking.company)
         %td= interval(booking.time_slot)
-        %td= link_to 'Redigera', booking_path(booking)
-        %td.delete= button_to 'Ta bort', booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
+        %td= link_to 'Visa', booking_path(booking)

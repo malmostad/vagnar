@@ -1,12 +1,14 @@
-%p#notice= notice
+- title 'Bokning'
+%section.box.show
+  %h1.box-title
+    = h1
+  .box-content.basic.form-data
+    .form-group
+      = link_to 'Redigera', edit_booking_path(@booking), class: 'btn btn-default'
 
-%p
-  %b Place:
-  = @booking.place
-%p
-  %b Starts at:
-  = @booking.time_slot
-
-= link_to 'Edit', edit_booking_path(@booking)
-\|
-= link_to 'Back', bookings_path
+    = form_for @booking, html: { class: 'basic' } do |f|
+      = show_attribute('booking.company',
+          link_to(@booking.company.name, company_path(@booking.company)))
+      = show_attribute('booking.place',
+          link_to(@booking.place.name, place_path(@booking.place)))
+      = show_attribute('booking.time_slot', interval(@booking.time_slot))

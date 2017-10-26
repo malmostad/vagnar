@@ -2,8 +2,12 @@
   = simple_form_for @seller, html: { class: "basic" } do |f|
     = f.error_notification class: "warning"
 
-    = f.input :snin, readonly: !@seller.new_record?
-    = f.input :name, readonly: !@seller.new_record?
+    - if @seller.new_record?
+      = f.input :snin
+      = f.input :name
+    - else
+      = show_attribute('seller.snin', @seller.formatted_snin)
+      = show_attribute('seller.name', @seller.name)
     = f.association :company, include_blank: false
 
     = render 'application/submit', form: f, cancel_path: sellers_path

@@ -18,6 +18,7 @@ sv:
         description: Beskrivning
         booking: Bokning
         place: Plats
+        company: Företag
         created_at: Skapad
         last_login_at: Senast inloggad
         from: Från

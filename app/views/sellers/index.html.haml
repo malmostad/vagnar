@@ -17,7 +17,7 @@
       - @sellers.each do |seller|
         %tr
           %td= link_to seller.name, edit_seller_path(seller)
-          %td= seller.snin
+          %td= seller.formatted_snin
           %td= link_to seller.company.name, company_path(seller.company)
           %td= seller.last_login_at.to_s[0...20]
           %td.delete= button_to t('actions.delete'), seller, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"

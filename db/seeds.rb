@@ -1,11 +1,15 @@
 Admin.create(username: 'intra')
 
-company = Company.create(name: 'Baristorna ☕️ AB')
-
 Seller.create(
   snin: '19000101-0008',
   name: 'Barista Baristasson',
-  company_id: company.id
+  company: Company.create(name: 'Baristorna AB')
+)
+
+Seller.create(
+  snin: '19990203-0007',
+  name: 'Smooth Smoothsson',
+  company: Company.create(name: 'Små smoothisar AB')
 )
 
 place = Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
@@ -20,4 +24,5 @@ place = Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
   TimeSlot.create(time_slot)
 end
 
-Booking.create(place_id: place.id, company_id: company.id, time_slot_id: TimeSlot.first.id)
+Booking.create(place_id: place.id, company_id: Company.first.id, time_slot_id: TimeSlot.first.id)
+Booking.create(place_id: place.id, company_id: Company.last.id, time_slot_id: TimeSlot.last.id)

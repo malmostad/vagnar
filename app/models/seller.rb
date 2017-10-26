@@ -11,4 +11,9 @@ class Seller < ApplicationRecord
     self.snin = s.plain
     errors.add(:snin, "Kontrollsiffran stämmer inte") unless s.valid?
   end
+
+  def formatted_snin
+    s = Snin.new(snin)
+    s.add_dash(s.plain)
+  end
 end
