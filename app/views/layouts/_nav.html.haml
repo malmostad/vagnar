@@ -5,7 +5,7 @@
       %li.booking= link_to "Mina bokningar", bookings_path
       %li= link_to 'Logga ut', seller_auth_logout_path
     - else
-      %li= link_to 'Logga in', seller_auth_login_path
+      %li= link_to 'Logga in och boka', seller_auth_login_path
 
   - if current_admin
     %h1 Administrera
