@@ -1,6 +1,6 @@
- # Validates different aspects of a Swedish national( identification number )(SNIN)
+ # Validates different aspects of a Swedish national identification number, SNIN.
 # aka "personnummer".
-# Takes both 10 and 12 digits with and without a dash for validation.
+# Takes 10 or 12 digits with or without dashes
 #
 # ==== Examples:
 #    snin = Snin.new('19700101-1233')
