@@ -4,18 +4,17 @@
 #
 # ==== Examples:
 #    snin = Snin.new('19700101-1233')
-#    puts snin.valid? # => true
-#    puts snin.valid_control_digit # => 3
-#    puts snin.valid_birthdate? # => true
-#    puts snin.years_old # => Some int
+#    snin.valid? # => true
+#    snin.valid_control_digit # => 3
+#    snin.years_old # => Some int
 #
 #    snin = Snin.new('700101-1233')
-#    puts snin.to_long # => "19700101-1233"
-#    puts snin.valid_format?(false, true) # => true
+#    snin.add_century # => "19700101-1233"
+#    snin.valid_format?(false, true) # => true
 #
 class Snin
   # Params:
-  # +snin+:: +String+ 10 or 12 digit SNIN with or without a dash
+  # +snin+:: +String+ 10 or 12 digit SNIN with or without a dashes
   def initialize(snin)
     @raw = snin.to_s
     @plain = plain
@@ -26,9 +25,9 @@ class Snin
     to_short.size == 10 && (checksum(to_short) % 10).zero?
   end
 
-  # Validates the format given
-  # with_century Boolean  True if it must be 12 digit, false if 10
-  # with_dash Boolean  True if it must contain a dash before the last 4 digits
+  # Validates the format
+  #   param with_century Boolean  True if it must be 12 digit, false if 10
+  #   param with_dash Boolean  True if it must contain a dash before the last 4 digits
   def valid_format?(with_century = false, with_dash = true)
     date = with_century ? '\d{8}' : '\d{6}'
     separator = with_dash ? '-' : ''
@@ -40,13 +39,8 @@ class Snin
     10 - checksum(to_short[0..8]) % 10
   end
 
-  # Is the date given valid?
-  def valid_birthdate?
-    to_date
-  end
-
   def plain
-    to_long.remove(/\D/)
+    add_century
   end
 
   # Returns the DateTime object for the given SNIN or false if not a valid date format
@@ -85,12 +79,22 @@ class Snin
     remove_century(remove_dash(@raw))
   end
 
-  # Adds the 2 century digits if given a short format Snin,
-  # assumes the person is less than 100 years old.
-  def to_long
-    return @raw if remove_dash(@raw).size == 12
-    century = Date.today
-    @raw.to_s.gsub(/\D/, '').insert 0, century.to_s[0..1]
+  # Adds the century digits if missing,
+  # Assumes the person is less than 100 years old.
+  def add_century
+    raw = @raw.to_s.gsub(/\D/, '')
+    birth_date = raw[0..8].to_s
+
+    return birth_date if raw.size == 12
+
+    short_given_year = birth_date[0..1].to_i
+    today            = Date.today.to_s
+    short_year_today = today[2..3].to_i
+    century          = today[0..1].to_i
+
+    century -= 1 if short_given_year > short_year_today
+
+    raw.insert 0, century.to_s
   end
 
   # Removed the century digits if given in long form
