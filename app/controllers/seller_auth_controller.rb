@@ -17,17 +17,21 @@ class SellerAuthController < ApplicationController
   def consume
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: saml_settings)
 
-    if response.is_valid?
-      update_or_create(response.name_id)
-
-      # Establish session and redirect to the page requested by user
-      session[:seller_id] = response.name_id
-      update_session
-      redirect_after_login && return
+    unless response.is_valid?
+      logger.error "[SAML_AUTH] Response Invalid. Errors: #{response.errors}."
+      redirect_to root_path, notice: 'Inloggning misslyckades' && return
     end
 
-    logger.error "[SAML_AUTH] Response Invalid. Errors: #{response.errors}."
-    redirect_to root_path, notice: 'Inloggning misslyckades'
+    # TODO: change attribute names
+    unless update_seller(response.name_id, response.name)
+      redirect_to root_path, warning: 'Du är inte registrerad i systemet' && return
+    end
+
+    # Establish session and redirect to the page requested by user
+    session[:seller_id] = response.name_id
+    update_session
+    redirect_after_login && return
+
   rescue => e
     logger.fatal "[SAML_AUTH] SAML response failed. #{e.message}"
     redirect_to root_path, warning: 'Inloggningen misslyckades'
@@ -45,14 +49,15 @@ class SellerAuthController < ApplicationController
 
   private
 
-  def update_or_create(username)
-    username = username.strip.downcase
-    # Find or create user
-    seller            = Seller.where(username: username).first_or_initialize
-    seller.username   = username
+  def update_seller(snin, name)
+    snin = Snin.new(snin)
+
+    seller = Seller.where(snin_birthday: snin.birthday, snin_extension: snin.extension).first
+    return false if seller.empty?
+
+    seller.name = name.strip.downcase
     seller.last_login = Time.now
-    seller.save!
-    seller
+    seller.save
   end
 
   def base_url
