@@ -52,8 +52,8 @@ class SellerAuthController < ApplicationController
   def update_seller(snin, name)
     snin = Snin.new(snin)
 
-    seller = Seller.where(snin_birthday: snin.birthday, snin_extension: snin.extension).first
-    return false if seller.empty?
+    seller = Seller.where_snin(snin).first
+    return false unless seller
 
     seller.name = name.strip.downcase
     seller.last_login = Time.now
