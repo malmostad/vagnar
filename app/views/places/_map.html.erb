@@ -1,0 +1,8 @@
+<%= @place.address %>
+<br>
+<a href="http://malmo.se/karta?poi=<%= @place.address %>&amp;zoomlevel=4&amp;maptype=karta"
+  class="show-on-map m-icon-location"
+  data-map-selector=".contact-us-map"
+  data-poi="<%= @place.address %>"
+  title="<%= @place.address %>">Visa på karta</a>
+<div class="contact-us-map"></div>

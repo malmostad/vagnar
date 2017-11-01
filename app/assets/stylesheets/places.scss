@@ -1,3 +1,25 @@
-// Place all the styles related to the places controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.show-on-map {
+  display: inline-block;
+  margin-top: .5em;
+  padding-left: 1.4em;
+  background-size: 1em;
+  background-position: 0 5px;
+  font-family: $sans-serif;
+}
+.contact-us-map {
+  display: none;
+  width: 100%;
+  height: 40em;
+  margin: 1em 0;
+  border: $border;
+  iframe {
+    width: 100%;
+    height: 40em;
+  }
+  @media (max-width: 40em) {
+    height: 30em;
+    iframe {
+      height: 30em;
+    }
+  }
+}
