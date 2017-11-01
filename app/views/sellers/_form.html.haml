@@ -3,10 +3,11 @@
     = f.error_notification class: "warning"
 
     - if @seller.new_record?
-      = f.input :snin
+      = f.input :snin_birthdate
+      = f.input :snin_extension
       = f.input :name
     - else
-      = show_attribute('seller.snin', @seller.formatted_snin)
+      = show_attribute('seller.snin_birthdate', @seller.snin_birthdate)
       = show_attribute('seller.name', @seller.name)
     = f.association :company, include_blank: false
 

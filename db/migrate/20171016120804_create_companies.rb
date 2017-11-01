@@ -2,8 +2,11 @@ class CreateCompanies < ActiveRecord::Migration[5.1]
   def change
     create_table :companies do |t|
       t.string :name
+      t.string :org_number
+      t.string :police_permit
+      t.datetime :permit_starts_at
+      t.datetime :permit_ends_at
       t.timestamps
     end
-    add_index :companies, :name
   end
 end

@@ -2,7 +2,7 @@ class SellersController < ApplicationController
   before_action :set_seller, only: [:edit, :update, :destroy]
 
   def index
-    @sellers = Seller.all.order(:snin)
+    @sellers = Seller.all.order(:snin_birthdate)
   end
 
   def show
@@ -44,6 +44,6 @@ class SellersController < ApplicationController
     end
 
     def seller_params
-      params.require(:seller).permit(:snin, :name, :company_id)
+      params.require(:seller).permit(:snin_birthdate, :snin_extension, :name, :company_id)
     end
 end

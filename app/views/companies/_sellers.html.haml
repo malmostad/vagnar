@@ -8,4 +8,4 @@
     - @company.sellers.each do |seller|
       %tr
         %td= link_to seller.name, edit_seller_path(seller)
-        %td= seller.formatted_snin
+        %td= seller.snin_birthdate
