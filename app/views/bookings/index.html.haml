@@ -4,9 +4,10 @@
   %table.full.wrap
     %thead
       %tr
-        %td{ colspan: 3 }
+        %td{ colspan: 4 }
           .actions= link_to t('actions.new'), new_booking_path, class: "btn btn-primary"
       %tr
+        %th Företag
         %th Plats
         %th Tid
         %th
@@ -14,9 +15,10 @@
     %tbody
       - @bookings.each do |booking|
         %tr
+          %td= booking.company.name
           %td= booking.place.name
           %td= date_and_time(booking)
           %td= link_to 'Visa boking', booking_path(booking)
       %tr
-        %td{ colspan: 3 }
+        %td{ colspan: 4 }
           .actions= link_to t('actions.new'), new_booking_path, class: "btn btn-primary"

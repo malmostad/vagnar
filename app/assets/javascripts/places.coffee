@@ -1,3 +1,25 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  $("#place_address").autocomplete
+    source: (request, response) ->
+      $.ajax
+        url: "//kartor.malmo.se/api/v1/addresses/"
+        dataType: "jsonp"
+        data:
+          q: request.term
+          items: 10
+        success: (data) ->
+          response $.map(data.addresses, (item) ->
+            {
+              label: "#{item.name}"
+              value: item.name
+              east: item.east
+              north: item.north
+            }
+          )
+          return
+      return
+    minLength: 2
+    select: (event, ui) ->
+      $('#place_east').val(ui.item.east)
+      $('#place_north').val(ui.item.north)
+      return

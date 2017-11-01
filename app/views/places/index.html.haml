@@ -6,12 +6,14 @@
       %tr
         %th Namn
         %th Antal bokningar
+        %th Aktiv
 
     %tbody
       - @places.each do |place|
         %tr
           %td= link_to place.name, place_path(place)
           %td= place.bookings.size
+          %td= place.active? ? 'Ja' : 'Nej'
       %tr
-        %td{ colspan: 2 }
+        %td{ colspan: 3 }
           .actions= link_to t('actions.new'), new_place_path, class: "btn btn-primary"

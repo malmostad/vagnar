@@ -4,5 +4,8 @@
 
     = f.input :name
     = f.input :address
+    = f.input :east, readonly: true
+    = f.input :north, readonly: true
+    = f.input :active, wrapper: :vertical_radio_and_checkboxes
 
     = render 'application/submit', form: f, cancel_path: places_path

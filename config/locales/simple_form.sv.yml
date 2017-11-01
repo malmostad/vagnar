@@ -46,13 +46,16 @@ sv:
 
       place:
         <<: *defaults
+        active: Aktiv
+        east: Koordinat, öst
+        north: Koordinat, väst
 
       time_slot:
         <<: *defaults
 
     placeholders:
       place:
-        name: Ange namnet på platsen
+        address: Skriv och välj från förslagslistan
+        east: Slå upp en gatuadress ovan
+        north: Slå upp en gatuadress ovan
     hints:
-      seller:
-        # snin_birthday: Använd formatet ÅÅÅÅMMDD

@@ -9,4 +9,7 @@
     = form_for @place, html: { class: 'basic' } do |f|
       = show_attribute('place.name', @place.name)
       = show_attribute('place.address', @place.address)
+      = show_attribute('place.east', @place.east)
+      = show_attribute('place.north', @place.north)
+      = show_attribute('place.active', @place.active? ? 'Ja': 'Nej')
       = render 'bookings'

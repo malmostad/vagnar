@@ -40,8 +40,20 @@ Seller.create(
   last_login_at: 2.days.ago
 )
 
-Place.create(name: 'Kaffeplatsen', address: 'August Palms plats 1')
-Place.create(name: 'Smoothiehörnan', address: 'Storgatan 1')
+Place.create(
+  name: 'Kaffeplatsen',
+  address: 'August Palms plats 1',
+  east: 118_942,
+  north: 6_163_918,
+  active: true
+)
+Place.create(
+  name: 'Smoothiehörnan',
+  address: 'Storgatan 1',
+  east: 118_756,
+  north: 6_164_142,
+  active: true
+)
 
 [
   { from: '06.00', to: '10.00' },

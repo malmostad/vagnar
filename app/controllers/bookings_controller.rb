@@ -10,9 +10,11 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
+    @active_places = Place.where(active: true).order(:name)
   end
 
   def edit
+    @active_places = Place.where(active: true).order(:name)
   end
 
   def create
