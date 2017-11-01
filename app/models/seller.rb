@@ -3,7 +3,7 @@ class Seller < ApplicationRecord
 
   validates_presence_of :name, :company
   validates :name, presence: true
-  validates :snin_birthdate, format: { with: /\A\d{8}\z/ }
+  validates :snin_birthday, format: { with: /\A\d{8}\z/ }
   validates :snin_extension, format: { with: /\A\d{4}\z/ }
   validate :valid_snin, on: :create
 
@@ -20,8 +20,8 @@ class Seller < ApplicationRecord
   end
 
   def valid_snin
-    s = Snin.new(snin_birthdate.to_s + snin_extension.to_s)
-    self.snin_birthdate = s.to_date.to_s
+    s = Snin.new(snin_birthday.to_s + snin_extension.to_s)
+    self.snin_birthday = s.to_date.to_s
     errors.add(:snin_extension, 'Kontrollsiffran stämmer inte') unless s.valid?
   end
 end

@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20171025082540) do
   end
 
   create_table "sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
-    t.string "snin_birthdate"
+    t.string "snin_birthday"
     t.string "snin_extension"
     t.string "name"
     t.bigint "company_id"

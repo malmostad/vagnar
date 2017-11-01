@@ -5,7 +5,7 @@ Admin.create(username: 'intra')
 end
 
 Seller.create(
-  snin_birthdate: '19000101',
+  snin_birthday: '19000101',
   snin_extension: '0008',
   name: 'Barista Baristasson',
   company: Company.find(1),
@@ -13,7 +13,7 @@ Seller.create(
 )
 
 Seller.create(
-  snin_birthdate: '19990203',
+  snin_birthday: '19990203',
   snin_extension: '0007',
   name: 'Malin Macchiato',
   company: Company.find(1),
@@ -21,7 +21,7 @@ Seller.create(
 )
 
 Seller.create(
-  snin_birthdate: '19990203',
+  snin_birthday: '19990203',
   snin_extension: '0007',
   name: 'Smooth Smoothsson',
   company: Company.find(2),

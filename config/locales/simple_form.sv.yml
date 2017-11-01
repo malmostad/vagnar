@@ -33,7 +33,7 @@ sv:
       seller:
         <<: *defaults
         snin: Personnummer
-        snin_birthdate: Födelsedatum
+        snin_birthday: Födelsedatum i personnumret
         snin_extension: Fyra sista i personnumret
         company: Företag
 
@@ -51,4 +51,4 @@ sv:
         name: Ange namnet på platsen
     hints:
       seller:
-        snin_birthdate: Använd formatet ÅÅÅÅMMDD
+        # snin_birthday: Använd formatet ÅÅÅÅMMDD
