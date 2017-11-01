@@ -15,7 +15,7 @@ class Seller < ApplicationRecord
   end
 
   def snin_extension_hash
-    hashit(snin_extension)
+    Digest::SHA512.hexdigest(snin_extension + Rails.application.secrets.secret_key_base)
   end
 
   def self.where_snin(snin)
@@ -25,8 +25,7 @@ class Seller < ApplicationRecord
 
   private
 
-  def self.hashit(extension)
-    Digest::SHA512.hexdigest(extension + Rails.application.secrets.secret_key_base)
+  def hashit(extension)
   end
 
   def valid_snin
