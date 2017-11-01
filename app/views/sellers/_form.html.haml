@@ -12,6 +12,3 @@
     = f.association :company, include_blank: false
 
     = render 'application/submit', form: f, cancel_path: sellers_path
-
-  - unless @seller.new_record?
-    .delete= button_to t('actions.delete'), @seller, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"

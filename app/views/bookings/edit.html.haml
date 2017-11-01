@@ -2,3 +2,6 @@
 %section.box.form
   %h1.box-title= h1
   = render 'form'
+
+  .box-content
+    .delete= button_to t('actions.delete'), @booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"

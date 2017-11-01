@@ -8,6 +8,10 @@
 
     = form_for @company, html: { class: 'basic' } do |f|
       = show_attribute('company.name', @company.name)
+      = show_attribute('company.org_number', @company.org_number)
+      = show_attribute('company.police_permit', @company.police_permit)
+      = show_attribute('company.permit_starts_at', @company.permit_starts_at)
+      = show_attribute('company.permit_ends_at', @company.permit_ends_at)
       = show_attribute('company.created_at', @company.created_at.to_s[0...16])
 
       = render 'sellers'

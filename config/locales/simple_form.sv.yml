@@ -39,6 +39,10 @@ sv:
 
       company:
         <<: *defaults
+        org_number: Organistationsnummer
+        police_permit: Polistillstånd
+        permit_starts_at: Tillstånd gäller från och med
+        permit_ends_at: Tillstånd gäller till och med
 
       place:
         <<: *defaults

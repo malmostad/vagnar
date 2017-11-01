@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20171025082540) do
     t.string "name"
     t.string "org_number"
     t.string "police_permit"
-    t.datetime "permit_starts_at"
-    t.datetime "permit_ends_at"
+    t.date "permit_starts_at"
+    t.date "permit_ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

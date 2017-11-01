@@ -2,3 +2,7 @@
 %section.box.form
   %h1.box-title= h1
   = render 'form'
+
+  .box-content
+    .delete-warning Om du tar bort platsen tas även bokningar knutna till platsen bort.
+    .delete= button_to t('actions.delete'), @place, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"

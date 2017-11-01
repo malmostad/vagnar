@@ -4,8 +4,8 @@ class CreateCompanies < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :org_number
       t.string :police_permit
-      t.datetime :permit_starts_at
-      t.datetime :permit_ends_at
+      t.date :permit_starts_at
+      t.date :permit_ends_at
       t.timestamps
     end
   end

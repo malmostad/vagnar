@@ -3,5 +3,9 @@
     = f.error_notification class: "warning"
 
     = f.input :name
+    = f.input :org_number
+    = f.input :police_permit
+    = f.input :permit_starts_at, as: :string, wrapper: :datepicker
+    = f.input :permit_ends_at, as: :string, wrapper: :datepicker
 
     = render 'application/submit', form: f, cancel_path: companies_path

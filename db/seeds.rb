@@ -1,8 +1,20 @@
 Admin.create(username: 'intra')
 
-['Baristorna AB', 'Små smoothisar AB'].each do |name|
-  Company.create(name: name)
-end
+Company.create(
+  name: 'Baristorna AB',
+  org_number: '556677-8899',
+  police_permit: '12345 d-34',
+  permit_starts_at: 1.month.ago,
+  permit_ends_at: 11.months.from_now
+)
+
+Company.create(
+  name: 'Små smoothisar AB',
+  org_number: '551122-3344',
+  police_permit: '987654 d-1',
+  permit_starts_at: 13.months.ago,
+  permit_ends_at: 1.months.ago
+)
 
 Seller.create(
   snin_birthday: '19000101',

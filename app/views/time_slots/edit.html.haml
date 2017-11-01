@@ -2,3 +2,7 @@
 %section.box.form
   %h1.box-title= h1
   = render 'form'
+
+  .box-content
+    .delete-warning Om du tar bort en boknings tas även bokningar knutna till bokningstiden bort. Redigerar du en tid slår det igenom på bokningarna.
+    .delete= button_to t('actions.delete'), @time_slot, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
