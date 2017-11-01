@@ -13,7 +13,7 @@ Seller.create(
 )
 
 Seller.create(
-  snin_birthday: '19990203',
+  snin_birthday: '19000102',
   snin_extension: '0007',
   name: 'Malin Macchiato',
   company: Company.find(1),
@@ -21,8 +21,8 @@ Seller.create(
 )
 
 Seller.create(
-  snin_birthday: '19990203',
-  snin_extension: '0007',
+  snin_birthday: '19000103',
+  snin_extension: '0006',
   name: 'Smooth Smoothsson',
   company: Company.find(2),
   last_login_at: 2.days.ago

@@ -9,5 +9,6 @@ class CreateSellers < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :sellers, [:snin_birthday, :snin_extension], unique: true
   end
 end

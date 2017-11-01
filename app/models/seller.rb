@@ -1,27 +1,32 @@
 class Seller < ApplicationRecord
   belongs_to :company
 
-  validates_presence_of :name, :company
-  validates :name, presence: true
-  validates :snin_birthday, format: { with: /\A\d{8}\z/ }
-  validates :snin_extension, format: { with: /\A\d{4}\z/ }
-  validate :valid_snin, on: :create
+  validates_presence_of :company
+  validates_presence_of :name, on: :create
+  validate              :valid_snin, on: :create
+  validate              :unique_snin, on: :create
 
   before_validation do
     self.last_login_at = Time.now
   end
 
-  before_save :hash_snin_extension
+  before_create do
+    self.snin_extension = snin_extension_hash
+  end
+
+  def snin_extension_hash
+    Digest::SHA512.hexdigest(snin_extension + Rails.application.secrets.secret_key_base)
+  end
 
   private
 
-  def hash_snin_extension
-    self.snin_extension = Digest::SHA512.hexdigest(snin_extension + Rails.application.secrets.secret_key_base)
+  def valid_snin
+    snin = Snin.new(snin_birthday.to_s + snin_extension.to_s)
+    errors.add(:snin_extension, 'Kontrollsiffran stämmer inte') unless snin.valid?
   end
 
-  def valid_snin
-    s = Snin.new(snin_birthday.to_s + snin_extension.to_s)
-    self.snin_birthday = s.to_date.to_s
-    errors.add(:snin_extension, 'Kontrollsiffran stämmer inte') unless s.valid?
+  def unique_snin
+    new_seller = Seller.where(snin_birthday: snin_birthday, snin_extension: snin_extension_hash)
+    errors.add(:snin_birthday, 'Personnummret finns redan') if new_seller.present?
   end
 end

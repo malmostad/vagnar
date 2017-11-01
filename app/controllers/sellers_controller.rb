@@ -26,7 +26,7 @@ class SellersController < ApplicationController
   end
 
   def update
-    if @seller.update(seller_params)
+    if @seller.update!(seller_params)
       redirect_to sellers_path, notice: 'Ombudet uppdaterades'
     else
       render :edit

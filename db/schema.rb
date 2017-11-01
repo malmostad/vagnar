@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20171025082540) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_sellers_on_company_id"
+    t.index ["snin_birthday", "snin_extension"], name: "index_sellers_on_snin_birthday_and_snin_extension", unique: true
   end
 
   create_table "time_slots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
