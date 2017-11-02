@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   resources :admins, only: :index
   resources :companies, except: :destroy
   resources :sellers
-  resources :bookings, except: :destroy
-  resources :booking_periods, except: :destroy
+  resources :bookings, except: :destroy do
+    get 'archive', on: :collection
+  end
+
+  resources :booking_periods
   resources :places
   resources :time_slots
 
