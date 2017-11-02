@@ -4,6 +4,11 @@ class Company < ApplicationRecord
 
   validates_presence_of :name, :org_number
 
+  # Don't allow destruction, bookings and companies are used for archive listings
+  before_destroy do
+    raise 'Destroy is not allowed for companies'
+  end
+
   scope :with_active_permit, lambda {
     where('permit_starts_at <= ? and permit_ends_at >= ?', Date.today, Date.today)
   }

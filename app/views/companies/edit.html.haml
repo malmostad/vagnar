@@ -2,7 +2,5 @@
 %section.box.form
   %h1.box-title= h1
   = render 'form'
-
   .box-content
-    .delete-warning Om du tar bort företaget tas även ombud och bokningar knutna till företaget bort.
-    .delete= button_to t('actions.delete'), @company, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
+    .help-block Ett företag går inte att radera eftersom det visas i bokningshistoriken.

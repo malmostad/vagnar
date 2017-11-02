@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :admins, only: :index
-  resources :companies
+  resources :companies, except: :destroy
   resources :sellers
-  resources :bookings
+  resources :bookings, except: :destroy
+  resources :booking_periods, except: :destroy
   resources :places
   resources :time_slots
 

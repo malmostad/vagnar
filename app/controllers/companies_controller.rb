@@ -33,11 +33,6 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def destroy
-    @company.destroy
-    redirect_to companies_path, notice: 'Företaget togs bort'
-  end
-
   private
     def set_company
       @company = Company.find(params[:id])
