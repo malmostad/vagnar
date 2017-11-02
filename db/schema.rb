@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025082540) do
+ActiveRecord::Schema.define(version: 20171102104227) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.string "username"
@@ -20,13 +20,24 @@ ActiveRecord::Schema.define(version: 20171025082540) do
     t.index ["username"], name: "index_admins_on_username"
   end
 
+  create_table "booking_periods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
+    t.date "starts_at"
+    t.date "ends_at"
+    t.date "booking_starts_at"
+    t.date "booking_ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.bigint "time_slot_id"
     t.bigint "company_id"
     t.bigint "place_id"
+    t.bigint "booking_period_id"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["booking_period_id"], name: "index_bookings_on_booking_period_id"
     t.index ["company_id"], name: "index_bookings_on_company_id"
     t.index ["place_id"], name: "index_bookings_on_place_id"
     t.index ["time_slot_id"], name: "index_bookings_on_time_slot_id"
@@ -71,6 +82,7 @@ ActiveRecord::Schema.define(version: 20171025082540) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookings", "booking_periods"
   add_foreign_key "bookings", "companies"
   add_foreign_key "bookings", "places"
   add_foreign_key "bookings", "time_slots"

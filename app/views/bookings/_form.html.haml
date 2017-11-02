@@ -4,8 +4,8 @@
     = f.error_notification class: "warning"
 
     = f.association :company,
-      include_blank: false,
-      collection: @companies_with_permit
+      collection: @companies_with_permit,
+      include_blank: false
     = f.association :place,
       collection: @active_places,
       include_blank: false

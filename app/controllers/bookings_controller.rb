@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
-    @companies_with_permit = Company.with_active_permit
+    @companies_with_permit = Company.with_active_permit.order(:name)
     @active_places = Place.where(active: true).order(:name)
   end
 
@@ -36,11 +36,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  def destroy
-    @booking.destroy
-    redirect_to bookings_path, notice: 'Bokningen togs bort'
-  end
-
   private
     def set_booking
       @booking = Booking.find(params[:id])
@@ -48,6 +43,6 @@ class BookingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def booking_params
-      params.require(:booking).permit(:company_id, :place_id, :date, :time_slot_id)
+      params.require(:booking).permit(:company_id, :place_id, :date, :time_slot_id, :booking_period_id)
     end
 end

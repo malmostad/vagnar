@@ -64,7 +64,14 @@ Place.create(
   TimeSlot.create(time_slot)
 end
 
-Booking.create(place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(1), date: 1.week.from_now.to_date)
-Booking.create(place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(2), date: 2.week.from_now.to_date)
-Booking.create(place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(3), date: 3.week.from_now.to_date)
-Booking.create(place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.from_now.to_date)
+BookingPeriod.create(
+  starts_at: Date.today + 5.days,
+  ends_at:  Date.today + 19.days,
+  booking_starts_at:  Date.today - 2.days,
+  booking_ends_at:  Date.today + 17.days
+)
+
+Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(1), date: 1.week.from_now.to_date)
+Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(2), date: 2.week.from_now.to_date)
+Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(3), date: 3.week.from_now.to_date)
+Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.from_now.to_date)
