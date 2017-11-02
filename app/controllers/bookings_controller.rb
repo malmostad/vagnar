@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_relations, only: [:new, :edit]
 
   def index
     @bookings = Booking.all
@@ -10,12 +11,9 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
-    @companies_with_permit = Company.with_active_permit.order(:name)
-    @active_places = Place.where(active: true).order(:name)
   end
 
   def edit
-    @active_places = Place.where(active: true).order(:name)
   end
 
   def create
@@ -39,6 +37,11 @@ class BookingsController < ApplicationController
   private
     def set_booking
       @booking = Booking.find(params[:id])
+    end
+
+    def set_relations
+      @companies_with_permit = Company.with_active_permit.order(:name)
+      @active_places = Place.where(active: true).order(:name)
     end
 
     # Only allow a trusted parameter "white list" through.
