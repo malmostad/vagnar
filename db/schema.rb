@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(version: 20171102104227) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bookings", "booking_periods"
   add_foreign_key "bookings", "companies"
   add_foreign_key "bookings", "places"
   add_foreign_key "bookings", "time_slots"
