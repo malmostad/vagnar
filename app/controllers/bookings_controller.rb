@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
+    @companies_with_permit = Company.with_active_permit
     @active_places = Place.where(active: true).order(:name)
   end
 

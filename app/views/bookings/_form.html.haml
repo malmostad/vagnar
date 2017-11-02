@@ -1,9 +1,11 @@
 .box-content
+  .help-block Endast företag med aktivt tillstånd går att boka.
   = simple_form_for @booking, html: { class: "basic" } do |f|
     = f.error_notification class: "warning"
 
     = f.association :company,
-      include_blank: false
+      include_blank: false,
+      collection: @companies_with_permit
     = f.association :place,
       collection: @active_places,
       include_blank: false
