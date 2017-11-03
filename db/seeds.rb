@@ -75,3 +75,5 @@ Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), compan
 Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(2), date: 2.week.from_now.to_date)
 Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(3), date: 3.week.from_now.to_date)
 Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.from_now.to_date)
+
+Setting.create(key: 'number_of_bookings', human_name: 'Max bokningar per företag och bokningsperiod', value: 100)

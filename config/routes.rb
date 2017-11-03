@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :places
   resources :time_slots
 
+  resources :settings, only: [:index, :edit, :update]
+
   get '/administrera'        => 'admin_auth#new'
   post '/administrera'       => 'admin_auth#create'
   get '/administrera_logout' => 'admin_auth#destroy'

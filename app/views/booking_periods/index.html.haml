@@ -1,0 +1,23 @@
+- title "Bokningsperioder"
+%section.box.index
+  %h1.box-title= h1
+  %table.full.wrap
+    %thead
+      %tr
+        %th Perioden starar
+        %th Perioden slutar
+        %th Bokning startar
+        %th Bokning slutar
+        %th
+
+    %tbody
+      - @booking_periods.each do |booking_period|
+        %tr
+          %td= booking_period.starts_at
+          %td= booking_period.ends_at
+          %td= booking_period.booking_starts_at
+          %td= booking_period.booking_ends_at
+          %td= link_to 'Redigera', edit_booking_period_path(booking_period)
+      %tr
+        %td{ colspan: 5 }
+          .actions= link_to t('actions.new'), new_booking_period_path, class: "btn btn-primary"
