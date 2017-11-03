@@ -1,3 +1,10 @@
 - title "Serveringsvagnar"
-%section
+%section.home
   %h1.body-copy= h1
+
+  %h2.body-copy Bokningsschema
+  = render 'bookings'
+
+  %h2.body-copy Försäljningsplatser
+  .contact-us-map
+    %iframe{ scrolling: 'no', frameborder: '0', src: '//kartor.malmo.se/init/?appid=adresskarta-v1&amp;poi=August%20Palms%20plats%201' }

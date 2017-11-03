@@ -1,0 +1,14 @@
+%table.full.wrap
+  %thead
+    %tr
+      %th Plats
+      %th Aktör
+      %th Datum
+      %th Tid
+  %tbody
+    - @bookings.each do |booking|
+      %tr
+        %td= booking.place.name
+        %td= booking.company.name
+        %td= booking.date
+        %td= interval(booking.time_slot)

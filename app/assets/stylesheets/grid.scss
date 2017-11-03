@@ -15,9 +15,6 @@ main {
 
 nav.app {
   @include columns(3, true);
-  // ul {
-  //   margin-bottom: 2em;
-  // }
   @media (max-width: 48em) {
     @include columns(12);
     li {
@@ -25,6 +22,18 @@ nav.app {
     }
     li.group {
       margin-top: 2em;
+    }
+  }
+}
+
+section.home {
+  .contact-us-map {
+    display: block;
+    border: 0;
+    iframe {
+      width: 66%;
+      height: 30em;
+      border: $border;
     }
   }
 }
