@@ -1,6 +1,7 @@
 %nav.app.basic
   %h1 För aktörer
   %ul
+    %li= link_to 'Om serveringsvagnar', 'http://malmo.se/serveringsvagnar'
     - if current_seller
       %li.booking= link_to "Mina bokningar", bookings_path
       %li= link_to 'Logga ut', seller_auth_logout_path
@@ -10,7 +11,7 @@
   - if current_admin
     %h1 Administrera
     %ul
-      %li= link_to "Företag", companies_path
+      %li= link_to "Aktörer", companies_path
       %li= link_to "Ombud", sellers_path
       %li= link_to "Platser", places_path
       %li= link_to "Aktuella bokningar", bookings_path

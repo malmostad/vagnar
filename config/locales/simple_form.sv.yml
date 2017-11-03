@@ -18,7 +18,7 @@ sv:
         description: Beskrivning
         booking: Bokning
         place: Plats
-        company: Företag
+        company: Aktör
         date: Datum
         created_at: Skapad
         last_login_at: Senast inloggad
@@ -42,7 +42,7 @@ sv:
         snin: Personnummer
         snin_birthday: Födelsedatum i personnumret
         snin_extension: Fyra sista i personnumret
-        company: Företag
+        company: Aktör
 
       company:
         <<: *defaults

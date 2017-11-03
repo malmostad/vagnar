@@ -19,7 +19,7 @@ class CompaniesController < ApplicationController
     @company = Company.new(company_params)
 
     if @company.save
-      redirect_to companies_path, notice: 'Företaget skapades'
+      redirect_to companies_path, notice: 'Aktören skapades'
     else
       render :new
     end
@@ -27,7 +27,7 @@ class CompaniesController < ApplicationController
 
   def update
     if @company.update(company_params)
-      redirect_to companies_path, notice: 'Företaget uppdaterades'
+      redirect_to companies_path, notice: 'Aktören uppdaterades'
     else
       render :edit
     end
