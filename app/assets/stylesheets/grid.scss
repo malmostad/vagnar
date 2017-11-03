@@ -25,15 +25,3 @@ nav.app {
     }
   }
 }
-
-section.home {
-  .contact-us-map {
-    display: block;
-    border: 0;
-    iframe {
-      width: 66%;
-      height: 30em;
-      border: $border;
-    }
-  }
-}

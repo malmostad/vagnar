@@ -1,0 +1,12 @@
+section.home {
+  .contact-us-map {
+    margin-top: 0;
+    display: block;
+    border: 0;
+    iframe {
+      width: 100%;
+      height: 30em;
+      border: $border;
+    }
+  }
+}
