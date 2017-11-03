@@ -30,6 +30,13 @@ sv:
         <<: *defaults
         time_slot: Bokningstid
 
+      booking_period:
+        <<: *defaults
+        starts_at: Perioden starar
+        ends_at: Perioden slutar
+        booking_starts_at: Bokning startar
+        booking_ends_at: Bokning slutar
+
       seller:
         <<: *defaults
         snin: Personnummer
@@ -52,6 +59,14 @@ sv:
 
       time_slot:
         <<: *defaults
+
+      setting: &setting
+        <<: *defaults
+        human_name: Beskrivning
+        value: Värde
+
+      settings:
+        <<: *setting
 
     placeholders:
       place:
