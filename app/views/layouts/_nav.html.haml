@@ -2,13 +2,16 @@
   %h1 Information
   %ul
     %li= link_to 'Om serveringsvagnar', 'http://malmo.se/serveringsvagnar'
-  %h1= "#{current_seller&.company&.name}"
-  %ul
-    - if current_seller
+
+  - if current_seller
+    %h1= "#{current_seller&.company&.name}"
+    %ul
       %li.booking= link_to "Våra bokningar", seller_bookings_path
       %li= link_to "Logga ut", seller_auth_logout_path
-    - else
-      %li= link_to 'Logga in och hantera bokningar', seller_auth_login_path
+  - else
+    %h1= "Hantera bokningar"
+    %ul
+      %li= link_to 'Logga in', seller_auth_login_path
 
   - if current_admin
     %h1 Administrera
