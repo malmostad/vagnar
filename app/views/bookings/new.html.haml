@@ -1,0 +1,23 @@
+- title "#{t('actions.new')} boka för aktör"
+%section.box.form
+  %h1.box-title= h1
+  .box-content
+    .help-block Observera att endast aktörer med aktivt tillstånd går att boka.
+    .help-block Välj den aktör du vill boka tiden åt.
+    = simple_form_for @booking, html: { class: "basic" } do |f|
+
+      = f.input :company_id,
+        collection: @companies_with_permit,
+        include_blank: false
+
+      = f.hidden_field :booking_period_id, value: @booking.booking_period_id
+      = f.hidden_field :place_id, value: @booking.place_id
+      = show_attribute('place.name', @booking.place.name)
+
+      = f.hidden_field :date, value: @booking.date, readonly: true
+      = show_attribute('booking.date', @booking.date)
+
+      = f.hidden_field :time_slot_id, value: @booking.time_slot_id, readonly: true
+      = show_attribute('booking.time_slot', interval(@booking.time_slot))
+
+      = render 'application/submit', form: f, cancel_path: bookings_path

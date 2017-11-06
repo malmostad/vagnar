@@ -1,4 +1,4 @@
-- title "Aktuella bokningar"
+- title "Bokningstider i aktuell bokningsperiod"
 %section.box.index
   %h1.box-title= h1
   .box-content
@@ -19,10 +19,12 @@
           %td= booking.company.name
           %td= booking.place.name
           %td= date_and_time(booking)
+          %td.delete= button_to 'Avboka', booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
           -# TODO: dummy data
-          - rand = rand(1..2)
-          - if rand == 1
-            %td
-              .actions= link_to 'Boka', bookings_path, class: "btn btn-primary btn-sm"
-          - else
-            %td.delete= button_to 'Avboka', booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
+          - if rand(1..2) == 1
+            %tr
+              %td= booking.company.name
+              %td= booking.place.name
+              %td= date_and_time(booking)
+              %td
+                .actions= link_to 'Boka', new_booking_path, class: "btn btn-primary btn-sm"

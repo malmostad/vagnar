@@ -10,6 +10,16 @@ class BookingsController < ApplicationController
     @bookings = Booking.past
   end
 
+  def new
+    # TODO: dummy data
+    @booking = Booking.new(
+      booking_period: BookingPeriod.first,
+      place: Place.find(1),
+      time_slot: TimeSlot.find(1),
+      date: 1.week.from_now.to_date
+    )
+  end
+
   def create
     @booking = Booking.new(booking_params)
 

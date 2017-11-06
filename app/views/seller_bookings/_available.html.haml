@@ -23,7 +23,7 @@
             %td= booking.date
             %td= interval(booking.time_slot)
             %td
-              .actions= link_to 'Boka', bookings_path), class: "btn btn-primary btn-sm"
+              .actions= link_to 'Boka', seller_bookings_path, class: "btn btn-primary btn-sm"
             -# TODO: remove
             %tr
               %td= booking.place.name

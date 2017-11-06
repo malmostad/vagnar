@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :admins, only: :index
   resources :companies, except: :destroy
   resources :sellers
-  resources :bookings, only: [:index, :create, :destroy] do
+  resources :bookings, only: [:index, :new, :create, :destroy] do
     get 'archive', on: :collection
   end
 

@@ -19,6 +19,7 @@ sv:
         booking: Bokning
         place: Plats
         company: Aktör
+        company_id: Aktör
         date: Datum
         created_at: Skapad
         last_login_at: Senast inloggad
@@ -44,7 +45,7 @@ sv:
         snin_extension: Fyra sista i personnumret
         company: Aktör
 
-      company:
+      company: &company
         <<: *defaults
         org_number: Organistationsnummer
         police_permit: Polistillstånd
