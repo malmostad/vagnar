@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   resources :admins, only: :index
   resources :companies, except: :destroy
   resources :sellers
-  resources :bookings, except: :destroy do
+  resources :bookings, only: [:index, :create, :destroy] do
     get 'archive', on: :collection
   end
 
-  resources :seller_bookings, except: [:show, :edit, :update]
+  resources :seller_bookings, only: [:index, :destroy, :create]
 
   resources :booking_periods
   resources :places

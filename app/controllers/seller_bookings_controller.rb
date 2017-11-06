@@ -36,7 +36,6 @@ class SellerBookingsController < ApplicationController
   end
 
   private
-    # TODO: set booking_period hard
     def seller_booking_params
       params.require(:booking).permit(:place_id, :date, :time_slot_id, :booking_period_id)
     end

@@ -9,8 +9,21 @@ class Booking < ApplicationRecord
   scope :present, -> { where('date >= ?', Date.today) }
   scope :past, -> { where('date <= ?', Date.today) }
 
-  # Don't allow destruction, bookings are used for archive listings
+  # Only allow destruction in current booking period
+  # Past bookings are used for archive listings
   before_destroy do
-    raise 'Destroy is not allowed for bookings' unless present?
+    raise 'Destroy is not allowed for active bookings' unless present?
+  end
+
+  def present?
+    date >= Date.today
+  end
+
+  def past?
+    date <= Date.today
+  end
+
+  def in_current_period?
+    booking_period.current
   end
 end

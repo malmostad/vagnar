@@ -19,7 +19,9 @@ class Seller < ApplicationRecord
   end
 
   def allowed_to_manage_booking(booking)
-    present_bookings.include? booking
+    # Only present bookings that belongs to own company can be manged
+    present_bookings.include?(booking) &&
+      company.bookings.include?(booking)
   end
 
   def snin_extension_hash
@@ -28,13 +30,10 @@ class Seller < ApplicationRecord
 
   def self.where_snin(snin)
     snin = Snin.new(snin)
-    where(snin_birthday: snin.birthday, snin_extension: hashit(snin.extension))
+    where(snin_birthday: snin.birthday, snin_extension: snin_extension_hash)
   end
 
   private
-
-  def hashit(extension)
-  end
 
   def valid_snin
     snin = Snin.new(snin_birthday.to_s + snin_extension.to_s)
