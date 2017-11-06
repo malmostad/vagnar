@@ -14,6 +14,14 @@ class Seller < ApplicationRecord
     self.snin_extension = snin_extension_hash
   end
 
+  def present_bookings
+    company&.bookings&.present
+  end
+
+  def allowed_to_manage_booking(booking)
+    present_bookings.include? booking
+  end
+
   def snin_extension_hash
     Digest::SHA512.hexdigest(snin_extension + Rails.application.secrets.secret_key_base)
   end

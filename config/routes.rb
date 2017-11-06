@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get 'archive', on: :collection
   end
 
+  resources :seller_bookings, except: [:show, :edit, :update]
+
   resources :booking_periods
   resources :places
   resources :time_slots

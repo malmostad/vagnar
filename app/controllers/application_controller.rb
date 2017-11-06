@@ -16,7 +16,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_seller
 
   def authenticate_seller
-    if current_admin && session_fresh?
+    logger.debug 'current_seller && session_fresh?'
+    logger.debug current_seller && session_fresh?
+
+    if current_seller && session_fresh?
       update_session
       return true
     end

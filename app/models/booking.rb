@@ -11,6 +11,6 @@ class Booking < ApplicationRecord
 
   # Don't allow destruction, bookings are used for archive listings
   before_destroy do
-    raise 'Destroy is not allowed for bookings'
+    raise 'Destroy is not allowed for bookings' unless present?
   end
 end

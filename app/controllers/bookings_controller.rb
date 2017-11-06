@@ -38,6 +38,11 @@ class BookingsController < ApplicationController
     end
   end
 
+  def destroy
+    @booking.destroy
+    redirect_to bookings_path, notice: 'Bokningen togs bort'
+  end
+
   private
     def set_booking
       @booking = Booking.find(params[:id])
