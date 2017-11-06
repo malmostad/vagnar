@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
   validates_presence_of :place, :company, :date, :time_slot
 
   scope :present, -> { where('date >= ?', Date.today) }
-  scope :past,    -> { where('date <= ?', Date.today) }
+  scope :past, -> { where('date <= ?', Date.today) }
 
   # Don't allow destruction, bookings are used for archive listings
   before_destroy do

@@ -1,0 +1,20 @@
+%h1.box-title= h1
+%table.full.wrap
+  %tbody
+    - if @present_bookings.empty?
+      %td{ colspan: 4 }= "#{current_seller.company.name} har för närvarande inga bokningar"
+    - else
+      %thead
+        %tr
+          %th Plats
+          %th Dag
+          %th Tid
+          %th
+
+      %tbody
+      - @present_bookings.each do |booking|
+        %tr
+          %td= booking.place.name
+          %td= booking.date
+          %td= interval(booking.time_slot)
+          %td.delete= button_to 'Avboka',  booking, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"

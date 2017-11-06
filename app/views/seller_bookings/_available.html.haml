@@ -1,0 +1,27 @@
+%h1.box-title= 'Boka ny tid'
+.box-content
+  .help-block
+    = "Nuvarande bokningsperiod varar #{@booking_period.starts_at}–#{@booking_period.ends_at}."
+    = "Det går att boka tider #{@booking_period.booking_starts_at}–#{@booking_period.booking_ends_at}"
+%table.full.wrap
+  %tbody
+    %thead
+      %tr
+        %th Plats
+        %th Dag
+        %th Tid
+        %th
+
+    %tbody
+    - @booking_period.bookings.each do |booking|
+      %tr
+        %td= booking.place.name
+        %td= booking.date
+        %td= interval(booking.time_slot)
+        %td
+          .actions= link_to 'Boka', new_booking_path, class: "btn btn-primary btn-sm"
+        %tr
+          %td= booking.place.name
+          %td= booking.date + 1.day
+          %td= interval(booking.time_slot)
+          %td= 'Bokad'

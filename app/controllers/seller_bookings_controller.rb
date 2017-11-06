@@ -6,6 +6,7 @@ class SellerBookingsController < ApplicationController
 
   def index
     @present_bookings = current_seller.present_bookings
+    @booking_period = BookingPeriod.current
   end
 
   def new
@@ -35,13 +36,6 @@ class SellerBookingsController < ApplicationController
   end
 
   private
-    def set_relations
-      @active_places = Place.where(active: true).order(:name)
-      # TODO: get as param
-      @booking_period = BookingPeriod.first
-    end
-
-    # Only allow a trusted parameter "white list" through.
     # TODO: set booking_period hard
     def seller_booking_params
       params.require(:booking).permit(:place_id, :date, :time_slot_id, :booking_period_id)
