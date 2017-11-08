@@ -3,7 +3,12 @@
   %h1.body-copy= h1
 
   %h2.body-copy Kommande försäljningar från serveringsvagnar
-  = render 'bookings'
+  - if @bookings
+    = render 'bookings'
+  - else
+    .box-content
+      .help-block.warning
+        = "Det finns förnärvarnade inte några inbokade försäljningar."
 
   %h2.body-copy Försäljningsplatser
   .map-box

@@ -6,7 +6,7 @@
       %th Datum
       %th Tid
   %tbody
-    - @bookings.each do |booking|
+    - @bookings&.each do |booking|
       %tr
         %td= booking.place.name
         %td= booking.company.name
