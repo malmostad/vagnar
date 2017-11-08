@@ -11,7 +11,8 @@ class AdminAuthController < ApplicationController
   def create
     reset_session_keys
 
-    return stub_auth if APP_CONFIG['stub_auth']
+    # TODO: remove comment when LDAP in place
+    return stub_auth # if APP_CONFIG['stub_auth']
 
     @ldap = LdapAuth.new
 
@@ -44,9 +45,10 @@ class AdminAuthController < ApplicationController
   # Stubbed auth for local dev env
   # A user with the role admin has to exist first
   def stub_auth
-    unless Rails.application.config.consider_all_requests_local
-      redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
-    end
+    # TODO: remove comment when LDAP in place
+    # unless Rails.application.config.consider_all_requests_local
+    #   redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
+    # end
 
     admin = Admin.where(username: params[:username].strip.downcase).first
     if admin.save
