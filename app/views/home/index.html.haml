@@ -2,7 +2,7 @@
 %section.home
   %h1.body-copy= h1
 
-  %h2.body-copy Kommande mobil försäljning
+  %h2.body-copy Kommande mobila försäljningar
   - if @bookings
     = render 'bookings'
   - else
@@ -10,6 +10,6 @@
       .help-block.warning
         = "Det finns förnärvarnade inte några inbokade försäljningar."
 
-  %h2.body-copy Försäljningsplatser
+  %h2.body-copy Platser för mobil försäljning
   .map-box
     %iframe{ scrolling: 'no', frameborder: '0', src: '//kartor.malmo.se/init/?appid=adresskarta-v1&amp;poi=August%20Palms%20plats%201' }

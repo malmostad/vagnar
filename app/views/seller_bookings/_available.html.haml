@@ -1,8 +1,8 @@
 %h1.box-title= 'Boka ny tid'
 .box-content
   .help-block
-    = "Nuvarande period varar #{serving_period_interval(@booking_period)}."
-    = "Det går att boka tider #{booking_period_interval(@booking_period)}."
+    %p= "Nuvarande försäljningsperiod är #{serving_period_interval(@booking_period)}."
+    %p= "Det går att boka tider #{booking_period_interval(@booking_period)}."
 
   - unless current_seller.company.active_permit?
     .help-block.warning= "#{current_seller.company.name} har inget aktivt tillstånd"
