@@ -8,7 +8,7 @@ development: &development
   # assets_url_base: "//www.local.malmo.se:3039/assets/"
   cache_ttl: 1
   max_age: 0
-  title_suffix: "Vagnar (utveckling)"
+  title_suffix: "Mobil försäljning (utveckling)"
   session_time: 1440
   stub_auth: true
 
@@ -16,11 +16,11 @@ test:
   <<: *defaults
   cache_ttl: 43200
   max_age: 14400
-  title_suffix: "Vagnar (test)"
+  title_suffix: "Mobil försäljning (test)"
 
 production: &production
   <<: *defaults
   assets_url_base: "//assets.malmo.se/external/v4/"
   cache_ttl: 43200
   max_age: 14400
-  title_suffix: "Vagnar"
+  title_suffix: "Mobil försäljning"
