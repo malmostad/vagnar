@@ -19,7 +19,7 @@ class BookingPeriodsController < ApplicationController
     @booking_period = BookingPeriod.new(booking_period_params)
 
     if @booking_period.save
-      redirect_to booking_periods_path, notice: 'Bokningsperioden skapades'
+      redirect_to booking_periods_path, notice: 'Serveringsperioden skapades'
     else
       render :new
     end
@@ -27,7 +27,7 @@ class BookingPeriodsController < ApplicationController
 
   def update
     if @booking_period.update(booking_period_params)
-      redirect_to booking_periods_path, notice: 'Bokningsperioden uppdaterades'
+      redirect_to booking_periods_path, notice: 'Serveringsperioden uppdaterades'
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class BookingPeriodsController < ApplicationController
 
   def destroy
     @booking_period.destroy
-    redirect_to booking_periods_path, notice: 'Bokningsperioden togs bort'
+    redirect_to booking_periods_path, notice: 'Serveringsperioden togs bort'
   end
 
   private
