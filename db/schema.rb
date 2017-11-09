@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20171103142315) do
   create_table "booking_periods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci" do |t|
     t.date "starts_at"
     t.date "ends_at"
-    t.date "booking_starts_at"
-    t.date "booking_ends_at"
+    t.datetime "booking_starts_at"
+    t.datetime "booking_ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

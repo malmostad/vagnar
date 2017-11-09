@@ -64,12 +64,12 @@ Place.create(
   TimeSlot.create(time_slot)
 end
 
-BookingPeriod.create(
-  starts_at: Date.today + 5.days,
-  ends_at:  Date.today + 19.days,
-  booking_starts_at:  Date.today - 2.days,
-  booking_ends_at:  Date.today + 17.days
-)
+BookingPeriod.new(
+  starts_at: Time.now + 5.days,
+  ends_at:  Time.now + 19.days,
+  booking_starts_at:  Time.now - 2.days,
+  booking_ends_at:  Time.now + 17.days,
+).save(validate: false)
 
 Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(1), date: 1.week.from_now.to_date)
 Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(2), date: 2.week.from_now.to_date)
@@ -79,4 +79,4 @@ Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), compan
 
 Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.ago.to_date)
 
-Setting.create(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och serveringsperiod', value: 100)
+Setting.create(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)

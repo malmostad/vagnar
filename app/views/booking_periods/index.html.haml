@@ -1,4 +1,4 @@
-- title "Serveringsperioder"
+- title "Bokningsperioder"
 %section.box.index
   %h1.box-title= h1
   %table.full.wrap
@@ -15,8 +15,8 @@
         %tr
           %td= booking_period.starts_at
           %td= booking_period.ends_at
-          %td= booking_period.booking_starts_at
-          %td= booking_period.booking_ends_at
+          %td= booking_period.booking_starts_at.to_s[0..15]
+          %td= booking_period.booking_ends_at.to_s[0..15]
           %td= link_to 'Redigera', edit_booking_period_path(booking_period)
       %tr
         %td{ colspan: 5 }

@@ -36,7 +36,10 @@ sv:
         starts_at: Perioden starar
         ends_at: Perioden slutar
         booking_starts_at: Bokning startar
-        booking_ends_at: Bokning slutar
+        booking_date_starts_at: Bokning startar dag
+        booking_time_starts_at: Bokning slutar tid
+        booking_date_ends_at: Bokning slutar dag
+        booking_time_ends_at: Bokning slutar tid
 
       seller:
         <<: *defaults

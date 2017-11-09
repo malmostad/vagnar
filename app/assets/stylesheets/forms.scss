@@ -8,6 +8,10 @@
     padding-left: 0;
   }
 
+  input[type='time'] {
+    width: 12em;
+  }
+
   textarea.form-control {
     height: 10em;
   }
