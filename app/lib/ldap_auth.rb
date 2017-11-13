@@ -28,16 +28,16 @@ class LdapAuth
       attributes: ATTRIBUTES
     )
 
-    Rails.logger.debug({
+    Rails.logger.info({
       base: @config[:basedn],
       filter: "cn=#{@username}",
       attributes: ATTRIBUTES
     })
 
-    Rails.logger.debug '@client.get_operation_result'
-    Rails.logger.debug @client.get_operation_result
-    Rails.logger.debug 'bind_user'
-    Rails.logger.debug bind_user
+    Rails.logger.info '@client.get_operation_result'
+    Rails.logger.info @client.get_operation_result
+    Rails.logger.info 'bind_user'
+    Rails.logger.info bind_user
     return false
 
     # We need to check that cn is the same as username
