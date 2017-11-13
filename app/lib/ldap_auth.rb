@@ -5,14 +5,14 @@ class LdapAuth
     @config = Rails.application.secrets.ldap
 
     @client = Net::LDAP.new(
-      host: @config['host'],
-      port: @config['port'],
+      host: @config[:host],
+      port: @config[:port],
       verbose: true,
       encryption: { method: :simple_tls },
       auth: {
         method: :simple,
-        username: @config['system_username'],
-        password: @config['system_password']
+        username: @config[:system_username],
+        password: @config[:system_password]
       }
     )
   end
@@ -22,7 +22,7 @@ class LdapAuth
     return false if username.empty? || password.empty?
 
     bind_user = @client.bind_as(
-      base: @config['basedn'],
+      base: @config[:basedn],
       filter: "cn=#{username}",
       password: password,
       attributes: ATTRIBUTES
@@ -40,15 +40,15 @@ class LdapAuth
   end
 
   def belongs_to_group?
-    @config['roles'].each do |group|
+    @config[:roles].each do |group|
       # 1.2.840.113556.1.4.1941 is the MS AD way
       filter = (Net::LDAP::Filter.eq('cn', @username) &
         Net::LDAP::Filter.ex(
           'memberOf:1.2.840.113556.1.4.1941',
-           "CN=#{group['ldap_name']},#{@config['base_group']}")
+           "CN=#{group['ldap_name']},#{@config[:base_group]}")
          )
 
-      entry = @client.search(base: @config['basedn'], filter: filter).first
+      entry = @client.search(base: @config[:basedn], filter: filter).first
       return group['name'] if entry.present?
     end
 
@@ -78,7 +78,7 @@ class LdapAuth
   # Check if user exists in the catalog
   def ldap_entry
     entry = @client.search(
-      base: @config['basedn'],
+      base: @config[:basedn],
       filter: "cn=#{username.downcase}",
       attributes: ATTRIBUTES
     ).first
