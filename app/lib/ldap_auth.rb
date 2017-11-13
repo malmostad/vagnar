@@ -19,23 +19,35 @@ class LdapAuth
 
   def authenticate(username, password)
     @username = username.strip.downcase
-    return false if username.empty? || password.empty?
+    return false if @username.empty? || password.empty?
 
     bind_user = @client.bind_as(
       base: @config[:basedn],
-      filter: "cn=#{username}",
+      filter: "cn=#{@username}",
       password: password,
       attributes: ATTRIBUTES
-    ).first
+    )
+
+    Rails.logger.debug({
+      base: @config[:basedn],
+      filter: "cn=#{@username}",
+      attributes: ATTRIBUTES
+    })
+
+    Rails.logger.debug '@client.get_operation_result'
+    Rails.logger.debug @client.get_operation_result
+    Rails.logger.debug 'bind_user'
+    Rails.logger.debug bind_user
+    return false
 
     # We need to check that cn is the same as username
     # since the AD binds usernames with non-ascii chars
     if bind_user && bind_user&.cn&.first&.downcase == @username
-      Rails.logger.info "[LDAP_AUTH] #{username} authenticated successfully. #{@client.get_operation_result}"
+      Rails.logger.info "[LDAP_AUTH] #{@username} authenticated successfully. #{@client.get_operation_result}"
       return true
     end
 
-    Rails.logger.info "[LDAP_AUTH] #{username} failed to log in. #{@client.get_operation_result}"
+    Rails.logger.info "[LDAP_AUTH] #{@username} failed to log in. #{@client.get_operation_result}"
     false
   end
 
