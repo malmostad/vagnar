@@ -8,8 +8,7 @@ class SellerAuthController < ApplicationController
   def login
     reset_session_keys
 
-    # TODO: remove comment when HAG is in place
-    return stub_auth # if APP_CONFIG['stub_auth']
+    return stub_auth if APP_CONFIG['stub_auth']
 
     request = OneLogin::RubySaml::Authrequest.new
     redirect_to request.create(saml_settings)
@@ -96,10 +95,9 @@ class SellerAuthController < ApplicationController
   def stub_auth
     # reset_session_keys
 
-    # TODO: Remove comment when HAG is in place
-    # unless Rails.application.config.consider_all_requests_local
-    #   redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
-    # end
+    unless Rails.application.config.consider_all_requests_local
+      redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
+    end
 
     seller = Seller.first
     if seller

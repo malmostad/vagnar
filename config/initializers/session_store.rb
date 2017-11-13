@@ -1,8 +1,8 @@
-# TODO: change subdomain when in place
-domain = Rails.env.production? ? 'srvubuwebhost29.malmo.se' : 'local.malmo.se'
+domain = Rails.env.production? ? 'mobilforsaljning.malmo.se' : 'local.malmo.se'
 
 Rails.application.config.session_store :cookie_store,
   key: '_vagnar_session',
-  domain: domain,
+  # TODO: enable when subdomain is in place
+  # domain: domain,
   secure: Rails.env.production? || Rails.env.test?,
   httponly: true
