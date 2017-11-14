@@ -21,13 +21,11 @@ Rails.application.routes.draw do
   get '/administrera_logout' => 'admin_auth#destroy'
 
   # SAML auth for sellers
-  namespace :seller_auth do
-    get  :login
-    get  :logout
-    post :consume
-    get  :consume
-    get  :metadata
-  end
+  get '/saml/login'    => 'seller_auth#login'
+  get '/saml/logout'   => 'seller_auth#logout'
+  post '/saml/consume' => 'seller_auth#consume'
+  get '/saml/consume'  => 'seller_auth#consume'
+  get '/saml/metadata' => 'seller_auth#metadata'
 
   match '*path', via: :all, to: 'errors#not_found'
 end

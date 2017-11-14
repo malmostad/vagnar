@@ -7,11 +7,11 @@
     %h1= "#{current_seller&.company&.name}"
     %ul
       %li.booking= link_to "Våra bokningar", seller_bookings_path
-      %li= link_to "Logga ut", seller_auth_logout_path
+      %li= link_to "Logga ut", saml_logout_path
   - else
     %h1= "Hantera dina bokningar"
     %ul
-      %li= link_to 'Logga in', seller_auth_login_path
+      %li= link_to 'Logga in', saml_login_path
 
   - if current_admin
     %h1 Administrera
