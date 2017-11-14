@@ -22,12 +22,14 @@ class SellerAuthController < ApplicationController
       redirect_to root_path, notice: 'Inloggning misslyckades' && return
     end
 
-    unless update_seller(response.attributes["urn:oid:1.3.6.1.4.1.2428.90.1.5"])
+    seller = update_seller(response.attributes["urn:oid:1.3.6.1.4.1.2428.90.1.5"])
+
+    unless seller
       redirect_to root_path, warning: 'Du är inte registrerad i systemet' && return
     end
 
     # Establish session and redirect to the page requested by user
-    session[:seller_id] = response.name_id
+    session[:seller_id] = seller.id
     update_session
     redirect_after_login && return
 
@@ -56,6 +58,7 @@ class SellerAuthController < ApplicationController
 
     seller.last_login_at = Time.now
     seller.save
+    seller
   end
 
   def base_url
