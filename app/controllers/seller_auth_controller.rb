@@ -51,10 +51,10 @@ class SellerAuthController < ApplicationController
   def update_seller(snin)
     snin = Snin.new(snin)
 
-    seller = Seller.where_snin(snin).first
+    seller = Seller.where_snin(snin.long).first
     return false unless seller
 
-    seller.last_login = Time.now
+    seller.last_login_at = Time.now
     seller.save
   end
 
