@@ -52,7 +52,7 @@ class LdapAuth
       return group['name'] if entry.present?
     end
 
-    Rails.logger.info "[LDAP_AUTH] #{@username} from #{client_ip} failed to log in: doesn't belong to a group."
+    Rails.logger.info "[LDAP_AUTH] #{@username} failed to log in: doesn't belong to a group."
     false
   end
 
