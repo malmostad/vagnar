@@ -28,9 +28,9 @@ class LdapAuth
       attributes: ATTRIBUTES
     )
 
-    # We need to check that cn is the same as username
+    # We need to check that cn is the same as @username
     # since the AD binds usernames with non-ascii chars
-    if bind_user && bind_user&.cn&.first&.downcase == @username
+    if bind_user && bind_user&.first&.cn&.first&.downcase == @username
       Rails.logger.info "[LDAP_AUTH] #{@username} authenticated successfully. #{@client.get_operation_result}"
       return true
     end
@@ -52,7 +52,7 @@ class LdapAuth
       return group['name'] if entry.present?
     end
 
-    logger.info "[LDAP_AUTH] #{username} from #{client_ip} failed to log in: doesn't belong to a group."
+    Rails.logger.info "[LDAP_AUTH] #{@username} from #{client_ip} failed to log in: doesn't belong to a group."
     false
   end
 
@@ -79,12 +79,12 @@ class LdapAuth
   def ldap_entry
     entry = @client.search(
       base: @config[:basedn],
-      filter: "cn=#{username.downcase}",
+      filter: "cn=#{@username}",
       attributes: ATTRIBUTES
     ).first
 
     if entry.empty?
-      Rails.logger.warning "[LDAP_AUTH]: Couldn't find #{username}. #{@client.get_operation_result}"
+      Rails.logger.warning "[LDAP_AUTH]: Couldn't find #{@username}. #{@client.get_operation_result}"
       return false
     end
     true

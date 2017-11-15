@@ -25,7 +25,7 @@ class AdminAuthController < ApplicationController
       render 'new' && return
     end
 
-    admin = @ldap.update_user_profile(username, role)
+    admin = @ldap.update_admin_profile(username, role)
     if admin
       session[:admin_id] = admin.id
       update_session
