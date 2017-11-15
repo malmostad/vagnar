@@ -33,6 +33,7 @@ class AdminAuthController < ApplicationController
       else
         @error_message = 'Kunde inte spara användarinformationen'
         render :new
+      end
     end
   end
 
