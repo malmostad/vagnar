@@ -16,25 +16,24 @@ class AdminAuthController < ApplicationController
 
     @ldap = LdapAuth.new
 
-    unless @ldap.authenticate(params[:username], params[:password])
+    if !@ldap.authenticate(params[:username], params[:password])
       @error_message = 'Fel användarnamn eller lösenord. Vänligen försök igen'
-      render :new && return
-    end
+      render :new
 
-    unless @ldap.belongs_to_group?
+    elsif !@ldap.belongs_to_group?
       @error_message = 'Du saknar behörighet till systemet'
-      render :new && return
-    end
+      render :new
 
-    admin = @ldap.update_admin_profile(username, role)
-    if admin
-      session[:admin_id] = admin.id
-      update_session
-      redirect_after_login && return
+    else
+      admin = @ldap.update_admin_profile(username, role)
+      if admin
+        session[:admin_id] = admin.id
+        update_session
+        redirect_after_login
+      else
+        @error_message = 'Kunde inte spara användarinformationen'
+        render :new
     end
-
-    @error_message = 'Kunde inte spara användarinformationen'
-    render :new
   end
 
   def destroy
