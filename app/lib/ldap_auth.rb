@@ -28,18 +28,6 @@ class LdapAuth
       attributes: ATTRIBUTES
     )
 
-    Rails.logger.info({
-      base: @config[:basedn],
-      filter: "cn=#{@username}",
-      attributes: ATTRIBUTES
-    })
-
-    Rails.logger.info '@client.get_operation_result'
-    Rails.logger.info @client.get_operation_result
-    Rails.logger.info 'bind_user'
-    Rails.logger.info bind_user
-    return false
-
     # We need to check that cn is the same as username
     # since the AD binds usernames with non-ascii chars
     if bind_user && bind_user&.cn&.first&.downcase == @username
