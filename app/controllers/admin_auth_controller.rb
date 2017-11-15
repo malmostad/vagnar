@@ -6,6 +6,7 @@ class AdminAuthController < ApplicationController
   layout 'login'
 
   def new
+    @admin = Admin.new
   end
 
   def create
@@ -17,12 +18,12 @@ class AdminAuthController < ApplicationController
 
     unless @ldap.authenticate(params[:username], params[:password])
       @error_message = 'Fel användarnamn eller lösenord. Vänligen försök igen'
-      render 'new' && return
+      render :new && return
     end
 
     unless @ldap.belongs_to_group?
       @error_message = 'Du saknar behörighet till systemet'
-      render 'new' && return
+      render :new && return
     end
 
     admin = @ldap.update_admin_profile(username, role)
@@ -33,7 +34,7 @@ class AdminAuthController < ApplicationController
     end
 
     @error_message = 'Kunde inte spara användarinformationen'
-    render 'new'
+    render :new
   end
 
   def destroy
@@ -56,7 +57,7 @@ class AdminAuthController < ApplicationController
     else
 
       @error_message = "Användaren #{params[:username]} finns inte"
-      render 'new'
+      render :new
     end
   end
 end
