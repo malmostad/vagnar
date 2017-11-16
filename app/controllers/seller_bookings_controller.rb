@@ -2,25 +2,22 @@ class SellerBookingsController < ApplicationController
   skip_before_action :authenticate_admin
   before_action :authenticate_seller
 
-  before_action :set_relations, only: [:new, :edit, :update]
-
   def index
-    @present_bookings = current_seller.present_bookings
-    @booking_period = BookingPeriod.current
+    @bookings = current_seller.company.bookings&.present
   end
 
   def new
-    @booking = Booking.new
+    @current_periods = BookingPeriod.currents
+    @bookable_periods = BookingPeriod.bookables
   end
 
   def create
-    # Set company expicit
-    @booking = Booking.new(seller_booking_params.merge(company: current_seller.company))
-
-    if @booking.save
-      redirect_to seller_bookings_path, notice: 'Din bokningen skapades'
+    if !current_seller.company.active_permit?
+      redirect_to seller_bookings_path, notice: "#{current_seller.company.name} har för närvarande inget aktivt försäljningstillstånd"
     else
-      render :new
+      @booking = Booking.new(seller_booking_params.merge(company: current_seller.company))
+      @booking.save
+      redirect_to seller_bookings_path, notice: 'Din bokningen skapades'
     end
   end
 
@@ -31,7 +28,7 @@ class SellerBookingsController < ApplicationController
       @booking.destroy
       redirect_to seller_bookings_path, notice: 'Bokningen togs bort'
     else
-      redirect_to seller_bookings_path, notice: 'Du har inte rättighet att ta bort bokningen'
+      redirect_to seller_bookings_path, alert: 'Du har inte rättighet att ta bort bokningen'
     end
   end
 

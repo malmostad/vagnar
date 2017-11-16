@@ -1,0 +1,8 @@
+- title 'Gör ny bokning'
+
+%section.box.index
+  = render 'bookable_periods'
+
+- if @bookable_periods.present?
+  %section.box.index
+    = render 'schedule'

@@ -12,6 +12,6 @@ module BookingsHelper
   end
 
   def booking_period_interval(booking_period)
-    "#{booking_period.booking_starts_at}–#{booking_period.booking_ends_at}"
+    "#{booking_period.booking_starts_at.to_formatted_s(:date_and_time)}–#{booking_period.booking_ends_at.to_formatted_s(:date_and_time)}"
   end
 end

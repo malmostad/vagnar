@@ -3,9 +3,19 @@ class BookingPeriod < ApplicationRecord
 
   validates_presence_of :starts_at, :ends_at, :booking_starts_at, :booking_ends_at
 
-  scope :current, -> { first } # TODO: calculate
+  scope :currents, -> {
+    where('starts_at <= ? and ends_at >= ?', Date.today, Date.today)
+  }
+
+  scope :bookables, -> {
+    where('booking_starts_at <= ? and booking_ends_at >= ?', DateTime.now, DateTime.now)
+  }
 
   before_create :create_bookings
+
+  def bookable?
+    booking_starts_at <= DateTime.now && booking_ends_at >= DateTime.now
+  end
 
   private
 

@@ -16,14 +16,9 @@ class Seller < ApplicationRecord
     self.snin_extension = snin_extension_hash
   end
 
-  def present_bookings
-    company&.bookings&.present
-  end
-
   def allowed_to_manage_booking(booking)
     # Only present bookings that belongs to own company can be manged
-    present_bookings.include?(booking) &&
-      company.bookings.include?(booking)
+    company.bookings.present.include?(booking)
   end
 
   def snin_extension_hash

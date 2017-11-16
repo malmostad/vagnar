@@ -1,0 +1,27 @@
+%h1.box-title= h1
+- if !current_seller.company.active_permit?
+  .box-content
+    .help-block= = "#{current_seller.company.name} har inget aktivt försäljningstillstånd"
+
+- elsif @bookings.empty?
+  .box-content
+    .help-block= "#{current_seller.company.name} har för närvarande inga bokningar"
+
+- else
+  %table.full.wrap
+    %tbody
+      %thead
+        %tr
+          %th Plats
+          %th Dag
+          %th Tid
+          %th
+
+      %tbody
+      - @bookings.each do |booking|
+        %tr
+          %td= booking.place.name
+          %td= booking.date
+          %td= interval(booking.time_slot)
+          %td.delete= button_to 'Avboka', seller_booking_path(booking),
+            method: :delete, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"

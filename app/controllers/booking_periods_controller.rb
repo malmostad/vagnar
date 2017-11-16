@@ -19,7 +19,7 @@ class BookingPeriodsController < ApplicationController
     @booking_period = BookingPeriod.new(booking_period_params)
 
     if @booking_period.save
-      redirect_to booking_periods_path, notice: "Bokningsperioden skapades.\n#{@booking_period.bookings} skapades."
+      redirect_to booking_periods_path, notice: 'Bokningsperioden skapades skapades'
     else
       render :new
     end
