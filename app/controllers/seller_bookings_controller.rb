@@ -7,12 +7,12 @@ class SellerBookingsController < ApplicationController
   end
 
   def schedule
-    @current_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).currents
+    @bookings = Booking.includes(:place, :time_slot, :company).booked.present.order(:date, 'time_slots.from', 'places.name')
     @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
-  # "Books" a free booking, i.e. assigns it to company
   # TODO: check that company dosn't have too many bookings. ALSO in other views
+  # "Books" a free booking, i.e. assigns it to company
   def update
     @booking = Booking.find(params[:id])
     if @booking.company.present?
