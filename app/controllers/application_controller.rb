@@ -24,10 +24,10 @@ class ApplicationController < ActionController::Base
         update_session
         return true
       end
+    else
+      remember_requested_url
+      redirect_to saml_login_path
     end
-
-    remember_requested_url
-    redirect_to seller_auth_login_path
   end
 
   def current_admin
