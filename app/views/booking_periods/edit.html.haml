@@ -8,8 +8,10 @@
       = show_attribute('booking_period.starts_at', @booking_period.starts_at)
       = show_attribute('booking_period.ends_at', @booking_period.ends_at)
 
-      = f.input :booking_starts_at, as: :string, wrapper: :datepicker
-      = f.input :booking_ends_at, as: :string, wrapper: :datepicker
+      = f.input :booking_date_starts_at, as: :string, wrapper: :datepicker
+      = f.input :booking_time_starts_at, input_html: { type: :time }
+      = f.input :booking_date_ends_at, as: :string, wrapper: :datepicker
+      = f.input :booking_time_ends_at, input_html: { type: :time }
 
       = render 'application/submit', form: f, cancel_path: booking_periods_path
 

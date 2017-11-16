@@ -19,6 +19,22 @@ class BookingPeriod < ApplicationRecord
     booking_starts_at <= DateTime.now && booking_ends_at >= DateTime.now
   end
 
+  def booking_time_starts_at
+    booking_starts_at&.to_s(:time)
+  end
+
+  def booking_time_ends_at
+    booking_ends_at&.to_s(:time)
+  end
+
+  def booking_date_starts_at
+    booking_starts_at&.to_date.to_s
+  end
+
+  def booking_date_ends_at
+    booking_ends_at&.to_date.to_s
+  end
+
   private
 
   def create_bookings
