@@ -18,6 +18,10 @@ class Booking < ApplicationRecord
     raise 'Destroy is not allowed for active bookings' unless present?
   end
 
+  before_update do
+    raise 'Edit past bookings is not allowed' if past?
+  end
+
   def free?
     company.nil?
   end

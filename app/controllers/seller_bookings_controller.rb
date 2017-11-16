@@ -6,18 +6,21 @@ class SellerBookingsController < ApplicationController
     @bookings = current_seller.company.bookings&.present
   end
 
-  def new
-    @current_periods = BookingPeriod.currents
-    @bookable_periods = BookingPeriod.bookables
+  def schedule
+    @current_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).currents
+    @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
-  def create
-    if !current_seller.company.active_permit?
-      redirect_to seller_bookings_path, notice: "#{current_seller.company.name} har för närvarande inget aktivt försäljningstillstånd"
+  # "Books" a free booking, i.e. assigns it to company
+  # TODO: check that company dosn't have too many bookings. ALSO in other views
+  def update
+    @booking = Booking.find(params[:id])
+    if @booking.company.present?
+      redirect_to seller_bookings_schedule_path, warning: 'Platsen och tiden är redan bokad'
     else
-      @booking = Booking.new(seller_booking_params.merge(company: current_seller.company))
+      @booking.company = current_seller.company
       @booking.save
-      redirect_to seller_bookings_path, notice: 'Din bokningen skapades'
+      redirect_to seller_bookings_path, notice: 'Bokningen genomfördes'
     end
   end
 

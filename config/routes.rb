@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get 'archive', on: :collection
   end
 
-  resources :seller_bookings, only: [:index, :new, :destroy, :create]
+  resources :seller_bookings, only: [:index, :update, :destroy] do
+    get 'schedule', on: :collection
+  end
 
   resources :booking_periods
   resources :places

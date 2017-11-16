@@ -7,7 +7,7 @@
     %h1= "#{current_seller&.company&.name}"
     %ul
       %li.booking= link_to "Våra bokningar", seller_bookings_path
-      %li.booking= link_to "Boka plats", new_seller_booking_path
+      %li.booking= link_to "Boka plats", schedule_seller_bookings_path
       %li= link_to "Logga ut", saml_logout_path
   - else
     %h1= "Hantera dina bokningar"

@@ -1,9 +1,5 @@
 %h1.box-title= h1
-- if !current_seller.company.active_permit?
-  .box-content
-    .help-block= = "#{current_seller.company.name} har inget aktivt försäljningstillstånd"
-
-- elsif @bookings.empty?
+- if @bookings.empty?
   .box-content
     .help-block= "#{current_seller.company.name} har för närvarande inga bokningar"
 
