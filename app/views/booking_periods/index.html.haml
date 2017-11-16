@@ -15,8 +15,8 @@
         %tr
           %td= booking_period.starts_at
           %td= booking_period.ends_at
-          %td= booking_period.booking_starts_at
-          %td= booking_period.booking_ends_at
+          %td= booking_period.booking_starts_at.to_formatted_s(:date_and_time)
+          %td= booking_period.booking_ends_at.to_formatted_s(:date_and_time)
           %td= link_to 'Redigera', edit_booking_period_path(booking_period)
       %tr
         %td{ colspan: 5 }
