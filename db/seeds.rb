@@ -1,6 +1,6 @@
-Admin.create(username: 'intra')
+Admin.create!(username: 'intra')
 
-Company.create(
+Company.create!(
   name: 'Baristorna AB',
   org_number: '556677-8899',
   police_permit: '12345 d-34',
@@ -8,7 +8,7 @@ Company.create(
   permit_ends_at: 11.months.from_now
 )
 
-Company.create(
+Company.create!(
   name: 'Små smoothisar AB',
   org_number: '551122-3344',
   police_permit: '987654 d-1',
@@ -16,7 +16,7 @@ Company.create(
   permit_ends_at: 1.months.ago
 )
 
-Seller.create(
+Seller.create!(
   snin_birthday: '19000101',
   snin_extension: '0008',
   name: 'Barista Baristasson',
@@ -24,7 +24,7 @@ Seller.create(
   last_login_at: Time.now
 )
 
-Seller.create(
+Seller.create!(
   snin_birthday: '19000102',
   snin_extension: '0007',
   name: 'Malin Macchiato',
@@ -32,7 +32,7 @@ Seller.create(
   last_login_at: 1.day.ago
 )
 
-Seller.create(
+Seller.create!(
   snin_birthday: '19000103',
   snin_extension: '0006',
   name: 'Smooth Smoothsson',
@@ -40,14 +40,14 @@ Seller.create(
   last_login_at: 2.days.ago
 )
 
-Place.create(
+Place.create!(
   name: 'Kaffeplatsen',
   address: 'August Palms plats 1',
   east: 118_942,
   north: 6_163_918,
   active: true
 )
-Place.create(
+Place.create!(
   name: 'Smoothiehörnan',
   address: 'Storgatan 1',
   east: 118_756,
@@ -61,22 +61,14 @@ Place.create(
   { from: '15.00', to: '20.00' },
   { from: '20.00', to: '24.00' }
 ].each do |time_slot|
-  TimeSlot.create(time_slot)
+  TimeSlot.create!(time_slot)
 end
 
-BookingPeriod.new(
-  starts_at: Time.now + 5.days,
-  ends_at:  Time.now + 19.days,
-  booking_starts_at:  Time.now - 2.days,
-  booking_ends_at:  Time.now + 17.days,
-).save(validate: false)
+BookingPeriod.create!(
+  starts_at: Date.today - 2.days,
+  ends_at:  Date.today + 12.days,
+  booking_starts_at:  DateTime.now - 7.days,
+  booking_ends_at:  DateTime.now + 5.days
+)
 
-Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(1), date: 1.week.from_now.to_date)
-Booking.create(booking_period: BookingPeriod.first, place: Place.find(1), company: Company.first, time_slot: TimeSlot.find(2), date: 2.week.from_now.to_date)
-Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.first, time_slot: TimeSlot.find(3), date: 2.week.from_now.to_date)
-Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(3), date: 3.week.from_now.to_date)
-Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.from_now.to_date)
-
-Booking.create(booking_period: BookingPeriod.first, place: Place.find(2), company: Company.last, time_slot: TimeSlot.find(4), date: 4.week.ago.to_date)
-
-Setting.create(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)
+Setting.create!(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)

@@ -2,25 +2,25 @@ class SellerBookingsController < ApplicationController
   skip_before_action :authenticate_admin
   before_action :authenticate_seller
 
-  before_action :set_relations, only: [:new, :edit, :update]
-
   def index
-    @present_bookings = current_seller.present_bookings
-    @booking_period = BookingPeriod.current
+    @bookings = current_seller.company.bookings&.present
   end
 
-  def new
-    @booking = Booking.new
+  def schedule
+    @bookings = Booking.includes(:place, :time_slot, :company).booked.present.order(:date, 'time_slots.from', 'places.name')
+    @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
-  def create
-    # Set company expicit
-    @booking = Booking.new(seller_booking_params.merge(company: current_seller.company))
-
-    if @booking.save
-      redirect_to seller_bookings_path, notice: 'Din bokningen skapades'
+  # TODO: check that company dosn't have too many bookings. ALSO in other views
+  # "Books" a free booking, i.e. assigns it to company
+  def update
+    @booking = Booking.find(params[:id])
+    if @booking.company.present?
+      redirect_to seller_bookings_schedule_path, warning: 'Platsen och tiden är redan bokad'
     else
-      render :new
+      @booking.company = current_seller.company
+      @booking.save
+      redirect_to seller_bookings_path, notice: 'Bokningen genomfördes'
     end
   end
 
@@ -31,7 +31,7 @@ class SellerBookingsController < ApplicationController
       @booking.destroy
       redirect_to seller_bookings_path, notice: 'Bokningen togs bort'
     else
-      redirect_to seller_bookings_path, notice: 'Du har inte rättighet att ta bort bokningen'
+      redirect_to seller_bookings_path, alert: 'Du har inte rättighet att ta bort bokningen'
     end
   end
 

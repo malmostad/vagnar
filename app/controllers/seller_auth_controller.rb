@@ -22,13 +22,14 @@ class SellerAuthController < ApplicationController
       redirect_to root_path, notice: 'Inloggning misslyckades' && return
     end
 
-    # TODO: change attribute names
-    unless update_seller(response.name_id, response.name)
+    seller = update_seller(response.attributes["urn:oid:1.3.6.1.4.1.2428.90.1.5"])
+
+    unless seller
       redirect_to root_path, warning: 'Du är inte registrerad i systemet' && return
     end
 
     # Establish session and redirect to the page requested by user
-    session[:seller_id] = response.name_id
+    session[:seller_id] = seller.id
     update_session
     redirect_after_login && return
 
@@ -49,15 +50,15 @@ class SellerAuthController < ApplicationController
 
   private
 
-  def update_seller(snin, name)
+  def update_seller(snin)
     snin = Snin.new(snin)
 
-    seller = Seller.where_snin(snin).first
+    seller = Seller.where_snin(snin.long).first
     return false unless seller
 
-    seller.name = name.strip.downcase
-    seller.last_login = Time.now
+    seller.last_login_at = Time.now
     seller.save
+    seller
   end
 
   def base_url
@@ -81,8 +82,8 @@ class SellerAuthController < ApplicationController
     # settings.idp_cert                       = config['idp_cert']
     settings.idp_cert_fingerprint           = config[:idp_cert_fingerprint]
     settings.idp_cert_fingerprint_algorithm = 'http://www.w3.org/2000/09/xmldsig#sha1'
-    settings.name_identifier_format         = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
-    settings.authn_context                  = 'urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorUnregistered'
+    settings.name_identifier_format         = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'
+    settings.authn_context                  = "urn:oasis:names:tc:SAML:2.0:ac:classes:#{config[:idp_authn_context]}"
     settings.compress_request               = false
 
     # setting.security (signing) is documented at https://github.com/onelogin/ruby-saml#signing

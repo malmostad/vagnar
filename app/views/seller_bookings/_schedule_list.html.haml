@@ -1,0 +1,21 @@
+%h1.box-title= h1
+%table.full.wrap
+  %tbody
+    %thead
+      %tr
+        %th Plats
+        %th Dag
+        %th Tid
+        %th
+
+      %tbody
+        - @bookings.each do |booking|
+          %tr
+            %td= booking.place.name
+            %td= booking.date
+            %td= interval(booking.time_slot)
+            %td
+              - if booking.free?
+                .actions= link_to 'Boka', seller_booking_path(booking), method: :patch, class: "btn btn-primary btn-sm"
+              - else
+                = 'Ej ledig'

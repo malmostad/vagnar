@@ -4,7 +4,7 @@ module Catchable
   included do
     rescue_from ActionController::InvalidAuthenticityToken do |exception|
       logger.debug { exception.message.to_s }
-      logger.info "ActionController::InvalidAuthenticityToken (maybe session expired) for the user from #{client_ip}"
+      logger.info "ActionController::InvalidAuthenticityToken (maybe session expired) for the user"
       redirect_to root_path, notice: 'Du är utloggad'
     end
 

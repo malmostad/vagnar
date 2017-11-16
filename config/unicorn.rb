@@ -5,6 +5,6 @@ stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
 
 listen "/tmp/unicorn.vagnar.sock"
-worker_processes 5
-timeout 180
+worker_processes 4
+timeout 10
 preload_app false

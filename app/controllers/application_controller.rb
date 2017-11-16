@@ -16,12 +16,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_seller
 
   def authenticate_seller
-    logger.debug 'current_seller && session_fresh?'
-    logger.debug current_seller && session_fresh?
-
     if current_seller && session_fresh?
-      update_session
-      return true
+      # Don't allow anything if the sellers company dosn't have an active permit
+      if !current_seller.company.active_permit?
+        redirect_to home_path, warning: "#{current_user.company.name} har inget aktivt försäljningstillstånd"
+      else
+        update_session
+        return true
+      end
     end
 
     remember_requested_url

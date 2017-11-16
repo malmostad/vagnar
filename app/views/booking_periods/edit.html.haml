@@ -1,7 +1,18 @@
 - title "#{t('actions.edit')} bokningsperiod"
 %section.box.form
   %h1.box-title= h1
-  = render 'form'
+  .box-content
+    = simple_form_for @booking_period, html: { class: "basic" } do |f|
+      = f.error_notification class: "warning"
+
+      = show_attribute('booking_period.starts_at', @booking_period.starts_at)
+      = show_attribute('booking_period.ends_at', @booking_period.ends_at)
+
+      = f.input :booking_starts_at, as: :string, wrapper: :datepicker
+      = f.input :booking_ends_at, as: :string, wrapper: :datepicker
+
+      = render 'application/submit', form: f, cancel_path: booking_periods_path
 
   .box-content
+    .delete-warning Om du tar bort en bokningsperiod tas även bokningar knutna till bokningstiden bort.
     .delete= button_to t('actions.delete'), @booking_period, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
