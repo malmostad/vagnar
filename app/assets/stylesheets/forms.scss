@@ -8,6 +8,10 @@
     padding-left: 0;
   }
 
+  input[type='time'] {
+    width: 12em;
+  }
+
   textarea.form-control {
     height: 10em;
   }
@@ -63,7 +67,6 @@
   }
   .delete-warning {
     margin: .5em 0 .5em;
-    padding: .5em 0;
     border-top: $border;
     font-family: $sans-serif;
     font-size: emize(14);
