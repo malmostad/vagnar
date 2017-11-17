@@ -11,6 +11,6 @@
     %tbody
       - @bookings.each do |booking|
         %tr
-          %td= booking.company.name
+          %td= booking.company&.name
           %td= booking.place.name
           %td= date_and_time(booking)

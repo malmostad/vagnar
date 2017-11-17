@@ -10,7 +10,7 @@ class Booking < ApplicationRecord
   scope :booked, -> { where.not(company: nil) }
 
   scope :present, -> { where('date >= ?', Date.today) }
-  scope :past, -> { where('date <= ?', Date.today) }
+  scope :past, -> { where('date < ?', Date.today) }
 
   # Only allow destruction in current booking period
   # Past bookings are used for archive listings

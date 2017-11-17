@@ -2,7 +2,7 @@
   = simple_form_for @time_slot, html: { class: "basic" } do |f|
     = f.error_notification class: "warning"
 
-    = f.input :from
-    = f.input :to
+    = f.input :from, input_html: { type: :time }
+    = f.input :to, input_html: { type: :time }
 
     = render 'application/submit', form: f, cancel_path: time_slots_path

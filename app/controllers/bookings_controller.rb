@@ -2,12 +2,12 @@ class BookingsController < ApplicationController
   before_action :set_relations, only: [:new, :update]
 
   def index
-    @bookings = Booking.includes(:place, :time_slot, :company).present
-    @booking_period = BookingPeriod.current
+    @bookings = Booking.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
+    @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
   def archive
-    @bookings = Booking.past
+    @bookings = Booking.past.booked
   end
 
   def new

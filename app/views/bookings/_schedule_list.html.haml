@@ -16,8 +16,6 @@
             %td= interval(booking.time_slot)
             %td
               - if booking.free?
-                .actions= link_to 'Boka', seller_booking_path(booking), method: :patch, class: "btn btn-primary btn-sm"
-              - elsif current_seller.allowed_to_manage_booking(booking)
-                = 'Bokad av er'
+                .actions= link_to 'Boka', booking_path(booking), method: :patch, class: "btn btn-primary btn-sm"
               - else
                 = 'Bokad'
