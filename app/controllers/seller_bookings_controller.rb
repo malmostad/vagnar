@@ -1,6 +1,7 @@
 class SellerBookingsController < ApplicationController
   skip_before_action :authenticate_admin
   before_action :authenticate_seller
+  before_action :set_booking
 
   def index
     @bookings = current_seller.company.bookings&.present
@@ -15,10 +16,15 @@ class SellerBookingsController < ApplicationController
   # "Books" a free booking, i.e. assigns it to company
   def update
     @booking = Booking.find(params[:id])
-    if @booking.company.present?
+
+    if current_seller.company.reached_booking_limit?
+      redirect_to seller_bookings_schedule_path, warning: @limit_reached_msg
+
+    elsif @booking.company.present?
       redirect_to seller_bookings_schedule_path, warning: 'Platsen och tiden är redan bokad'
+
     else
-      @booking.company = current_seller.company
+      @booking.company = @company
       @booking.save
       redirect_to schedule_seller_bookings_path, notice: 'Bokningen genomfördes'
     end
@@ -36,6 +42,11 @@ class SellerBookingsController < ApplicationController
   end
 
   private
+    def set_booking
+      @limit_reached_msg = "Max antal samtidiga bokingar är #{Setting.where(key: :number_of_bookings).first.value.to_i} Avboka först.".freeze
+      @company = current_seller.company
+    end
+
     def seller_booking_params
       params.require(:booking).permit(:place_id, :date, :time_slot_id, :booking_period_id)
     end

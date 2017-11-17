@@ -1,7 +1,7 @@
 %h1.box-title= h1
 - if @bookings.empty?
   .box-content
-    .help-block= "#{current_seller.company.name} har för närvarande inga bokningar"
+    .help-block= "#{@company.name} har för närvarande inga bokningar"
 
 - else
   %table.full.wrap

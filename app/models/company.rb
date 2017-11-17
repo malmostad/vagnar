@@ -13,6 +13,14 @@ class Company < ApplicationRecord
     where('permit_starts_at <= ? and permit_ends_at >= ?', Date.today, Date.today)
   }
 
+  def reached_booking_limit?
+    present_bookings.size >= Setting.where(key: :number_of_bookings).first.value.to_i
+  end
+
+  def present_bookings
+    Booking.present.where(company: self)
+  end
+
   def active_permit?
     permit_starts_at <= Date.today && permit_ends_at >= Date.today
   end

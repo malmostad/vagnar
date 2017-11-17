@@ -37,8 +37,13 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
+    company = @booking.company
     @booking.destroy
-    redirect_to bookings_path, notice: 'Bokningen togs bort'
+    if params[:from_company_view]
+      redirect_to company_path(company), notice: 'Bokningen togs bort'
+    else
+      redirect_to bookings_path, notice: 'Bokningen togs bort'
+    end
   end
 
   private

@@ -6,6 +6,7 @@
       %tr
         %th Namn
         %th Organisationsnummer
+        %th Nuvarande bokningar
         %th Tillstånd aktivt
 
     %tbody
@@ -13,7 +14,8 @@
         %tr
           %td= link_to company.name, company_path(company)
           %td= company.org_number
+          %td= company.bookings.present.count
           %td= company.active_permit? ? 'Ja' : 'Nej'
       %tr
-        %td{ colspan: 3 }
+        %td{ colspan: 4 }
           .actions= link_to t('actions.new'), new_company_path, class: "btn btn-primary"
