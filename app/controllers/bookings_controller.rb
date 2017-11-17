@@ -10,14 +10,19 @@ class BookingsController < ApplicationController
     @bookings = Booking.past.booked
   end
 
-  def new
-    # TODO: dummy data
-    @booking = Booking.new(
-      booking_period: BookingPeriod.first,
-      place: Place.find(1),
-      time_slot: TimeSlot.find(1),
-      date: 1.week.from_now.to_date
-    )
+  def edit
+    @booking = Booking.find(params[:id])
+    @companies_with_permit = Company.with_active_permit
+  end
+
+  def update
+    @booking = Booking.find(params[:id])
+
+    if @booking.update(booking_params)
+      redirect_to bookings_path, notice: 'Bokningen genomfördes'
+    else
+      render :edit
+    end
   end
 
   def create

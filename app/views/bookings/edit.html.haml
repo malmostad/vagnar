@@ -3,7 +3,7 @@
   %h1.box-title= h1
   .box-content
     .help-block Observera att endast aktörer med aktivt tillstånd går att boka.
-    .help-block Välj den aktör du vill boka tiden åt.
+    .help-block Välj den aktör du vill boka tiden för.
     = simple_form_for @booking, html: { class: "basic" } do |f|
 
       = f.input :company_id,
