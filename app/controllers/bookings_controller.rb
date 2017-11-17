@@ -1,6 +1,4 @@
 class BookingsController < ApplicationController
-  before_action :set_relations, only: [:new, :update]
-
   def index
     @bookings = Booking.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
     @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
@@ -12,7 +10,7 @@ class BookingsController < ApplicationController
 
   def edit
     @booking = Booking.find(params[:id])
-    @companies_with_permit = Company.with_active_permit
+    @companies_with_permit = Company.with_active_permit.order(:name)
   end
 
   def update
@@ -47,13 +45,6 @@ class BookingsController < ApplicationController
   end
 
   private
-    def set_relations
-      @companies_with_permit = Company.with_active_permit.order(:name)
-      @active_places = Place.where(active: true).order(:name)
-      # TODO: get as param
-      @booking_period = BookingPeriod.first
-    end
-
     # Only allow a trusted parameter "white list" through.
     def booking_params
       params.require(:booking).permit(:company_id, :place_id, :date, :time_slot_id, :booking_period_id)
