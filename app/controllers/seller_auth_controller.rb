@@ -22,7 +22,7 @@ class SellerAuthController < ApplicationController
       redirect_to root_path, notice: 'Inloggning misslyckades' && return
     end
 
-    seller = update_seller(response.attributes["urn:oid:1.3.6.1.4.1.2428.90.1.5"])
+    seller = update_seller(response.attributes["Subject_SerialNumber"], response.attributes["Subject_CommonName"])
 
     unless seller
       redirect_to root_path, warning: 'Du är inte registrerad i systemet' && return
@@ -50,12 +50,13 @@ class SellerAuthController < ApplicationController
 
   private
 
-  def update_seller(snin)
+  def update_seller(snin, name)
     snin = Snin.new(snin)
 
     seller = Seller.where_snin(snin.long).first
     return false unless seller
 
+    seller.name = name
     seller.last_login_at = Time.now
     seller.save
     seller
