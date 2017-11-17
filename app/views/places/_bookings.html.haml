@@ -8,6 +8,8 @@
   %tbody
     - @place.bookings.each do |booking|
       %tr
-        %td= link_to booking.company.name, company_path(booking.company)
+        - if booking.company
+          %td= link_to (booking.company.name), company_path(booking.company)
+        - else
+          %td= 'Ej bokad'
         %td= date_and_time(booking)
-        %td= link_to 'Visa', booking_path(booking)
