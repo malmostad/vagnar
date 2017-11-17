@@ -35,7 +35,7 @@ class Booking < ApplicationRecord
   end
 
   def past?
-    date <= Date.today
+    date < Date.today
   end
 
   def in_current_period?

@@ -7,7 +7,7 @@ class SellerBookingsController < ApplicationController
   end
 
   def schedule
-    @bookings = Booking.includes(:place, :time_slot, :company).booked.present.order(:date, 'time_slots.from', 'places.name')
+    @bookings = Booking.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
     @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
@@ -20,7 +20,7 @@ class SellerBookingsController < ApplicationController
     else
       @booking.company = current_seller.company
       @booking.save
-      redirect_to seller_bookings_path, notice: 'Bokningen genomfördes'
+      redirect_to schedule_seller_bookings_path, notice: 'Bokningen genomfördes'
     end
   end
 

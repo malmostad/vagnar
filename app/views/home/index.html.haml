@@ -3,11 +3,11 @@
   %h1.body-copy= h1
 
   %h2.body-copy Kommande mobila försäljningar
-  - if @bookings
+  - if @bookings.present?
     = render 'bookings'
   - else
     .box-content
-      .help-block.warning
+      .help-block
         = "Det finns förnärvarnade inte några inbokade försäljningar."
 
   %h2.body-copy Platser för mobil försäljning

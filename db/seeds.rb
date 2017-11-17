@@ -66,9 +66,9 @@ end
 
 BookingPeriod.create!(
   starts_at: Date.today - 2.days,
-  ends_at:  Date.today + 12.days,
+  ends_at:  Date.today + 2.weeks,
   booking_starts_at:  DateTime.now - 7.days,
-  booking_ends_at:  DateTime.now + 5.days
+  booking_ends_at:  DateTime.now + 1.week
 )
 
 Setting.create!(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)

@@ -16,5 +16,5 @@
       = render 'application/submit', form: f, cancel_path: booking_periods_path
 
   .box-content
-    .delete-warning Om du tar bort en bokningsperiod tas även bokningar knutna till bokningstiden bort.
+    .delete-warning Om du tar bort en bokningsperiod går det inte att boka tider kopplade till perioden.
     .delete= button_to t('actions.delete'), @booking_period, method: :delete, data: { confirm: 'Är du säker?' }, class: "btn btn-danger btn-sm"
