@@ -6,27 +6,24 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '5.1.4'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
-gem 'mysql2'
-gem 'dalli'
-
-# Use Puma as the app server
-gem 'puma', '~> 3.10'
+gem 'mysql2', '0.4.10'
+gem 'dalli', '2.7.6'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '5.0.7'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 3.2.0'
+gem 'uglifier', '3.2.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'execjs'
-gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', '0.12.3', platforms: :ruby
 
 gem 'pry-rails'
 
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '4.2.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -34,18 +31,20 @@ gem 'coffee-rails', '~> 4.2'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '3.1.11'
 
-gem 'simple_form'
-gem 'haml-rails'
+gem 'simple_form', '3.5.0'
+gem 'haml-rails', '1.0.0'
 
-gem 'net-ldap'
-gem 'ruby-saml'
+gem 'net-ldap', '0.16.1'
+gem 'ruby-saml', '1.5.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'puma', '~> 3.10'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
