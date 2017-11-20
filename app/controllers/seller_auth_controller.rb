@@ -17,35 +17,35 @@ class SellerAuthController < ApplicationController
   def consume
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: saml_settings)
 
-    logger.debug 'response.is_valid? ' * 10
+    logger.debug 'response.is_valid? ' * 2
     logger.debug response.is_valid?
 
-    if !response.is_valid?
+    unless response.is_valid?
       logger.error "[SAML_AUTH] Response Invalid. Errors: #{response.errors}."
-      redirect_to root_path, notice: 'Inloggning misslyckades'
-    else
-      seller = update_seller(response.attributes["Subject_SerialNumber"], response.attributes["Subject_CommonName"])
-
-      logger.debug 'seller ' * 10
-      logger.debug seller
-      logger.debug seller.class
-
-      unless seller
-        redirect_to root_path, warning: 'Du är inte registrerad i systemet'
-      end
+      redirect_to root_path, alert: 'Inloggning misslyckades' && return
     end
 
-    logger.debug 'updating session for ' * 10
+    seller = update_seller(response.attributes["Subject_SerialNumber"], response.attributes["Subject_CommonName"])
+
+    logger.debug 'seller ' * 2
+    logger.debug seller
+    logger.debug seller.class
+
+    unless seller
+      redirect_to root_path, alert: 'Du är inte registrerad i systemet' && return
+    end
+
+    logger.debug 'updating session for ' * 2
     logger.debug seller.id
 
     # Establish session and redirect to the page requested by user
     session[:seller_id] = seller.id
     update_session
-    redirect_after_login
+    redirect_after_login && return
 
   rescue => e
     logger.fatal "[SAML_AUTH] SAML response failed. #{e.message}"
-    redirect_to root_path, warning: 'Inloggningen misslyckades'
+    redirect_to root_path, alert: 'Inloggningen misslyckades'
   end
 
   def metadata
