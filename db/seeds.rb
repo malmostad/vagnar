@@ -1,5 +1,16 @@
 Admin.create!(username: 'intra')
 
+[
+  { from: '06.00', to: '10.00' },
+  { from: '10.00', to: '15.00' },
+  { from: '15.00', to: '20.00' },
+  { from: '20.00', to: '24.00' }
+].each do |time_slot|
+  TimeSlot.create!(time_slot)
+end
+
+Setting.create!(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)
+
 Company.create!(
   name: 'Baristorna AB',
   org_number: '556677-8899',
@@ -55,20 +66,9 @@ Place.create!(
   active: true
 )
 
-[
-  { from: '06.00', to: '10.00' },
-  { from: '10.00', to: '15.00' },
-  { from: '15.00', to: '20.00' },
-  { from: '20.00', to: '24.00' }
-].each do |time_slot|
-  TimeSlot.create!(time_slot)
-end
-
 BookingPeriod.create!(
   starts_at: Date.today - 2.days,
   ends_at:  Date.today + 2.weeks,
   booking_starts_at:  DateTime.now - 7.days,
   booking_ends_at:  DateTime.now + 1.week
 )
-
-Setting.create!(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)

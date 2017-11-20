@@ -99,7 +99,7 @@ class SellerAuthController < ApplicationController
     # reset_session_keys
 
     unless Rails.application.config.consider_all_requests_local
-      redirect_to root_path, warning: 'Stubbed authentication only available in local environment'
+      redirect_to root_path, alert: 'Stubbed authentication only available in local environment'
     end
 
     seller = Seller.first
@@ -109,6 +109,6 @@ class SellerAuthController < ApplicationController
       redirect_after_login && return
     end
 
-    redirect_to root_path, warning: 'Create a user with role `seller` first'
+    redirect_to root_path, alert: 'Create a user with role `seller` first'
   end
 end

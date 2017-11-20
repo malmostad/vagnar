@@ -16,7 +16,9 @@ class BookingsController < ApplicationController
   def update
     @booking = Booking.find(params[:id])
 
-    if @booking.update(booking_params)
+    if @booking.company.present?
+      redirect_to bookings_path, alert: 'Platsen och tiden är redan bokad'
+    elsif @booking.update(booking_params)
       redirect_to bookings_path, notice: 'Bokningen genomfördes'
     else
       render :edit

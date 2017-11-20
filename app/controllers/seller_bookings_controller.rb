@@ -16,10 +16,10 @@ class SellerBookingsController < ApplicationController
     @booking = Booking.find(params[:id])
 
     if current_seller.company.reached_booking_limit?
-      redirect_to seller_bookings_schedule_path, warning: @limit_reached_msg
+      redirect_to seller_bookings_schedule_path, alert: @limit_reached_msg
 
     elsif @booking.company.present?
-      redirect_to seller_bookings_schedule_path, warning: 'Platsen och tiden är redan bokad'
+      redirect_to schedule_seller_bookings_path, alert: 'Platsen och tiden är redan bokad'
 
     else
       @booking.company = @company

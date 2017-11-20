@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     if current_seller && session_fresh?
       # Don't allow anything if the sellers company dosn't have an active permit
       if !current_seller.company.active_permit?
-        redirect_to home_path, warning: "#{current_user.company.name} har inget aktivt försäljningstillstånd"
+        redirect_to home_path, alert: "#{current_user.company.name} har inget aktivt försäljningstillstånd"
       else
         update_session
         return true
