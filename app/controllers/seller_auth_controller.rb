@@ -32,6 +32,7 @@ class SellerAuthController < ApplicationController
     logger.debug seller.class
 
     unless seller
+      logger.warning "[SAML_AUTH] User not registered in the system."
       redirect_to root_path, alert: 'Du är inte registrerad i systemet' && return
     end
 
