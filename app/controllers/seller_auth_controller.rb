@@ -17,27 +17,17 @@ class SellerAuthController < ApplicationController
   def consume
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: saml_settings)
 
-    logger.debug 'response.is_valid? ' * 2
-    logger.debug response.is_valid?
-
     unless response.is_valid?
       logger.error "[SAML_AUTH] Response Invalid. Errors: #{response.errors}."
-      redirect_to root_path, alert: 'Inloggning misslyckades' && return
+      redirect_to(root_path, alert: 'Inloggning misslyckades') && return
     end
 
-    seller = update_seller(response.attributes["Subject_SerialNumber"], response.attributes["Subject_CommonName"])
-
-    logger.debug 'seller ' * 2
-    logger.debug seller
-    logger.debug seller.class
+    seller = update_seller(response.attributes['Subject_SerialNumber'], response.attributes['Subject_CommonName'])
 
     unless seller
-      logger.warning "[SAML_AUTH] User not registered in the system."
-      redirect_to root_path, alert: 'Du är inte registrerad i systemet' && return
+      logger.warn '[SAML_AUTH] User not registered in the system.'
+      redirect_to(root_path, alert: 'Du är inte registrerad i systemet') && return
     end
-
-    logger.debug 'updating session for ' * 2
-    logger.debug seller.id
 
     # Establish session and redirect to the page requested by user
     session[:seller_id] = seller.id
