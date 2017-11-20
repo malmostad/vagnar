@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_admin # skip in seller and public controllers
 
-
   SESSION_TIME = APP_CONFIG['session_time']
 
   def current_seller

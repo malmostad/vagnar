@@ -1,4 +1,6 @@
 class ErrorsController < ApplicationController
+  skip_before_action :authenticate_admin
+
   def not_found
     logger.warn "Not found: #{request.fullpath}"
     respond_to do |format|
