@@ -12,8 +12,6 @@ class SellerBookingsController < ApplicationController
     @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
-  # TODO: check that company dosn't have too many bookings. ALSO in other views
-  # "Books" a free booking, i.e. assigns it to company
   def update
     @booking = Booking.find(params[:id])
 
