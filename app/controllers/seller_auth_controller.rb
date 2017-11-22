@@ -73,7 +73,7 @@ class SellerAuthController < ApplicationController
     # Metadata URI settings
     # Returns OneLogin::RubySaml::Settings prepopulated with idp metadata
     # idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
-    # settings = idp_metadata_parser.parse_remote config['idp_metadata']
+    # settings = idp_metadata_parser.parse_remote config[:idp_metadata]
 
     settings = OneLogin::RubySaml::Settings.new
     settings.issuer                         = base_url
@@ -81,7 +81,7 @@ class SellerAuthController < ApplicationController
     settings.assertion_consumer_service_url = "#{base_url}/saml/consume"
 
     # Non-metadata URI settings
-    # settings.idp_cert                       = config['idp_cert']
+    # settings.idp_cert                       = config[:idp_cert]
     settings.idp_cert_fingerprint           = config[:idp_cert_fingerprint]
     settings.idp_cert_fingerprint_algorithm = 'http://www.w3.org/2000/09/xmldsig#sha1'
     settings.name_identifier_format         = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'

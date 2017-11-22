@@ -45,11 +45,11 @@ class LdapAuth
       filter = (Net::LDAP::Filter.eq('cn', @username) &
         Net::LDAP::Filter.ex(
           'memberOf:1.2.840.113556.1.4.1941',
-           "CN=#{group['ldap_name']},#{@config[:base_group]}")
+           "CN=#{group[:ldap_name]},#{@config[:base_group]}")
          )
 
       entry = @client.search(base: @config[:basedn], filter: filter).first
-      return group['name'] if entry.present?
+      return group[:name] if entry.present?
     end
 
     Rails.logger.info "[LDAP_AUTH] #{@username} failed to log in: doesn't belong to a group."
