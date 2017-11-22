@@ -17,7 +17,7 @@ class AdminAuthController < ApplicationController
     @ldap = LdapAuth.new
 
     if !@ldap.authenticate(params[:username], params[:password])
-      @error_message = 'Fel användarnamn eller lösenord. Vänligen försök igen'
+      @error_message = 'Fel användarnamn eller lösenord. Vänligen försök igen.'
       render :new
 
     elsif !@ldap.belongs_to_group?
