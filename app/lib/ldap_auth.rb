@@ -63,7 +63,7 @@ class LdapAuth
       # Find or create user
       admin               = Admin.where(username: username).first_or_initialize
       admin.username      = username
-      admin.last_login    = Time.now
+      admin.last_login_at = Time.now
       admin.save
 
       return admin
