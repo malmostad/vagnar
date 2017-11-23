@@ -58,8 +58,6 @@ class LdapAuth
 
   # Update user attributes from the ldap user
   def update_admin_profile(username)
-    return false unless ldap_entry
-
     begin
       username = username.strip.downcase
       # Find or create user
@@ -73,20 +71,5 @@ class LdapAuth
       Rails.logger.error "[LDAP_AUTH]: Couldn't save user #{username}. #{e.message}"
       return false
     end
-  end
-
-  # Check if user exists in the catalog
-  def ldap_entry
-    entry = @client.search(
-      base: @config[:basedn],
-      filter: "cn=#{@username}",
-      attributes: ATTRIBUTES
-    ).first
-
-    if entry.empty?
-      Rails.logger.warning "[LDAP_AUTH]: Couldn't find #{@username}. #{@client.get_operation_result}"
-      return false
-    end
-    true
   end
 end
