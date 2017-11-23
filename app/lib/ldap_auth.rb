@@ -57,7 +57,7 @@ class LdapAuth
   end
 
   # Update user attributes from the ldap user
-  def update_admin_profile(username, role)
+  def update_admin_profile(username)
     return false unless ldap_entry
 
     begin

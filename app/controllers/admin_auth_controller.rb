@@ -14,9 +14,10 @@ class AdminAuthController < ApplicationController
 
     return stub_auth if APP_CONFIG['stub_auth']
 
+    username = params[:username].strip.downcase
     @ldap = LdapAuth.new
 
-    if !@ldap.authenticate(params[:username], params[:password])
+    if !@ldap.authenticate(username, params[:password])
       @error_message = 'Fel användarnamn eller lösenord. Vänligen försök igen.'
       render :new
 
@@ -25,7 +26,7 @@ class AdminAuthController < ApplicationController
       render :new
 
     else
-      admin = @ldap.update_admin_profile(username, role)
+      admin = @ldap.update_admin_profile(username)
       if admin
         session[:admin_id] = admin.id
         update_session
