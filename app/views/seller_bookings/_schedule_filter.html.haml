@@ -1,0 +1,14 @@
+.box-content
+  %form#filter-form.basic{ action: root_path, method: :get }
+    .form-row.neighborhood
+      = label_tag :place, "Plats:", class: "control-label"
+      = select :booking_schedule, :filter_place, @places.map { |place| [ place.name, place.id ] },
+        { include_blank: "Visa alla" }, { class: "form-control input-sm", id: :filter_place }
+    .form-row.category
+      = label_tag :date, "Dag:", class: "control-label"
+      = select :booking_schedule, :filter_date, @dates.map { |date| [ date.to_s ] },
+        { include_blank: "Visa alla" }, { class: "form-control input-sm", id: :filter_date }
+    .form-row.owner-type
+      = label_tag :time_slot, "Tid:", class: "control-label"
+      = select :booking_schedule, :filter_time_slot, @time_slots.map { |time_slot| [interval(time_slot), time_slot.id] },
+        { include_blank: "Visa alla" }, { class: "form-control input-sm", id: :filter_time_slot }

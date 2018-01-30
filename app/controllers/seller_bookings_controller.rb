@@ -19,7 +19,10 @@ class SellerBookingsController < ApplicationController
 
   def schedule
     @bookings = Booking.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
-    @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
+    @dates = @bookings.map(&:date).uniq
+    @places = Place.all
+    @time_slots = TimeSlot.all
+    @bookable_periods = BookingPeriod.bookables
   end
 
   def update

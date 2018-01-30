@@ -1,22 +1,23 @@
-%h1.box-title= 'Pågående bokningsperioder'
-- if @bookable_periods.empty?
-  .box-content
-    .help-block= 'För närvarande finns det inga försäljningsperioder som är bokningsbara.'
-- else
-  .box-content
-    .help-block= 'För närvarande är följande försäljningsperioder bokbara'
-  %table.full.wrap
-    %tbody
-      %thead
-        %tr
-          %th Kan bokas från och med
-          %th Kan bokas till och med
-          %th Försäljning startar
-          %th Försäljning slutar
-    - @bookable_periods.each do |bookable_period|
+%section.box.index
+  %h1.box-title= 'Pågående bokningsperioder'
+  - if @bookable_periods.empty?
+    .box-content
+      .help-block= 'För närvarande finns det inga försäljningsperioder som är bokningsbara.'
+  - else
+    .box-content
+      .help-block= 'För närvarande är följande försäljningsperioder bokbara'
+    %table.full.wrap
       %tbody
-        %tr
-          %td= bookable_period.booking_starts_at.to_formatted_s(:date_and_time)
-          %td= bookable_period.booking_ends_at.to_formatted_s(:date_and_time)
-          %td= bookable_period.starts_at
-          %td= bookable_period.starts_at
+        %thead
+          %tr
+            %th Kan bokas från och med
+            %th Kan bokas till och med
+            %th Försäljning startar
+            %th Försäljning slutar
+      - @bookable_periods.each do |bookable_period|
+        %tbody
+          %tr
+            %td= bookable_period.booking_starts_at.to_formatted_s(:date_and_time)
+            %td= bookable_period.booking_ends_at.to_formatted_s(:date_and_time)
+            %td= bookable_period.starts_at
+            %td= bookable_period.starts_at
