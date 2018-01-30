@@ -2,7 +2,8 @@ class BookingPeriodsController < ApplicationController
   before_action :set_booking_period, only: [:show, :edit, :update, :destroy]
 
   def index
-    @booking_periods = BookingPeriod.all
+    # @booking_periods = BookingPeriod.all
+    @booking_periods = BookingPeriod.currents.or(BookingPeriod.bookables)
   end
 
   def show
