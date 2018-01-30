@@ -39,6 +39,8 @@ gem 'haml-rails', '1.0.0'
 gem 'net-ldap', '0.16.1'
 gem 'ruby-saml', '1.5.0'
 
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '05f3412'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -5,6 +5,16 @@ class SellerBookingsController < ApplicationController
 
   def index
     @bookings = current_seller.company.bookings&.present
+
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        send_data Sheet.for_bookings(@bookings),
+          type: :xlsx,
+          disposition: "attachment",
+          filename: "bokningar_utskriven_#{Date.today.iso8601}.xlsx"
+      }
+    end
   end
 
   def schedule

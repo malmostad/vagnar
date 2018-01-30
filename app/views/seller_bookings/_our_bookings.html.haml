@@ -4,20 +4,22 @@
     .help-block= "#{@company.name} har för närvarande inga bokningar"
 
 - else
-  %table.full.wrap
-    %tbody
-      %thead
-        %tr
-          %th Plats
-          %th Dag
-          %th Tid
-          %th
+  .box-content
+    .help-block= link_to 'Ladda ned bokningar som Excelfil', seller_bookings_path(format: :xlsx)
 
-      %tbody
-      - @bookings.each do |booking|
-        %tr
-          %td= booking.place.name
-          %td= booking.date
-          %td= interval(booking.time_slot)
-          %td.delete= button_to 'Avboka', seller_booking_path(booking),
-            method: :delete, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"
+  %table.full.wrap
+    %thead
+      %tr
+        %th Plats
+        %th Dag
+        %th Tid
+        %th
+
+    %tbody
+    - @bookings.each do |booking|
+      %tr
+        %td= booking.place.name
+        %td= booking.date
+        %td= interval(booking.time_slot)
+        %td.delete= button_to 'Avboka', seller_booking_path(booking),
+          method: :delete, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"
