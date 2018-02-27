@@ -6,7 +6,7 @@ class BookingPeriod < ApplicationRecord
                         :booking_starts_at,
                         :booking_ends_at
   scope :currents, -> {
-    where('starts_at <= ? and ends_at >= ?', Date.today, Date.today)
+    where('ends_at >= ?', Date.today)
   }
 
   scope :bookables, -> {
