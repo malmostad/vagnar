@@ -22,6 +22,7 @@ class Company < ApplicationRecord
   end
 
   def active_permit?
-    permit_starts_at <= Date.today && permit_ends_at >= Date.today
+    permit_starts_at.present? && permit_ends_at.present? &&
+        permit_starts_at <= Date.today && permit_ends_at >= Date.today
   end
 end
