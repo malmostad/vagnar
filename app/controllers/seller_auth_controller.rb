@@ -22,7 +22,15 @@ class SellerAuthController < ApplicationController
       redirect_to(root_path, alert: 'Inloggning misslyckades') && return
     end
 
-    seller = update_seller(response.attributes['Subject_SerialNumber'], response.attributes['Subject_CommonName'])
+    serial_number      = response.attributes['Subject_SerialNumber']
+    subject_commonname = response.attributes['Subject_CommonName']
+
+    unless serial_number && subject_commonname
+      logger.error '[SAML_AUTH] Response has no Subject_SerialNumber (SNIN) or Subject_CommonName'
+      redirect_to(root_path, alert: 'Inloggningen misslyckades. Personnummer och/eller personnamn saknas i responsen från inloggningstjänsten.') && return
+    end
+
+    seller = update_seller(serial_number, subject_commonname)
 
     unless seller
       logger.warn '[SAML_AUTH] User not registered in the system.'
