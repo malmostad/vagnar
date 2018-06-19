@@ -23,9 +23,9 @@ class SellerAuthController < ApplicationController
     end
 
     # serial_number      = response.attributes['Subject_SerialNumber']
-    serial_number      = response.attributes['urn:oid:2.5.4.3']
+    serial_number      = response.attributes['urn:oid:1.2.752.29.4.13']
     # subject_commonname = response.attributes['Subject_CommonName']
-    subject_commonname = response.attributes['urn:oid:1.2.752.29.4.13']
+    subject_commonname = response.attributes['urn:oid:2.5.4.3']
 
     unless serial_number && subject_commonname
       logger.error '[SAML_AUTH] Response has no Subject_SerialNumber (SNIN) or Subject_CommonName'
