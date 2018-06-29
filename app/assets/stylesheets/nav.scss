@@ -9,3 +9,10 @@ body.settings nav.app.basic .settings,
 body.users nav.app.basic .users {
   font-weight: bold;
 }
+
+nav.app.basic section.box {
+  margin-top: 2em;
+}
+nav.app.basic .body-copy {
+  font-family: $serif;
+}

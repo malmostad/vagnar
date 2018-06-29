@@ -14,6 +14,12 @@
     %ul
       %li= link_to 'Logga in', saml_login_path
 
+    - unless current_admin
+      %section.box
+        %h1.box-title= "Behandling av personuppgifter"
+        .box-content.body-copy
+          %p= "Tekniska nämnden ansvarar för behandling av dina personuppgifter i enlighet med EU:s dataskyddsförordning (2016/679). Du har rätt till att ta del av uppgifter som berör dig och även begära rättelse av dessa."
+
   - if current_admin
     %h1 Administrera
     %ul
