@@ -12,6 +12,10 @@ class Booking < ApplicationRecord
   scope :present, -> { where('date >= ?', Date.today).where.not(booking_period: nil) }
   scope :past, -> { where('date < ?', Date.today) }
 
+  scope :bookables, -> {
+    present.joins(:booking_period).where('booking_periods.booking_starts_at <= ? and booking_periods.booking_ends_at >= ?', DateTime.now, DateTime.now)
+  }
+
   # Only allow destruction in current booking period
   # Past bookings are used for archive listings
   before_destroy do
@@ -30,15 +34,17 @@ class Booking < ApplicationRecord
     company.present?
   end
 
+  def bookable?
+    date >= Date.today &&
+        booking_period.booking_starts_at <= DateTime.now &&
+        booking_period.booking_ends_at >= DateTime.now
+  end
+
   def present?
     date >= Date.today
   end
 
   def past?
     date < Date.today
-  end
-
-  def in_current_period?
-    booking_period.current
   end
 end

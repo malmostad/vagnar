@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   def index
-    @bookings = Booking.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
+    @bookings = Booking.bookables.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
     @bookable_periods = BookingPeriod.includes(bookings: [:place, :time_slot, :company]).bookables
   end
 
@@ -18,6 +18,8 @@ class BookingsController < ApplicationController
 
     if @booking.company.present?
       redirect_to bookings_path, alert: 'Platsen och tiden är redan bokad'
+    elsif !@booking.bookable?
+      redirect_to bookings_path, alert: 'Bokningen är inte i en aktiv bokningsperiod'
     elsif @booking.update(booking_params)
       redirect_to bookings_path, notice: 'Bokningen genomfördes'
     else

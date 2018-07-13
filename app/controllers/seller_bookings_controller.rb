@@ -18,7 +18,7 @@ class SellerBookingsController < ApplicationController
   end
 
   def schedule
-    @bookings = Booking.includes(:place, :time_slot, :company).present.order(:date, 'time_slots.from', 'places.name')
+    @bookings = Booking.bookables.includes(:place, :time_slot, :company).order(:date, 'time_slots.from', 'places.name')
     @dates = @bookings.map(&:date).uniq
     @places = Place.all
     @time_slots = TimeSlot.all
@@ -34,6 +34,8 @@ class SellerBookingsController < ApplicationController
     elsif @booking.company.present?
       redirect_to schedule_seller_bookings_path, alert: 'Platsen och tiden är redan bokad'
 
+    elsif !@booking.bookable?
+      redirect_to schedule_seller_bookings_path, alert: 'Bokningen är inte i en aktiv bokningsperiod'
     else
       @booking.company = @company
       @booking.save
