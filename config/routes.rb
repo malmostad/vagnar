@@ -4,13 +4,15 @@ Rails.application.routes.draw do
   resources :admins, only: :index
   resources :companies, except: :destroy
   resources :sellers
-  resources :bookings, except: :new do
+  resources :bookings, except: [:new, :destroy] do
     get 'archive', on: :collection
   end
+  patch "bookings/cancel/:id", to: "bookings#cancel", as: "cancel_booking"
 
   resources :seller_bookings, only: [:index, :update, :destroy] do
     get 'schedule', on: :collection
   end
+  patch "seller_bookings/cancel/:id", to: "seller_bookings#cancel", as: "cancel_seller_booking"
 
   resources :booking_periods
   resources :places

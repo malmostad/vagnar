@@ -27,6 +27,14 @@ class BookingsController < ApplicationController
     end
   end
 
+  def cancel
+    @booking = Booking.find(params[:id])
+
+    @booking.company = nil
+    @booking.save
+    redirect_to bookings_path, notice: 'Avbokning genomförd'
+  end
+
   def create
     @booking = Booking.new(booking_params)
 
@@ -34,17 +42,6 @@ class BookingsController < ApplicationController
       redirect_to bookings_path, notice: 'Bokningen skapades'
     else
       render :new
-    end
-  end
-
-  def destroy
-    @booking = Booking.find(params[:id])
-    company = @booking.company
-    @booking.destroy
-    if params[:from_company_view]
-      redirect_to company_path(company), notice: 'Bokningen togs bort'
-    else
-      redirect_to bookings_path, notice: 'Bokningen togs bort'
     end
   end
 

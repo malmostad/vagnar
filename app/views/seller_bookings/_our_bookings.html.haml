@@ -21,5 +21,5 @@
         %td= booking.place.name
         %td= booking.date
         %td= interval(booking.time_slot)
-        %td.delete= button_to 'Avboka', seller_booking_path(booking),
-          method: :delete, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"
+        %td.delete= button_to 'Avboka', cancel_seller_booking_path(booking),
+          method: :patch, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"

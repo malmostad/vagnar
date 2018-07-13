@@ -43,14 +43,15 @@ class SellerBookingsController < ApplicationController
     end
   end
 
-  def destroy
+  def cancel
     @booking = Booking.find(params[:id])
 
-    if current_seller.allowed_to_manage_booking(@booking)
-      @booking.destroy
-      redirect_to seller_bookings_path, notice: 'Bokningen togs bort'
+    if @booking.company != @company
+      redirect_to schedule_seller_bookings_path, alert: 'Du kan endast avbokna era egna bokningar'
     else
-      redirect_to seller_bookings_path, alert: 'Du har inte rättighet att ta bort bokningen'
+      @booking.company = nil
+      @booking.save
+      redirect_to schedule_seller_bookings_path, notice: 'Avbokning genomförd'
     end
   end
 
@@ -61,6 +62,6 @@ class SellerBookingsController < ApplicationController
     end
 
     def seller_booking_params
-      params.require(:booking).permit(:place_id, :date, :time_slot_id, :booking_period_id)
+      params.require(:booking).permit(:company_id)
     end
 end
