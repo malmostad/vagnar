@@ -10,5 +10,5 @@
       %tr
         %td= link_to booking.place.name, place_path(booking.place)
         %td= date_and_time(booking)
-        %td.delete= link_to 'Avboka', booking_path(booking, from_company_view: true),
-          method: :delete, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"
+        %td.delete= button_to 'Avboka', cancel_booking_path(booking, from_company_view: true),
+          method: :patch, data: { confirm: 'Är du säker på att du vill avboka?' }, class: "btn btn-danger btn-sm"
