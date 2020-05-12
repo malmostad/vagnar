@@ -45,7 +45,7 @@ gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '05f3412'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'puma', '~> 3.10'
+  gem 'puma', '~> 3.12'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
