@@ -64,7 +64,7 @@ When finished, read the generated `install_info.txt` file in `app_runner`'s home
 
 So, what happened?
 
-* Nginx, MySQL, Elasticsearch and memcached are configured and installed as services
+* Nginx, MySQL and memcached are configured and installed as services
 * A database ready for Rails migration is created (see deployment below)
 * Logrotating and database backup are configured
 * Snakeoil SSL certs are generated as placeholders
