@@ -10,6 +10,7 @@ Admin.create!(username: 'intra')
 end
 
 Setting.create!(key: 'number_of_bookings', human_name: 'Max bokningar per aktör och bokningsperiod', value: 100)
+Setting.create!(key: 'max_bookings_of_place', human_name: 'Max bokningar av samma plats under en bokningsperiod', value: '10')
 
 Company.create!(
   name: 'Baristorna AB',

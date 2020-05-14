@@ -25,8 +25,12 @@ class Company < ApplicationRecord
     present_bookings.where(time_slot: booking.time_slot, date: booking.date).present?
   end
 
+  def reached_place_limit?(booking)
+    present_bookings.where(place: booking.place).count >= Setting.where(key: :max_bookings_of_place).first.value.to_i
+  end
+
   def active_permit?
     permit_starts_at.present? && permit_ends_at.present? &&
-        permit_starts_at <= Date.today && permit_ends_at >= Date.today
+      permit_starts_at <= Date.today && permit_ends_at >= Date.today
   end
 end

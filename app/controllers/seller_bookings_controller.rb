@@ -29,7 +29,7 @@ class SellerBookingsController < ApplicationController
     @booking = Booking.find(params[:id])
 
     if current_seller.company.reached_booking_limit?
-      redirect_to seller_bookings_schedule_path, alert: @limit_reached_msg
+      redirect_to schedule_seller_bookings_path, alert: @limit_reached_msg
 
     elsif @booking.company.present?
       redirect_to schedule_seller_bookings_path, alert: 'Platsen och tiden är redan bokad'
@@ -39,6 +39,9 @@ class SellerBookingsController < ApplicationController
 
     elsif @company.day_and_timeslot_booked?(@booking)
       redirect_to schedule_seller_bookings_path, alert: @day_and_timeslot_booked_msg
+
+    elsif @company.reached_place_limit?(@booking)
+      redirect_to schedule_seller_bookings_path, alert: @reached_place_limit_msg
 
     else
       @booking.company = @company
@@ -62,8 +65,13 @@ class SellerBookingsController < ApplicationController
   private
 
   def set_booking
-    @limit_reached_msg = "Max antal samtidiga bokingar är #{Setting.where(key: :number_of_bookings).first.value.to_i} Avboka först.".freeze
-    @day_and_timeslot_booked_msg = 'Endast en plats kan bokas på samma dag och tid'
+    @limit_reached_msg = "Max antal bokingar är #{
+      Setting.where(key: :number_of_bookings).first.value.to_i
+    } inom en bokningsperiod".freeze
+    @day_and_timeslot_booked_msg = 'Endast 1 plats kan bokas på samma dag och tid'
+    @reached_place_limit_msg = "En plats kan endast bokas #{
+      Setting.where(key: :max_bookings_of_place).first.value.to_i
+    } gånger inom en bokningsperiod".freeze
     @company = current_seller.company
   end
 
