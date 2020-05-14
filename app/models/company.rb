@@ -21,6 +21,10 @@ class Company < ApplicationRecord
     Booking.present.where(company: self)
   end
 
+  def day_and_timeslot_booked?(booking)
+    present_bookings.where(time_slot: booking.time_slot, date: booking.date).present?
+  end
+
   def active_permit?
     permit_starts_at.present? && permit_ends_at.present? &&
         permit_starts_at <= Date.today && permit_ends_at >= Date.today

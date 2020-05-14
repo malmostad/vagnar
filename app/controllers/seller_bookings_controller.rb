@@ -11,7 +11,7 @@ class SellerBookingsController < ApplicationController
       format.xlsx {
         send_data Sheet.for_bookings(@bookings),
           type: :xlsx,
-          disposition: "attachment",
+          disposition: 'attachment',
           filename: "bokningar_utskriven_#{Date.today.iso8601}.xlsx"
       }
     end
@@ -36,6 +36,10 @@ class SellerBookingsController < ApplicationController
 
     elsif !@booking.bookable?
       redirect_to schedule_seller_bookings_path, alert: 'Bokningen är inte i en aktiv bokningsperiod'
+
+    elsif @company.day_and_timeslot_booked?(@booking)
+      redirect_to schedule_seller_bookings_path, alert: @day_and_timeslot_booked_msg
+
     else
       @booking.company = @company
       @booking.save
@@ -56,12 +60,14 @@ class SellerBookingsController < ApplicationController
   end
 
   private
-    def set_booking
-      @limit_reached_msg = "Max antal samtidiga bokingar är #{Setting.where(key: :number_of_bookings).first.value.to_i} Avboka först.".freeze
-      @company = current_seller.company
-    end
 
-    def seller_booking_params
-      params.require(:booking).permit(:company_id)
-    end
+  def set_booking
+    @limit_reached_msg = "Max antal samtidiga bokingar är #{Setting.where(key: :number_of_bookings).first.value.to_i} Avboka först.".freeze
+    @day_and_timeslot_booked_msg = 'Endast en plats kan bokas på samma dag och tid'
+    @company = current_seller.company
+  end
+
+  def seller_booking_params
+    params.require(:booking).permit(:company_id)
+  end
 end
