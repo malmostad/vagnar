@@ -33,11 +33,11 @@ gem 'coffee-rails', '~> 4.2.2'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11'
 
-gem 'simple_form', '~> 4.1.0'
+gem 'simple_form', '~> 5.0.2'
 gem 'haml-rails', '~> 1.0.0'
 
 gem 'net-ldap', '~> 0.16.1'
-gem 'ruby-saml', '~> 1.6.0'
+gem 'ruby-saml', '~> 1.7.0'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '05f3412'
 

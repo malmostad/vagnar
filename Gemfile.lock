@@ -212,7 +212,7 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
-    ruby-saml (1.6.2)
+    ruby-saml (1.7.2)
       nokogiri (>= 1.5.10)
     ruby_parser (3.14.2)
       sexp_processor (~> 4.9)
@@ -232,7 +232,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     sexp_processor (4.14.1)
-    simple_form (4.1.0)
+    simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     sprockets (3.7.2)
@@ -290,10 +290,10 @@ DEPENDENCIES
   rails (~> 5.2.4)
   rails-controller-testing
   rspec-rails
-  ruby-saml (~> 1.6.0)
+  ruby-saml (~> 1.7.0)
   sass-rails (~> 5.0.7)
   selenium-webdriver
-  simple_form (~> 4.1.0)
+  simple_form (~> 5.0.2)
   therubyracer (~> 0.12.3)
   uglifier (~> 3.2.0)
   unicorn (~> 5.3.1)
