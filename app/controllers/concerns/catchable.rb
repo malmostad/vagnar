@@ -10,7 +10,6 @@ module Catchable
 
     rescue_from ActiveRecord::RecordNotFound,
                 ActionController::RoutingError,
-                ActionController::UnknownController,
                 ActionController::MethodNotAllowed do |exception|
       logger.info exception.message.to_s
       logger.info "Not found: #{request.fullpath}"
