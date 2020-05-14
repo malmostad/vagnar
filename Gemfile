@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.4'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'mysql2', '~> 0.4.10'
@@ -33,11 +33,11 @@ gem 'coffee-rails', '~> 4.2.2'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11'
 
-gem 'simple_form', '~> 3.5.0'
+gem 'simple_form', '~> 4.1.0'
 gem 'haml-rails', '~> 1.0.0'
 
 gem 'net-ldap', '~> 0.16.1'
-gem 'ruby-saml', '~> 1.5.0'
+gem 'ruby-saml', '~> 1.6.0'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '05f3412'
 
@@ -54,7 +54,7 @@ group :development, :test do
   gem 'rspec-rails'
 
   gem 'rails-controller-testing'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails', '~>  5.2.0'
   gem 'capybara', '~> 2.15'
   # gem 'capybara-webkit'
   # gem 'poltergeist'
