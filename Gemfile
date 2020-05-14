@@ -37,7 +37,7 @@ gem 'simple_form', '~> 4.1.0'
 gem 'haml-rails', '~> 1.0.0'
 
 gem 'net-ldap', '~> 0.16.1'
-gem 'ruby-saml', '~> 1.6.0'
+gem 'ruby-saml', '~> 1.7.0'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '05f3412'
 
