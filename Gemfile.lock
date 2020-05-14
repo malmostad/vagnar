@@ -232,7 +232,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     sexp_processor (4.14.1)
-    simple_form (4.1.0)
+    simple_form (5.0.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     sprockets (3.7.2)
@@ -293,7 +293,7 @@ DEPENDENCIES
   ruby-saml (~> 1.6.0)
   sass-rails (~> 5.0.7)
   selenium-webdriver
-  simple_form (~> 4.1.0)
+  simple_form (~> 5.0.0)
   therubyracer (~> 0.12.3)
   uglifier (~> 3.2.0)
   unicorn (~> 5.3.1)
