@@ -9,6 +9,7 @@ class Booking < ApplicationRecord
   scope :free, -> { where(company: nil) }
   scope :booked, -> { where.not(company: nil) }
 
+  # TODO: change name to 'current' for consistency
   scope :present, -> { where('date >= ?', Date.today).where.not(booking_period: nil) }
   scope :past, -> { where('date < ?', Date.today) }
 
@@ -19,7 +20,7 @@ class Booking < ApplicationRecord
   # Only allow destruction in current booking period
   # Past bookings are used for archive listings
   before_destroy do
-    raise 'Destroy is not allowed for active bookings' unless present?
+    raise 'Destroy is not allowed for active bookings' unless current?
   end
 
   before_update do
@@ -40,7 +41,7 @@ class Booking < ApplicationRecord
         booking_period.booking_ends_at >= DateTime.now
   end
 
-  def present?
+  def current?
     date >= Date.today
   end
 
