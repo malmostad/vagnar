@@ -1,5 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :seller do
-
   end
 end
