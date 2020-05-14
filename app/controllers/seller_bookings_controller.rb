@@ -55,7 +55,7 @@ class SellerBookingsController < ApplicationController
     else
       @booking.company = nil
       @booking.save
-      redirect_to schedule_seller_bookings_path, notice: 'Avbokning genomförd'
+      redirect_to seller_bookings_path, notice: 'Avbokning genomförd'
     end
   end
 
