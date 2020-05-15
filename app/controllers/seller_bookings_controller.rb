@@ -28,21 +28,8 @@ class SellerBookingsController < ApplicationController
   def update
     @booking = Booking.find(params[:id])
 
-    if current_seller.company.reached_booking_limit?
-      redirect_to schedule_seller_bookings_path, alert: @limit_reached_msg
-
-    elsif @booking.company.present?
-      redirect_to schedule_seller_bookings_path, alert: 'Platsen och tiden är redan bokad'
-
-    elsif !@booking.bookable?
-      redirect_to schedule_seller_bookings_path, alert: 'Bokningen är inte i en aktiv bokningsperiod'
-
-    elsif @company.day_and_timeslot_booked?(@booking)
-      redirect_to schedule_seller_bookings_path, alert: @day_and_timeslot_booked_msg
-
-    elsif @company.reached_place_limit?(@booking)
-      redirect_to schedule_seller_bookings_path, alert: @reached_place_limit_msg
-
+    if not_allowed
+      redirect_to schedule_seller_bookings_path, alert: not_allowed
     else
       @booking.company = @company
       @booking.save
@@ -64,14 +51,25 @@ class SellerBookingsController < ApplicationController
 
   private
 
+  def not_allowed
+    return 'Bokningen är inte i en aktiv bokningsperiod' unless @booking.bookable?
+    return 'Platsen och tiden är redan bokad' if @booking.company.present?
+    return @limit_reached_msg if current_seller.company.reached_booking_limit?
+    return @day_and_timeslot_booked_msg if @company.day_and_timeslot_booked?(@booking)
+    return @reached_place_limit_msg if @company.reached_place_limit?(@booking)
+  end
+
   def set_booking
-    @limit_reached_msg = "Max antal bokingar är #{
+    @limit_reached_msg = "Max #{
       Setting.where(key: :number_of_bookings).first.value.to_i
-    } inom en bokningsperiod".freeze
+    } bokingar kan göras inom en bokningsperiod".freeze
+
     @day_and_timeslot_booked_msg = 'Endast 1 plats kan bokas på samma dag och tid'
+
     @reached_place_limit_msg = "En plats kan endast bokas #{
       Setting.where(key: :max_bookings_of_place).first.value.to_i
     } gånger inom en bokningsperiod".freeze
+
     @company = current_seller.company
   end
 
